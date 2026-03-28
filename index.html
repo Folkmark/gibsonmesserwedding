@@ -3,24 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Wedding of Gibson and Messer">
-    <title>Gibson &amp; Messer</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Loader — home page only */
-        body { height: 100vh; overflow-y: hidden; }
-        body.entered { height: auto; overflow-y: auto; }
+    <meta name="description" content="Wedding of Sam and Riley, Amsterdam 2026">
+    <title>Sam & Riley — Amsterdam</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Lavishly+Yours&family=Square+Peg&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Primitive tokens — reds */
+            --color-red-600: #C8392B; 
+            --color-red-700: #A8341F; 
+            --color-red-400: #D9654F; 
+            --color-red-100: #F7DDD8; 
+            
+            /* Primitive tokens — blues */
+            --color-blue-600: #3D6B8C; 
+            --color-blue-700: #2B5270; 
+            --color-blue-900: #1E3A4A; 
+            --color-blue-400: #5B8FAF; 
+            --color-blue-100: #D0E4F0; 
+            
+            /* Primitive tokens — neutrals */
+            --color-cream-100: #F2E8D5; 
+            --color-cream-200: #E8DBBE; 
+            --color-cream-400: #C8BB9E; 
+            --color-cream-900: #2A1F14; 
+
+            /* Semantic tokens */
+            --color-brand-primary: var(--color-red-600);
+            --color-brand-secondary: var(--color-blue-700);
+            --color-action-bg: var(--color-red-700);
+            --color-surface-page: var(--color-cream-100);
+            --color-surface-card: var(--color-cream-200);
+            --color-text-link: var(--color-blue-700);
+            --color-text-body: var(--color-cream-900);
+            --color-border-default: var(--color-cream-400);
+            
+            /* Spacing & Motion (Awwwards Standards) */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-dramatic: cubic-bezier(0.77, 0, 0.175, 1);
+            
+            /* EXPANDED BREATHING ROOM */
+            --section-padding: clamp(12rem, 25vh, 25rem); 
+        }
+
+        /* Base Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--color-surface-page);
+            color: var(--color-text-body);
+            overflow-x: hidden;
+            height: 100vh;
+            overflow-y: hidden; 
+            
+            /* CRITICAL: Force the thinnest possible font rendering */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 400 !important; 
+        }
+
+        body.entered { height: auto; overflow-y: auto; }
+        body.menu-open { overflow-y: hidden; } 
+
+        /* =========================================
+           GLOBAL ATMOSPHERE & PARCHMENT TEXTURE
+           ========================================= */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            /* High-end parchment fiber texture */
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            mix-blend-mode: multiply;
+            opacity: 0.65;
+            pointer-events: none;
+            z-index: 9999; /* Sits over absolutely everything to unify the visuals */
+        }
+
+        /* Enforce NO strokes and NO faux-bolding */
+        h1, h2, h3, h4, h5, h6, p, a, span, button, li {
+            font-weight: 400 !important;
+            -webkit-text-stroke: 0 !important;
+            text-shadow: none !important;
+        }
+
+        /* Typography Assignments */
+        .statement-font { font-family: 'Lavishly Yours', cursive; text-transform: none; }
+        .subheader-font { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; text-transform: none; }
+        
+        .body-font { 
+            font-family: 'Square Peg', cursive; 
+            letter-spacing: 0.075em; 
+            font-size: clamp(2rem, 3vw, 3.5rem); 
+            line-height: 1.3; 
+            text-transform: none; 
+        }
+
+        /* =========================================
+           CINEMATIC BLUR REVEAL ANIMATIONS
+           ========================================= */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(80px);
+            filter: blur(12px); /* Deep cinematic depth of field */
+            transition: opacity 1.8s var(--ease-out-expo), transform 1.8s var(--ease-out-expo), filter 1.8s var(--ease-out-expo);
+            will-change: opacity, transform, filter;
+        }
+        .reveal-up.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+            filter: blur(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* =========================================
+           DRAMATIC LOADING SCREEN
+           ========================================= */
         #loader {
-            position: fixed; inset: 0;
-            background: linear-gradient(rgba(30, 58, 74, 0.8), rgba(42, 31, 20, 0.95)),
-                        url('assets/Florals.png') center/cover no-repeat;
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(30, 58, 74, 0.8), rgba(42, 31, 20, 0.95)), url('assets/Florals.png') center/cover no-repeat;
             z-index: 9998;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             transition: transform 1.5s var(--ease-in-out-dramatic);
             transform-origin: top;
         }
+
         body.entered #loader { transform: translateY(-100%); }
 
         .loader-text {
@@ -40,15 +158,283 @@
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.8s var(--ease-out-expo);
-            border-radius: 100px;
+            border-radius: 100px; 
             backdrop-filter: blur(5px);
         }
+
         .btn-enter:hover {
             background: var(--color-cream-100);
             color: var(--color-blue-900);
             border-color: var(--color-cream-100);
             transform: scale(1.05);
             letter-spacing: 0.05em;
+        }
+
+        /* =========================================
+           NAVIGATION & HAMBURGER
+           ========================================= */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 3rem 5vw;
+            z-index: 1000; 
+            background: transparent; 
+            mix-blend-mode: difference; 
+        }
+
+        body.menu-open nav { mix-blend-mode: normal; }
+
+        .nav-logo {
+            display: inline-block;
+            text-decoration: none;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .nav-logo img {
+            width: 80px; 
+            height: auto;
+            filter: brightness(0) invert(1); 
+            transition: opacity 0.5s ease;
+        }
+
+        .hamburger {
+            width: 40px;
+            height: 14px;
+            position: relative;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1002; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 1px; 
+            background-color: #FFFFFF; 
+            transition: transform 0.6s var(--ease-out-expo), background-color 0.5s ease, opacity 0.4s ease;
+            transform-origin: right center;
+        }
+
+        body.menu-open .hamburger span { background-color: var(--color-cream-100); }
+        body.menu-open .hamburger span:nth-child(1) { transform: rotate(-45deg) scaleX(1.1) translateY(-1px); }
+        body.menu-open .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        body.menu-open .hamburger span:nth-child(3) { transform: rotate(45deg) scaleX(1.1) translateY(1px); }
+
+        /* =========================================
+           FULLSCREEN GRID MENU OVERLAY
+           ========================================= */
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 100%, var(--color-blue-700), var(--color-blue-900));
+            z-index: 1001; 
+            display: flex;
+            align-items: center;
+            padding: 0 10vw;
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: clip-path 1.2s var(--ease-in-out-dramatic);
+        }
+
+        body.menu-open .menu-overlay { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+
+        .menu-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2fr 1fr; 
+            gap: 10vw;
+            align-items: end;
+        }
+
+        .menu-col { display: flex; flex-direction: column; }
+
+        .menu-link {
+            color: var(--color-surface-page);
+            font-size: clamp(4rem, 8vw, 10rem);
+            line-height: 0.8;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: transform 1s var(--ease-out-expo), opacity 1s var(--ease-out-expo), color 0.4s ease;
+        }
+        .menu-link:hover { color: var(--color-red-400); padding-left: 2rem; } 
+
+        .menu-sublink {
+            color: var(--color-blue-400); 
+            font-size: clamp(1.8rem, 2.5vw, 3rem);
+            text-decoration: none;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(91, 143, 175, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 1s var(--ease-out-expo), opacity 1s var(--ease-out-expo), color 0.4s ease;
+        }
+        .menu-sublink:hover { color: var(--color-surface-page); border-color: var(--color-surface-page); }
+
+        body.menu-open .menu-link,
+        body.menu-open .menu-sublink { transform: translateY(0); opacity: 1; }
+        body.menu-open .menu-link:nth-child(1) { transition-delay: 0.3s; }
+        body.menu-open .menu-link:nth-child(2) { transition-delay: 0.4s; }
+        body.menu-open .menu-link:nth-child(3) { transition-delay: 0.5s; }
+        body.menu-open .menu-link:nth-child(4) { transition-delay: 0.6s; }
+        body.menu-open .menu-sublink:nth-child(1) { transition-delay: 0.5s; }
+        body.menu-open .menu-sublink:nth-child(2) { transition-delay: 0.6s; }
+        body.menu-open .menu-sublink:nth-child(3) { transition-delay: 0.7s; }
+
+        /* =========================================
+           MAIN SITE STYLES - RESTRUCTURED
+           ========================================= */
+        
+        /* HERO */
+        .hero {
+            height: 100vh; width: 100vw; position: relative;
+            display: flex; align-items: flex-end; justify-content: flex-start;
+            padding: 5vw; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0; width: 100%; height: 100%; 
+            background: linear-gradient(rgba(30, 58, 74, 0.2), rgba(42, 31, 20, 0.7)), url('assets/CityScape.jpeg') center/cover no-repeat;
+            background-attachment: fixed; 
+            z-index: -1;
+        }
+        .hero-title { 
+            font-size: clamp(4rem, 10vw, 11rem); 
+            color: var(--color-cream-100); 
+            line-height: 0.75; 
+            margin-bottom: 0; 
+            z-index: 2; 
+        }
+        .hero-meta { 
+            position: absolute;
+            bottom: 5vw;
+            right: 5vw;
+            text-align: right;
+            font-size: clamp(1rem, 1.5vw, 1.5rem); 
+            color: var(--color-cream-200); 
+            z-index: 2; 
+        }
+
+        /* NARRATIVE SECTION */
+        .story-section { 
+            padding: var(--section-padding) 5vw; 
+            display: grid; 
+            grid-template-columns: 3fr 7fr; 
+            gap: 15vw; 
+            align-items: flex-start;
+            /* Atmospheric soft vignette */
+            background: radial-gradient(circle at 80% 20%, var(--color-surface-page) 0%, #E8DFCC 100%);
+        }
+        .section-title { 
+            font-size: clamp(3rem, 6vw, 6rem); 
+            color: var(--color-brand-primary); 
+            position: sticky; 
+            top: 25vh;
+        }
+        .story-content p { margin-bottom: 5rem; color: var(--color-text-body); max-width: 800px; }
+
+        /* IMAGE BREAK */
+        .image-break { 
+            width: 100vw; padding: 20vh 10vw; display: flex; justify-content: flex-end; 
+            background: var(--color-cream-200);
+        }
+        .image-wrapper { overflow: hidden; width: 60vw; box-shadow: 0 40px 100px rgba(42, 31, 20, 0.15); }
+        .image-break img {
+            width: 100%; height: auto; max-height: 90vh; object-fit: cover;
+            filter: grayscale(10%) sepia(20%) contrast(110%);
+            transform: scale(1.05); 
+            transition: transform 2.5s var(--ease-out-expo);
+        }
+        .image-wrapper.visible img { transform: scale(1); }
+
+        /* EVENTS - EXPANSIVE BREATHING ROOM */
+        .events-container {
+            padding: var(--section-padding) 5vw;
+            background: radial-gradient(circle at 20% 80%, var(--color-surface-page) 0%, #E8DFCC 100%);
+        }
+        
+        .events-header { text-align: center; margin-bottom: 20vh; }
+        .events-header h2 { font-size: clamp(4rem, 8vw, 8rem); color: var(--color-brand-secondary); }
+
+        .event-item {
+            display: grid;
+            grid-template-columns: 3fr 7fr; 
+            gap: 15vw;
+            margin-bottom: 25vh;
+            padding-top: 8vh;
+            border-top: 1px solid rgba(200, 187, 158, 0.4);
+            align-items: flex-start;
+        }
+
+        .event-meta {
+            color: var(--color-brand-primary);
+            position: sticky;
+            top: 25vh;
+        }
+        .event-date { font-size: clamp(1.2rem, 2vw, 2rem); margin-bottom: 1rem; color: var(--color-blue-700); }
+        .event-time { font-size: 1.1rem; opacity: 0.8; }
+        .event-location { font-size: 1.1rem; margin-top: 1rem; color: var(--color-text-body); }
+
+        .event-details h3 { font-size: clamp(3rem, 6vw, 6rem); color: var(--color-brand-primary); margin-bottom: 3rem; line-height: 0.9; }
+        .event-details p { color: var(--color-text-body); max-width: 800px; }
+
+        /* TRAVEL SECTION */
+        .travel-section { 
+            padding: var(--section-padding) 5vw; 
+            background: radial-gradient(circle at 50% 0%, var(--color-cream-200) 0%, var(--color-cream-400) 100%);
+            border-top: 1px solid rgba(200, 187, 158, 0.4);
+        }
+        .travel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15vw;
+            margin-top: 15vh;
+        }
+        .travel-heading { color: var(--color-brand-secondary); font-size: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(200, 187, 158, 0.4); padding-bottom: 1rem; }
+        .travel-block { margin-bottom: 8rem; }
+
+        /* LINKS */
+        a.inline-link { color: var(--color-text-link); text-decoration: none; border-bottom: 1px solid rgba(200, 187, 158, 0.4); transition: all 0.4s; }
+        a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-action-bg); }
+
+        /* FOOTER CTA */
+        .footer-cta {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: linear-gradient(rgba(30, 58, 74, 0.7), rgba(42, 31, 20, 0.9)), url('assets/Florals%202.png') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+        .footer-cta h2 { color: var(--color-cream-100); font-size: clamp(4rem, 10vw, 11rem); margin-bottom: 4rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .footer-btn {
+            padding: 1.5rem 6rem;
+            border: 1px solid rgba(242, 232, 213, 0.4);
+            color: var(--color-cream-100);
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 100px;
+            transition: all 0.8s var(--ease-out-expo);
+            backdrop-filter: blur(5px);
+        }
+        .footer-btn:hover { background: var(--color-cream-100); color: var(--color-blue-900); border-color: var(--color-cream-100); transform: scale(1.05); letter-spacing: 0.05em; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .story-section, .event-item, .travel-grid, .menu-grid { grid-template-columns: 1fr; gap: 5vh; }
+            .section-title, .event-meta { position: static; margin-bottom: 2rem; }
+            .image-break { padding: 15vh 5vw; justify-content: center; }
+            .image-wrapper { width: 100%; }
+            .event-item { padding-top: 3rem; margin-bottom: 15vh; }
+            .travel-block { margin-bottom: 5rem; }
+            --section-padding: clamp(8rem, 15vh, 12rem);
+            .hero-meta { text-align: left; right: auto; left: 5vw; }
         }
     </style>
 </head>
@@ -57,85 +443,205 @@
     <div class="texture-overlay"></div>
 
     <div id="loader">
-        <h1 class="statement-font loader-text">Gibson &amp; Messer</h1>
+        <h1 class="statement-font loader-text">Sam & Riley</h1>
         <button id="enter-btn" class="subheader-font btn-enter">Enter</button>
     </div>
 
     <div class="menu-overlay" id="menu-overlay">
         <div class="menu-grid">
             <div class="menu-col">
-                <a href="/"            class="statement-font menu-link menu-close-trigger">Home</a>
-                <a href="/our-story/"  class="statement-font menu-link menu-close-trigger">Our story</a>
-                <a href="/events/"     class="statement-font menu-link menu-close-trigger">Events</a>
-                <a href="/travel/"     class="statement-font menu-link menu-close-trigger">Travel</a>
+                <a href="#home" class="statement-font menu-link menu-close-trigger">Home</a>
+                <a href="#story" class="statement-font menu-link menu-close-trigger">Our story</a>
+                <a href="#events" class="statement-font menu-link menu-close-trigger">Events</a>
+                <a href="#travel" class="statement-font menu-link menu-close-trigger">Travel</a>
             </div>
             <div class="menu-col">
-                <a href="/rsvp/"      class="subheader-font menu-sublink menu-close-trigger">Rsvp</a>
-                <a href="/registry/"  class="subheader-font menu-sublink menu-close-trigger">Registry</a>
-                <a href="/faq/"       class="subheader-font menu-sublink menu-close-trigger">Faq</a>
+                <a href="#rsvp" class="subheader-font menu-sublink menu-close-trigger">Rsvp</a>
+                <a href="#registry" class="subheader-font menu-sublink menu-close-trigger">Registry</a>
+                <a href="#faq" class="subheader-font menu-sublink menu-close-trigger">Faq</a>
             </div>
         </div>
     </div>
 
     <nav>
-        <a href="/" class="nav-logo reveal-up delay-1">
-            <img src="assets/monogram.png" alt="Gibson &amp; Messer Monogram">
+        <a href="#" class="nav-logo reveal-up delay-1">
+            <img src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Sam & Riley Monogram">
         </a>
         <button class="hamburger reveal-up delay-2" id="menu-toggle" aria-label="Toggle menu">
             <span></span><span></span><span></span>
         </button>
     </nav>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-bg" style="background: linear-gradient(rgba(30,58,74,0.2), rgba(42,31,20,0.7)), url('assets/CityScape.jpeg') center/cover no-repeat;"></div>
-            <h1 class="statement-font hero-title reveal-up delay-2">Gibson and Messer<br>are getting married</h1>
+    <main id="home">
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <h1 class="statement-font hero-title reveal-up delay-2">Sam and Riley<br>are getting married</h1>
             <div class="hero-meta subheader-font reveal-up delay-3">
-                Month Day, Year<br>
-                City, State
+                August 15th, 2026<br>
+                Amsterdam, the Netherlands
             </div>
         </section>
 
-        <footer class="footer-cta" style="background-image: linear-gradient(rgba(30,58,74,0.7), rgba(42,31,20,0.9)), url('assets/Florals 2.png');">
-            <h2 class="statement-font reveal-up">Join us</h2>
-            <div class="reveal-up delay-1" style="margin-top: 3rem;">
-                <a href="/rsvp/" class="footer-btn subheader-font">RSVP</a>
+        <section class="story-section" id="story">
+            <div class="reveal-up"><h2 class="statement-font section-title">Our story</h2></div>
+            <div class="story-content body-font">
+                <p class="reveal-up">Riley and Sam both attended Washington and Lee and even though we were at a school with fewer than two thousand students, we never crossed paths (although we did share a yearbook page). We did not meet until we were both in Washington, DC with a couple of masters degrees under our belts. We sought shelter in whatever restaurants or bars would have us during the early days of the pandemic and we must have put over a hundred miles on our shoes just to spend an extra few minutes together.</p>
+                <p class="reveal-up delay-1">Riley proposed to Sam in our favorite city Charleston, SC with both of our families present. Riley surprised Sam during what was supposed to be a @SweetTeaWithMadi photoshoot in the picturesque Philadelphia Alley. With the church bells ringing, Riley took a knee and popped the question. Luckily, yes was Sam's answer.</p>
+                <p class="reveal-up delay-2">A few of our favorite memories together include traveling to Paris together (and leaving separately), adopting our cat Lars and driving him home from NC, holiday eves at The Deck, and the slow nights at home when we can unwind together. We’re so excited for you to join us as we say “I do” at our wedding in Amsterdam! Tot gauw!</p>
+            </div>
+        </section>
+
+        <section class="image-break">
+            <div class="image-wrapper reveal-up">
+                <img src="https://images.squarespace-cdn.com/content/v1/5df1059f1315fc4b163f4b50/1628711466044-T90Q95P2I03KFTKFY9T7/image-asset.jpeg" alt="Vintage plate from Hotel De L'Europe">
+            </div>
+        </section>
+
+        <section class="events-container" id="events">
+            <div class="events-header reveal-up">
+                <h2 class="statement-font">Events</h2>
+            </div>
+            
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Friday, August 14, 2026</div>
+                    <div class="event-time">5:30 PM - 6:30 PM</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">Amsterdam canal cruise</h3>
+                    <p class="body-font">We will cruise aboard the Wolk through Amsterdam's canals and disembark at the welcome party venue (The LuminAir). There will be an open bar of wine, beer, and soft drinks. <br><br>Dress code: White Party! Since there’s no bride at this wedding, everyone gets to wear white.</p>
+                </div>
+            </div>
+
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Friday, August 14, 2026</div>
+                    <div class="event-time">7:00 PM - 9:00 PM</div>
+                    <div class="event-location">LuminAir</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">The welcome</h3>
+                    <p class="body-font">Meet us in the sky at LuminAir for a night of great views, great drinks, and even better company. <br><br>Dress code: White Party! Since there’s no bride at this wedding, everyone gets to wear white.</p>
+                </div>
+            </div>
+
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Saturday, August 15, 2026</div>
+                    <div class="event-time">5:00 PM - 7:00 PM</div>
+                    <div class="event-location">Hotel De L'Europe</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">The wedding</h3>
+                    <p class="body-font">The celebration continues with our wedding ceremony, where we’ll officially tie the knot surrounded by all of you. <br><br>Dress Code: For the Boys: black-tie if that is fun for you. Otherwise, summer cocktail attire. For the Ladies: Floor-length or cocktail dress would be appropriate.</p>
+                </div>
+            </div>
+
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Saturday, August 15, 2026</div>
+                    <div class="event-time">9:00 PM - 12:00 AM</div>
+                    <div class="event-location">Freddy's Bar</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">The reception</h3>
+                    <p class="body-font">Dinner may be over, but the celebration is just getting started! Join us at Freddy’s for the reception as we keep the evening going with great music, great company, and plenty of good cheer.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="travel-section" id="travel">
+            <div class="reveal-up"><h2 class="statement-font section-title" style="top: 0;">Travel</h2></div>
+            
+            <div class="travel-grid">
+                <div class="travel-col">
+                    <div class="travel-block reveal-up delay-1">
+                        <h3 class="subheader-font travel-heading">Hotel options nearby</h3>
+                        <p class="body-font">Amsterdam has abundant hotel options, but we've listed a few below that are very close to the Hotel De L'Europe.<br><br>
+                        — <a href="#" class="inline-link">Hotel Tivoli Doelen</a><br>
+                        — <a href="#" class="inline-link">Hotel Residence le Coin</a><br>
+                        — <a href="#" class="inline-link">Hotel Nes</a></p>
+                    </div>
+                </div>
+                
+                <div class="travel-col">
+                    <div class="travel-block reveal-up delay-2">
+                        <h3 class="subheader-font travel-heading">To & from the airport</h3>
+                        <p class="body-font">Trains run eight times per hour between Amsterdam Schiphol airport and Amsterdam Centraal train station. Trains depart directly from the airport. One-way tickets run for about ~€6. It is about a 20 minute walk down the Damrak from the train station to Hotel De L'Europe. Taxis and Ubers are also available.</p>
+                    </div>
+
+                    <div class="travel-block reveal-up delay-3">
+                        <h3 class="subheader-font travel-heading">Travel reminders</h3>
+                        <p class="body-font">Note: the ETIAS travel authorization will not go into effect until late 2026 - no need to get it! Please contact Sam or Riley with any questions!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-cta reveal-up">
+            <h2 class="statement-font reveal-up delay-1">Join us</h2>
+            <div class="reveal-up delay-2" style="margin-top: 3rem;">
+                <a href="#rsvp" class="footer-btn subheader-font">RSVP</a>
             </div>
         </footer>
+        
+        <div id="rsvp" style="height: 1px;"></div>
+        <div id="registry" style="height: 1px;"></div>
+        <div id="faq" style="height: 1px;"></div>
     </main>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Loader
-            document.getElementById("enter-btn").addEventListener("click", () => {
+            // Loader Logic
+            const enterBtn = document.getElementById("enter-btn");
+            enterBtn.addEventListener("click", () => {
                 document.body.classList.add("entered");
+                
+                // Immediately trigger observer for hero elements
                 setTimeout(() => {
-                    document.querySelectorAll("nav .reveal-up, .hero .reveal-up").forEach(el => {
-                        el.classList.add("visible");
+                    document.querySelectorAll('.hero .reveal-up, nav .reveal-up').forEach(el => {
+                        el.classList.add('visible');
                     });
                 }, 500);
             });
 
-            // Menu
+            // Menu Toggle Logic
             const menuToggle = document.getElementById("menu-toggle");
-            document.querySelectorAll(".menu-close-trigger").forEach(link => {
-                link.addEventListener("click", () => document.body.classList.remove("menu-open"));
-            });
-            menuToggle.addEventListener("click", () => document.body.classList.toggle("menu-open"));
+            const menuLinks = document.querySelectorAll(".menu-close-trigger");
 
-            // Scroll reveals (non-hero elements)
-            const observer = new IntersectionObserver((entries, obs) => {
+            function toggleMenu() {
+                document.body.classList.toggle("menu-open");
+            }
+
+            menuToggle.addEventListener("click", toggleMenu);
+
+            menuLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    document.body.classList.remove("menu-open");
+                });
+            });
+
+            // Intersection Observer for Scroll Reveals
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px 0px -10% 0px", 
+                threshold: 0.1
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && document.body.classList.contains("entered")) {
-                        entry.target.classList.add("visible");
-                        obs.unobserve(entry.target);
+                    if (entry.isIntersecting) {
+                        if(document.body.classList.contains('entered')){
+                           entry.target.classList.add('visible');
+                           observer.unobserve(entry.target); 
+                        }
                     }
                 });
-            }, { rootMargin: "0px 0px -10% 0px", threshold: 0.1 });
+            }, observerOptions);
 
-            document.querySelectorAll(".reveal-up, .image-wrapper").forEach(el => {
-                if (!el.closest(".hero") && !el.closest("nav")) {
-                    observer.observe(el);
+            document.querySelectorAll('.reveal-up, .image-wrapper').forEach(element => {
+                if(!element.closest('.hero') && !element.closest('nav')) {
+                    revealObserver.observe(element);
                 }
             });
         });
