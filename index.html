@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wedding of Gibson and Messer">
+    <title>Gibson &amp; Messer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Loader — home page only */
+        body { height: 100vh; overflow-y: hidden; }
+        body.entered { height: auto; overflow-y: auto; }
+
+        #loader {
+            position: fixed; inset: 0;
+            background: linear-gradient(rgba(30, 58, 74, 0.8), rgba(42, 31, 20, 0.95)),
+                        url('assets/Florals.png') center/cover no-repeat;
+            z-index: 9998;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: transform 1.5s var(--ease-in-out-dramatic);
+            transform-origin: top;
+        }
+        body.entered #loader { transform: translateY(-100%); }
+
+        .loader-text {
+            color: var(--color-cream-100);
+            font-size: clamp(5rem, 12vw, 14rem);
+            line-height: 0.8;
+            margin-bottom: 4rem;
+            text-align: center;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+        }
+
+        .btn-enter {
+            background: transparent;
+            border: 1px solid rgba(242, 232, 213, 0.4);
+            color: var(--color-cream-100);
+            padding: 1.2rem 5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.8s var(--ease-out-expo);
+            border-radius: 100px;
+            backdrop-filter: blur(5px);
+        }
+        .btn-enter:hover {
+            background: var(--color-cream-100);
+            color: var(--color-blue-900);
+            border-color: var(--color-cream-100);
+            transform: scale(1.05);
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="texture-overlay"></div>
+
+    <div id="loader">
+        <h1 class="statement-font loader-text">Gibson &amp; Messer</h1>
+        <button id="enter-btn" class="subheader-font btn-enter">Enter</button>
+    </div>
+
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-grid">
+            <div class="menu-col">
+                <a href="/"            class="statement-font menu-link menu-close-trigger">Home</a>
+                <a href="/our-story/"  class="statement-font menu-link menu-close-trigger">Our story</a>
+                <a href="/events/"     class="statement-font menu-link menu-close-trigger">Events</a>
+                <a href="/travel/"     class="statement-font menu-link menu-close-trigger">Travel</a>
+            </div>
+            <div class="menu-col">
+                <a href="/rsvp/"      class="subheader-font menu-sublink menu-close-trigger">Rsvp</a>
+                <a href="/registry/"  class="subheader-font menu-sublink menu-close-trigger">Registry</a>
+                <a href="/faq/"       class="subheader-font menu-sublink menu-close-trigger">Faq</a>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <a href="/" class="nav-logo reveal-up delay-1">
+            <img src="assets/monogram.png" alt="Gibson &amp; Messer Monogram">
+        </a>
+        <button class="hamburger reveal-up delay-2" id="menu-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-bg" style="background: linear-gradient(rgba(30,58,74,0.2), rgba(42,31,20,0.7)), url('assets/CityScape.jpeg') center/cover no-repeat;"></div>
+            <h1 class="statement-font hero-title reveal-up delay-2">Gibson and Messer<br>are getting married</h1>
+            <div class="hero-meta subheader-font reveal-up delay-3">
+                Month Day, Year<br>
+                City, State
+            </div>
+        </section>
+
+        <footer class="footer-cta" style="background-image: linear-gradient(rgba(30,58,74,0.7), rgba(42,31,20,0.9)), url('assets/Florals 2.png');">
+            <h2 class="statement-font reveal-up">Join us</h2>
+            <div class="reveal-up delay-1" style="margin-top: 3rem;">
+                <a href="/rsvp/" class="footer-btn subheader-font">RSVP</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Loader
+            document.getElementById("enter-btn").addEventListener("click", () => {
+                document.body.classList.add("entered");
+                setTimeout(() => {
+                    document.querySelectorAll("nav .reveal-up, .hero .reveal-up").forEach(el => {
+                        el.classList.add("visible");
+                    });
+                }, 500);
+            });
+
+            // Menu
+            const menuToggle = document.getElementById("menu-toggle");
+            document.querySelectorAll(".menu-close-trigger").forEach(link => {
+                link.addEventListener("click", () => document.body.classList.remove("menu-open"));
+            });
+            menuToggle.addEventListener("click", () => document.body.classList.toggle("menu-open"));
+
+            // Scroll reveals (non-hero elements)
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && document.body.classList.contains("entered")) {
+                        entry.target.classList.add("visible");
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: "0px 0px -10% 0px", threshold: 0.1 });
+
+            document.querySelectorAll(".reveal-up, .image-wrapper").forEach(el => {
+                if (!el.closest(".hero") && !el.closest("nav")) {
+                    observer.observe(el);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

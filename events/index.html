@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events — Gibson &amp; Messer</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <div class="texture-overlay"></div>
+
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-grid">
+            <div class="menu-col">
+                <a href="/"            class="statement-font menu-link menu-close-trigger">Home</a>
+                <a href="/our-story/"  class="statement-font menu-link menu-close-trigger">Our story</a>
+                <a href="/events/"     class="statement-font menu-link menu-close-trigger">Events</a>
+                <a href="/travel/"     class="statement-font menu-link menu-close-trigger">Travel</a>
+            </div>
+            <div class="menu-col">
+                <a href="/rsvp/"      class="subheader-font menu-sublink menu-close-trigger">Rsvp</a>
+                <a href="/registry/"  class="subheader-font menu-sublink menu-close-trigger">Registry</a>
+                <a href="/faq/"       class="subheader-font menu-sublink menu-close-trigger">Faq</a>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="../assets/monogram.png" alt="Gibson &amp; Messer Monogram">
+        </a>
+        <button class="hamburger" id="menu-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero-bg" style="background: linear-gradient(rgba(30,58,74,0.5), rgba(42,31,20,0.8)), url('../assets/CityScape.jpeg') center/cover no-repeat;"></div>
+            <h1 class="statement-font reveal-up">Events</h1>
+        </section>
+
+        <section class="events-container">
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Friday, TBD</div>
+                    <div class="event-time">TBD PM</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">Event name</h3>
+                    <p class="body-font">Add event details here.<br><br>Dress code: TBD.</p>
+                </div>
+            </div>
+
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Saturday, TBD</div>
+                    <div class="event-time">TBD PM</div>
+                    <div class="event-location">Venue</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">The wedding</h3>
+                    <p class="body-font">Add wedding details here.<br><br>Dress code: TBD.</p>
+                </div>
+            </div>
+
+            <div class="event-item reveal-up">
+                <div class="event-meta subheader-font">
+                    <div class="event-date">Saturday, TBD</div>
+                    <div class="event-time">TBD PM</div>
+                    <div class="event-location">Venue</div>
+                </div>
+                <div class="event-details">
+                    <h3 class="statement-font">The reception</h3>
+                    <p class="body-font">Add reception details here.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-cta" style="background-image: linear-gradient(rgba(30,58,74,0.7), rgba(42,31,20,0.9)), url('../assets/Florals 2.png');">
+            <h2 class="statement-font reveal-up">Join us</h2>
+            <div class="reveal-up delay-1" style="margin-top: 3rem;">
+                <a href="/rsvp/" class="footer-btn subheader-font">RSVP</a>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>
