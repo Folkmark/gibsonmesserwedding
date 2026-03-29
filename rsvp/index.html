@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RSVP for the Gibson–Messer wedding in Amsterdam, August 2026.">
     <title>RSVP — Gibson &amp; Messer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Lavishly+Yours&family=Square+Peg&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -15,13 +19,12 @@
             <div class="menu-col">
                 <a href="/"            class="statement-font menu-link menu-close-trigger">Home</a>
                 <a href="/our-story/"  class="statement-font menu-link menu-close-trigger">Our story</a>
-                <a href="/events/"     class="statement-font menu-link menu-close-trigger">Events</a>
+                <a href="/events/"     class="statement-font menu-link menu-close-trigger">The Weekend</a>
                 <a href="/travel/"     class="statement-font menu-link menu-close-trigger">Travel</a>
             </div>
             <div class="menu-col">
-                <a href="/rsvp/"      class="subheader-font menu-sublink menu-close-trigger">Rsvp</a>
-                <a href="/registry/"  class="subheader-font menu-sublink menu-close-trigger">Registry</a>
-                <a href="/faq/"       class="subheader-font menu-sublink menu-close-trigger">Faq</a>
+                <a href="/rsvp/"  class="subheader-font menu-sublink menu-close-trigger active">Rsvp</a>
+                <a href="/faq/"   class="subheader-font menu-sublink menu-close-trigger">Faq</a>
             </div>
         </div>
     </div>
@@ -30,33 +33,156 @@
         <a href="/" class="nav-logo">
             <img src="../assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Gibson &amp; Messer Monogram">
         </a>
-        <button class="hamburger" id="menu-toggle" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-        </button>
+        <div class="nav-right">
+            <a href="/rsvp/" class="nav-rsvp subheader-font">RSVP</a>
+            <button class="hamburger" id="menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
 
     <main>
         <section class="page-hero">
-            <div class="page-hero-bg" style="background: linear-gradient(rgba(30,58,74,0.6), rgba(42,31,20,0.85)), url('../assets/Florals.jpg') center/cover no-repeat;"></div>
-            <h1 class="statement-font reveal-up">RSVP</h1>
+            <div class="page-hero-bg" style="background: linear-gradient(rgba(30,58,74,0.5), rgba(42,31,20,0.9)), url('../assets/Florals.jpg') center/cover no-repeat;"></div>
+            <h1 class="statement-font reveal-up">Respond</h1>
         </section>
 
-        <section class="content-section">
-            <div class="content-grid">
-                <div class="reveal-up">
-                    <h2 class="statement-font section-title">Please respond</h2>
+        <section class="rsvp-section">
+
+            <!-- Progress indicator (steps 1–5) -->
+            <div class="rsvp-progress" id="rsvp-progress" aria-hidden="true">
+                <span class="rsvp-progress__pip is-active" data-step="1"></span>
+                <span class="rsvp-progress__pip" data-step="2"></span>
+                <span class="rsvp-progress__pip" data-step="3"></span>
+                <span class="rsvp-progress__pip" data-step="4"></span>
+                <span class="rsvp-progress__pip" data-step="5"></span>
+            </div>
+
+            <div class="rsvp-form-wrapper" id="rsvp-wrapper">
+
+                <!-- STEP 1 — Name entry -->
+                <div class="rsvp-step step--active step--entered" id="step-name">
+                    <span class="rsvp-step__eyebrow subheader-font">One</span>
+                    <h2 class="rsvp-step__heading statement-font">Your name</h2>
+                    <p class="rsvp-step__body body-font">Enter your name as it appears on your invitation.</p>
+                    <div class="rsvp-field">
+                        <input
+                            type="text"
+                            id="input-name"
+                            class="rsvp-input"
+                            placeholder="First and last name"
+                            autocomplete="name"
+                            autocapitalize="words"
+                            autocorrect="off"
+                        >
+                        <div class="rsvp-field__error" id="error-name" role="alert"></div>
+                    </div>
+                    <button class="rsvp-btn subheader-font" id="btn-lookup">
+                        <span class="btn-label">Find my invitation</span>
+                        <span class="btn-spinner" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <div class="body-font">
-                    <div class="content-block reveal-up">
-                        <p>Please respond by <strong>Date TBD</strong>.</p>
-                        <br>
-                        <p>Add your RSVP form or link here.</p>
+
+                <!-- STEP 2 — Household confirmation -->
+                <div class="rsvp-step" id="step-household">
+                    <span class="rsvp-step__eyebrow subheader-font">Two</span>
+                    <h2 class="rsvp-step__heading statement-font">Your party</h2>
+                    <p class="rsvp-step__body body-font">We found the following guests on your invitation. Is this correct?</p>
+                    <ul class="rsvp-member-list" id="household-members" aria-label="Household members"></ul>
+                    <div class="rsvp-step__actions">
+                        <button class="rsvp-btn subheader-font" id="btn-confirm-household">
+                            <span class="btn-label">Yes, that&rsquo;s us</span>
+                        </button>
+                        <button class="rsvp-btn rsvp-btn--ghost subheader-font" id="btn-back-name">
+                            Not me &mdash; search again
+                        </button>
                     </div>
                 </div>
+
+                <!-- STEP 3 — Saturday attendance -->
+                <div class="rsvp-step" id="step-saturday">
+                    <span class="rsvp-step__eyebrow subheader-font">Three</span>
+                    <h2 class="rsvp-step__heading statement-font">The wedding</h2>
+                    <p class="rsvp-step__body body-font">Saturday, 15 August &mdash; ceremony at five, reception at nine. Will you be joining us?</p>
+                    <div class="rsvp-guest-rows" id="saturday-rows"></div>
+                    <div class="rsvp-field__error" id="error-saturday" role="alert"></div>
+                    <button class="rsvp-btn subheader-font" id="btn-saturday-next" disabled>
+                        <span class="btn-label">Continue</span>
+                    </button>
+                </div>
+
+                <!-- STEP 4 — Friday events -->
+                <div class="rsvp-step" id="step-friday">
+                    <span class="rsvp-step__eyebrow subheader-font">Four</span>
+                    <h2 class="rsvp-step__heading statement-font">Friday evening</h2>
+                    <p class="rsvp-step__body body-font">You&rsquo;re invited to join us the evening before. Both events are entirely optional &mdash; come to one, both, or neither.</p>
+
+                    <h3 class="rsvp-subevent-label subheader-font">Canal cruise &mdash; 5:30 PM</h3>
+                    <div class="rsvp-guest-rows" id="cruise-rows"></div>
+
+                    <h3 class="rsvp-subevent-label subheader-font">Welcome party &mdash; 7:00 PM</h3>
+                    <div class="rsvp-guest-rows" id="party-rows"></div>
+
+                    <button class="rsvp-btn subheader-font" id="btn-friday-next" disabled>
+                        <span class="btn-label">Continue</span>
+                    </button>
+                </div>
+
+                <!-- STEP 5 — Dietary & notes -->
+                <div class="rsvp-step" id="step-dietary">
+                    <span class="rsvp-step__eyebrow subheader-font">Five</span>
+                    <h2 class="rsvp-step__heading statement-font">A few last things</h2>
+                    <p class="rsvp-step__body body-font">Let us know about any dietary restrictions or allergies so we can take care of you properly.</p>
+                    <div class="rsvp-field">
+                        <label class="rsvp-label subheader-font" for="input-dietary">Dietary restrictions or allergies</label>
+                        <textarea
+                            id="input-dietary"
+                            class="rsvp-textarea"
+                            rows="3"
+                            placeholder="None, vegetarian, nut allergy&hellip;"
+                        ></textarea>
+                    </div>
+                    <div class="rsvp-field">
+                        <label class="rsvp-label subheader-font" for="input-notes">Anything else we should know?</label>
+                        <textarea
+                            id="input-notes"
+                            class="rsvp-textarea"
+                            rows="3"
+                            placeholder="Optional"
+                        ></textarea>
+                    </div>
+                    <button class="rsvp-btn subheader-font" id="btn-submit">
+                        <span class="btn-label">Send our response</span>
+                        <span class="btn-spinner" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <!-- CONFIRMATION -->
+                <div class="rsvp-step" id="step-confirmation">
+                    <div class="rsvp-confirmation-monogram">
+                        <img src="../assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="">
+                    </div>
+                    <h2 class="rsvp-step__heading statement-font" id="confirmation-heading"></h2>
+                    <p class="rsvp-step__body body-font" id="confirmation-body"></p>
+                    <p class="body-font" style="margin-top:2.5rem;opacity:0.6;font-size:0.85em;">
+                        Changed your mind? Email us at <a href="mailto:[email]" class="inline-link">[email]</a> and we&rsquo;ll update your response.
+                    </p>
+                </div>
+
+                <!-- ERROR -->
+                <div class="rsvp-step" id="step-error">
+                    <h2 class="rsvp-step__heading statement-font">Something went wrong</h2>
+                    <p class="rsvp-step__body body-font">We weren&rsquo;t able to save your response. Please try again or email us directly at <a href="mailto:[email]" class="inline-link">[email]</a>.</p>
+                    <button class="rsvp-btn subheader-font" id="btn-retry">
+                        <span class="btn-label">Try again</span>
+                    </button>
+                </div>
+
             </div>
         </section>
     </main>
 
     <script src="../script.js"></script>
+    <script src="rsvp.js"></script>
 </body>
 </html>
