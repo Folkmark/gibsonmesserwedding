@@ -291,11 +291,44 @@
         .hamburger span {
             display: block;
             width: 100%;
-            height: 1px; 
-            background-color: #FFFFFF; 
+            height: 1px;
+            background-color: #FFFFFF;
             transition: transform 0.6s var(--ease-out-expo), background-color 0.5s ease, opacity 0.4s ease;
             transform-origin: right center;
         }
+
+        .nav-rsvp {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: clamp(0.6rem, 0.7vw, 0.68rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1002;
+            transition: color 0.5s ease, opacity 0.4s ease;
+        }
+        body.menu-open .nav-rsvp { color: var(--color-cream-100); }
+        .nav-rsvp:hover { opacity: 0.65; }
+
+        .menu-close-btn {
+            position: absolute;
+            top: 3rem;
+            right: 5vw;
+            background: transparent;
+            border: none;
+            color: var(--color-cream-100);
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 1003;
+            padding: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-out-expo) 0.2s, color 0.4s ease;
+            font-family: 'Fondamento', cursive;
+            letter-spacing: 0;
+        }
+        body.menu-open .menu-close-btn { opacity: 1; }
+        .menu-close-btn:hover { color: var(--color-red-400); }
 
         body.menu-open .hamburger span { background-color: var(--color-cream-100); }
         body.menu-open .hamburger span:nth-child(1) { transform: rotate(-45deg) scaleX(1.1) translateY(-1px); }
@@ -591,9 +624,23 @@
             .menu-link { font-size: clamp(2.8rem, 11vw, 4.5rem); margin-bottom: 1rem; }
             .menu-sublink { font-size: clamp(1.3rem, 5vw, 2rem); margin-bottom: 1.5rem; }
 
-            /* Hero */
+            /* Hero — stack vertically to prevent overlap */
+            .hero {
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: flex-start;
+                gap: 1.25rem;
+                padding-bottom: 7vw;
+            }
+            .hero-meta {
+                position: static;
+                text-align: left;
+                font-size: 0.9rem;
+            }
             .hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
-            .hero-meta { font-size: 0.9rem; }
+
+            /* Nav RSVP on mobile */
+            .nav-rsvp { font-size: clamp(0.6rem, 3vw, 0.68rem); }
 
             /* Body font */
             .body-font { font-size: clamp(1rem, 4vw, 1.3rem); }
@@ -657,6 +704,7 @@
     </div>
 
     <div class="menu-overlay" id="menu-overlay">
+        <button class="menu-close-btn menu-close-trigger" aria-label="Close menu">&#x2715;</button>
         <div class="menu-grid">
             <div class="menu-col">
                 <a href="#home" class="statement-font menu-link menu-close-trigger">Home</a>
@@ -676,6 +724,7 @@
         <a href="#" class="nav-logo reveal-up delay-1">
             <img src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Sam & Riley Monogram">
         </a>
+        <a href="#rsvp" class="nav-rsvp subheader-font reveal-up delay-1">RSVP</a>
         <button class="hamburger reveal-up delay-2" id="menu-toggle" aria-label="Toggle menu">
             <span></span><span></span><span></span>
         </button>
