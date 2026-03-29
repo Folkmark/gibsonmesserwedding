@@ -308,7 +308,7 @@ body.menu-open { overflow-y: hidden; }
     font-size: clamp(3rem, 6vw, 6rem);
     color: var(--color-brand-primary);
     position: sticky;
-    top: 25vh;
+    top: calc(50vh - 80px - 3rem);
 }
 
 .story-content p { margin-bottom: 5rem; color: var(--color-text-body); max-width: 800px; }
@@ -357,7 +357,7 @@ body.menu-open { overflow-y: hidden; }
     align-items: flex-start;
 }
 
-.event-meta { color: var(--color-brand-primary); position: sticky; top: 25vh; }
+.event-meta { color: var(--color-brand-primary); position: sticky; top: calc(50vh - 80px - 3rem); }
 .event-date { font-size: clamp(1.2rem, 2vw, 2rem); margin-bottom: 1rem; color: var(--color-blue-700); }
 .event-time { font-size: 1.1rem; opacity: 0.8; }
 .event-location { font-size: 1.1rem; margin-top: 1rem; color: var(--color-text-body); }
