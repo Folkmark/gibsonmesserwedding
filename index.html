@@ -127,8 +127,8 @@
            CINEMATIC LOADING SCREEN
            ========================================= */
         @keyframes loaderReveal {
-            from { opacity: 0; transform: translateY(20px) scale(0.94); filter: blur(10px); }
-            to   { opacity: 0.95; transform: translateY(0) scale(1); filter: blur(0); }
+            from { opacity: 0; transform: translateY(20px) scale(0.94); filter: brightness(0) invert(1) blur(10px); }
+            to   { opacity: 0.95; transform: translateY(0) scale(1); filter: brightness(0) invert(1) blur(0px); }
         }
         @keyframes lineExpand {
             from { transform: scaleX(0); opacity: 0; }
