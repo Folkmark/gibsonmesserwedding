@@ -133,8 +133,8 @@
            CINEMATIC LOADING SCREEN
            ========================================= */
         @keyframes loaderReveal {
-            from { opacity: 0; transform: translateY(20px) scale(0.94); filter: sepia(1) saturate(0.3) brightness(1.8) blur(6px); }
-            to   { opacity: 0.95; transform: translateY(0) scale(1); filter: sepia(1) saturate(0.3) brightness(1.8) blur(0px); }
+            from { opacity: 0; transform: translateY(20px) scale(0.94); filter: brightness(0) invert(1) blur(6px); }
+            to   { opacity: 0.95; transform: translateY(0) scale(1); filter: brightness(0) invert(1) blur(0px); }
         }
         @keyframes lineExpand {
             from { transform: scaleX(0); opacity: 0; }
@@ -173,7 +173,7 @@
         .loader-monogram {
             width: clamp(6rem, 9vw, 8rem);
             height: auto;
-            filter: sepia(1) saturate(0.3) brightness(1.8);
+            filter: brightness(0) invert(1);
             opacity: 0;
             animation: loaderReveal 2.2s var(--ease-out-expo) 0.3s forwards;
         }
@@ -439,36 +439,85 @@
         .events-header { text-align: left; margin-bottom: 8rem; }
         .events-header h2 { font-size: clamp(4rem, 8vw, 8rem); color: var(--color-ink); }
 
-        .event-item {
-            display: grid;
-            grid-template-columns: 3fr 7fr;
-            gap: 15vw;
-            margin-bottom: 25vh;
-            padding-top: 8vh;
-            border-top: 1px solid #9C8355;
-            align-items: flex-start;
+        /* ---- Card Deck ------------------------------------------ */
+        .card-deck {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 680px;
+            margin-top: 6rem;
+            overflow: visible;
         }
 
-        .event-meta {
-            color: var(--color-verdigris);
-            position: sticky;
-            top: calc(50vh - 80px - 3rem);
+        .event-card {
+            position: absolute;
+            width: 440px;
+            background: var(--color-cream-100);
+            border: 1px solid #9C8355;
+            box-shadow: 4px 12px 32px rgba(42, 31, 20, 0.18);
+            padding: 2.5rem;
+            cursor: pointer;
+            transform: translateX(var(--tx, 0px)) rotate(var(--r, 0deg));
+            transform-origin: center 105%;
+            transition:
+                transform 0.65s var(--ease-out-expo),
+                box-shadow 0.4s ease;
+            user-select: none;
         }
-        .event-date { font-size: clamp(1.2rem, 2vw, 2rem); margin-bottom: 1rem; color: var(--color-verdigris); }
-        .event-time { font-size: 1.1rem; opacity: 0.8; }
-        .event-location { font-size: 1.1rem; margin-top: 1rem; color: var(--color-text-body); }
 
-        .event-number {
+        .event-card:hover:not(.active) {
+            transform: translateX(var(--tx, 0px)) rotate(var(--r, 0deg)) translateY(-28px);
+            box-shadow: 6px 18px 48px rgba(42, 31, 20, 0.24);
+        }
+
+        .event-card.active {
+            transform: translateX(var(--tx, 0px)) translateY(-64px) rotate(0deg);
+            z-index: 20 !important;
+            box-shadow: 8px 24px 64px rgba(42, 31, 20, 0.28);
+            cursor: default;
+        }
+
+        .card-header { margin-bottom: 1.25rem; }
+
+        .card-ordinal {
             font-family: 'Fondamento', cursive;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: #9C8355;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.22em;
             display: block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
         }
 
-        .event-details h3 { font-size: clamp(3rem, 6vw, 6rem); color: var(--color-ink); margin-bottom: 3rem; line-height: 0.9; }
-        .event-details p { color: var(--color-text-body); max-width: 800px; }
+        .card-title {
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            color: var(--color-ink);
+            line-height: 0.9;
+        }
+
+        .card-rule {
+            height: 1px;
+            background: #9C8355;
+            margin: 1.25rem 0;
+            opacity: 0.5;
+        }
+
+        .card-meta {
+            margin-bottom: 1.5rem;
+            color: var(--color-verdigris);
+            font-family: 'Fondamento', cursive;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            line-height: 1.8;
+        }
+
+        .card-desc {
+            font-family: 'Square Peg', cursive;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
+            letter-spacing: 0.04em;
+            color: var(--color-ink);
+        }
 
         /* TRAVEL SECTION */
         .travel-section { 
@@ -518,7 +567,6 @@
             .section-title, .event-meta { position: static; margin-bottom: 2rem; }
             .image-break { padding: 15vh 5vw; justify-content: center; }
             .image-wrapper { width: 100%; }
-            .event-item { padding-top: 3rem; margin-bottom: 15vh; }
             .travel-block { margin-bottom: 5rem; }
             .hero-meta { text-align: left; right: auto; left: 5vw; }
         }
@@ -560,10 +608,25 @@
             /* Events */
             .events-header { margin-bottom: 8vh; }
             .events-header h2 { font-size: clamp(3rem, 11vw, 5rem); }
-            .event-item { margin-bottom: 8vh; padding-top: 2.5rem; }
-            .event-details h3 { font-size: clamp(2.5rem, 9vw, 4rem); margin-bottom: 1.5rem; }
-            .event-date { font-size: 1rem; margin-bottom: 0.5rem; }
-            .event-time, .event-location { font-size: 0.95rem; }
+
+            /* Card deck — vertical stack on mobile */
+            .card-deck {
+                height: auto;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.5rem;
+                padding: 0;
+            }
+            .event-card {
+                position: static;
+                width: 100%;
+                transform: none !important;
+                box-shadow: 4px 8px 24px rgba(42, 31, 20, 0.14);
+            }
+            .event-card.active,
+            .event-card:hover:not(.active) {
+                transform: none !important;
+            }
 
             /* Travel */
             .travel-grid { margin-top: 5vh; }
@@ -622,8 +685,8 @@
         <section class="hero">
             <div class="hero-bg"></div>
             <div class="reveal-up delay-1" style="z-index:2;">
-                <p class="subheader-font" style="font-size:0.85rem;letter-spacing:0.35em;color:rgba(242,232,213,0.65);margin-bottom:1rem;text-transform:uppercase;">Are getting married</p>
                 <h1 class="statement-font hero-title" style="font-size:clamp(5rem,12vw,13rem);">Sam and Riley</h1>
+                <p class="subheader-font" style="font-size:0.85rem;letter-spacing:0.35em;color:rgba(242,232,213,0.65);margin-top:1.25rem;text-transform:uppercase;">Are getting married</p>
             </div>
             <div class="hero-meta subheader-font reveal-up delay-2">
                 15 August 2026 · Hotel De L'Europe
@@ -651,55 +714,72 @@
                 <h2 class="statement-font">Events</h2>
             </div>
             
-            <div class="event-item reveal-up">
-                <div class="event-meta subheader-font">
-                    <div class="event-date">Friday, August 14, 2026</div>
-                    <div class="event-time">5:30 PM - 6:30 PM</div>
-                </div>
-                <div class="event-details">
-                    <span class="event-number">I.</span>
-                    <h3 class="statement-font">Amsterdam canal cruise</h3>
-                    <p class="body-font">We will cruise aboard the Wolk through Amsterdam's canals and disembark at the welcome party venue (The LuminAir). There will be an open bar of wine, beer, and soft drinks. <br><br>Dress code: White Party! Since there’s no bride at this wedding, everyone gets to wear white.</p>
-                </div>
-            </div>
+            <div class="card-deck reveal-up" id="card-deck">
 
-            <div class="event-item reveal-up">
-                <div class="event-meta subheader-font">
-                    <div class="event-date">Friday, August 14, 2026</div>
-                    <div class="event-time">7:00 PM - 9:00 PM</div>
-                    <div class="event-location">LuminAir</div>
+                <div class="event-card active" data-card="0" style="--tx:-220px; --r:-14deg; z-index:4;">
+                    <div class="card-header">
+                        <span class="card-ordinal">I.</span>
+                        <h3 class="statement-font card-title">Amsterdam canal cruise</h3>
+                    </div>
+                    <div class="card-rule"></div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <div>Friday, 14 August 2026</div>
+                            <div>5:30 PM – 6:30 PM</div>
+                            <div>Aboard the Wolk · Amsterdam canals</div>
+                        </div>
+                        <p class="card-desc">We will cruise aboard the Wolk through Amsterdam’s historic canals, taking in the city from the water before disembarking at the welcome party venue.<br><br>Dress code: White Party — since there’s no bride at this wedding, everyone gets to wear white.</p>
+                    </div>
                 </div>
-                <div class="event-details">
-                    <span class="event-number">II.</span>
-                    <h3 class="statement-font">The welcome</h3>
-                    <p class="body-font">Meet us in the sky at LuminAir for a night of great views, great drinks, and even better company. <br><br>Dress code: White Party! Since there’s no bride at this wedding, everyone gets to wear white.</p>
-                </div>
-            </div>
 
-            <div class="event-item reveal-up">
-                <div class="event-meta subheader-font">
-                    <div class="event-date">Saturday, August 15, 2026</div>
-                    <div class="event-time">5:00 PM - 7:00 PM</div>
-                    <div class="event-location">Hotel De L'Europe</div>
+                <div class="event-card" data-card="1" style="--tx:-73px; --r:-4deg; z-index:3;">
+                    <div class="card-header">
+                        <span class="card-ordinal">II.</span>
+                        <h3 class="statement-font card-title">The welcome party</h3>
+                    </div>
+                    <div class="card-rule"></div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <div>Friday, 14 August 2026</div>
+                            <div>7:00 PM – 9:00 PM</div>
+                            <div>LuminAir · Amsterdam</div>
+                        </div>
+                        <p class="card-desc">Meet us in the sky at LuminAir for a night of great views, great drinks, and even better company. Open bar all evening.<br><br>Dress code: White Party — since there’s no bride at this wedding, everyone gets to wear white.</p>
+                    </div>
                 </div>
-                <div class="event-details">
-                    <span class="event-number">III.</span>
-                    <h3 class="statement-font">The wedding</h3>
-                    <p class="body-font">The celebration continues with our wedding ceremony, where we’ll officially tie the knot surrounded by all of you. <br><br>Dress Code: Gentlemen: black tie or summer cocktail attire. For the Ladies: Floor-length or cocktail dress would be appropriate.</p>
-                </div>
-            </div>
 
-            <div class="event-item reveal-up">
-                <div class="event-meta subheader-font">
-                    <div class="event-date">Saturday, August 15, 2026</div>
-                    <div class="event-time">9:00 PM - 12:00 AM</div>
-                    <div class="event-location">Freddy's Bar</div>
+                <div class="event-card" data-card="2" style="--tx:73px; --r:4deg; z-index:2;">
+                    <div class="card-header">
+                        <span class="card-ordinal">III.</span>
+                        <h3 class="statement-font card-title">The wedding</h3>
+                    </div>
+                    <div class="card-rule"></div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <div>Saturday, 15 August 2026</div>
+                            <div>5:00 PM – 7:00 PM</div>
+                            <div>Hotel De L’Europe · Amsterdam</div>
+                        </div>
+                        <p class="card-desc">The celebration continues with our wedding ceremony, where we’ll officially tie the knot surrounded by all of you.<br><br>Dress code: Gentlemen — black tie or summer cocktail attire. Ladies — floor-length gown or cocktail dress.</p>
+                    </div>
                 </div>
-                <div class="event-details">
-                    <span class="event-number">IV.</span>
-                    <h3 class="statement-font">The reception</h3>
-                    <p class="body-font">Dinner may be over, but the celebration is just getting started! Join us at Freddy’s for the reception as we keep the evening going with great music, great company, and plenty of good cheer.</p>
+
+                <div class="event-card" data-card="3" style="--tx:220px; --r:14deg; z-index:1;">
+                    <div class="card-header">
+                        <span class="card-ordinal">IV.</span>
+                        <h3 class="statement-font card-title">The reception</h3>
+                    </div>
+                    <div class="card-rule"></div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <div>Saturday, 15 August 2026</div>
+                            <div>9:00 PM – Midnight</div>
+                            <div>Freddy’s Bar · Amsterdam</div>
+                        </div>
+                        <p class="card-desc">Dinner may be over, but the celebration is just getting started. Join us at Freddy’s for the reception — great music, great company, and plenty of good cheer to close out the evening.</p>
+                    </div>
                 </div>
+
             </div>
         </section>
 
@@ -792,6 +872,16 @@
                     }
                 });
             }, observerOptions);
+
+            // Card deck — click to play a card
+            const eventCards = document.querySelectorAll('.event-card');
+            eventCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    if (card.classList.contains('active')) return;
+                    eventCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+            });
 
             document.querySelectorAll('.reveal-up, .image-wrapper').forEach(element => {
                 if(!element.closest('.hero') && !element.closest('nav')) {
