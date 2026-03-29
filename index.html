@@ -433,6 +433,25 @@
             z-index: 2; 
         }
 
+        /* DARK PROSE SECTION */
+        .prose-dark-section {
+            background: var(--color-ink);
+            padding: clamp(6rem, 14vh, 10rem) clamp(2rem, 12vw, 16rem);
+            display: flex;
+            justify-content: center;
+        }
+
+        .prose-dark-body {
+            font-family: 'Square Peg', cursive;
+            font-size: clamp(1.6rem, 2.8vw, 2.8rem);
+            letter-spacing: 0.03em;
+            color: var(--color-cream-100);
+            line-height: 1.55;
+            text-align: center;
+            max-width: 920px;
+            opacity: 0.92;
+        }
+
         /* NARRATIVE SECTION */
         .story-section { 
             padding: var(--section-padding) 5vw; 
@@ -747,55 +766,8 @@
             </div>
         </section>
 
-        <section class="glance-section">
-            <div class="glance-header reveal-up">
-                <span class="glance-eyebrow">The Weekend</span>
-                <div class="glance-rule"></div>
-                <span class="glance-eyebrow">Amsterdam · August 2026</span>
-            </div>
-            <div class="glance-grid">
-                <div class="glance-day reveal-up delay-1">
-                    <span class="glance-day-label">Friday, 14 August</span>
-                    <div class="glance-event">
-                        <span class="glance-time">5:30 PM</span>
-                        <div>
-                            <div class="glance-event-name">Canal cruise aboard the Wolk</div>
-                            <span class="glance-event-note">White party attire</span>
-                        </div>
-                    </div>
-                    <div class="glance-event">
-                        <span class="glance-time">7:00 PM</span>
-                        <div>
-                            <div class="glance-event-name">Welcome party at LuminAir</div>
-                            <span class="glance-event-note">Open bar &middot; White party attire</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="glance-day reveal-up delay-2">
-                    <span class="glance-day-label">Saturday, 15 August</span>
-                    <div class="glance-event">
-                        <span class="glance-time">5:00 PM</span>
-                        <div>
-                            <div class="glance-event-name">Wedding ceremony</div>
-                            <span class="glance-event-note">Hotel De L&rsquo;Europe &middot; Black tie</span>
-                        </div>
-                    </div>
-                    <div class="glance-event">
-                        <span class="glance-time">7:00 PM</span>
-                        <div>
-                            <div class="glance-event-name">Cocktail hour &amp; rest</div>
-                            <span class="glance-event-note">Return to your hotel before the evening</span>
-                        </div>
-                    </div>
-                    <div class="glance-event">
-                        <span class="glance-time">9:00 PM</span>
-                        <div>
-                            <div class="glance-event-name">Reception at Freddy&rsquo;s Bar</div>
-                            <span class="glance-event-note">Dancing until midnight</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="prose-dark-section">
+            <p class="prose-dark-body reveal-up">Join us in Amsterdam this August to celebrate our wedding with a weekend that will feel romantic, festive, and just a little indulgent. More than anything, we wanted the weekend to feel generous, joyful, and unmistakably ours&thinsp;&mdash;&thinsp;a celebration not only of our marriage, but of the world we&rsquo;re lucky enough to share with you.</p>
         </section>
 
         <section class="story-section" id="story">
