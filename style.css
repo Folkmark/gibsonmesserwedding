@@ -481,3 +481,55 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
 
     .hero-meta { text-align: left; right: auto; left: 5vw; }
 }
+
+@media (max-width: 768px) {
+    :root { --section-padding: clamp(5rem, 10vh, 8rem); }
+
+    /* Nav */
+    nav { padding: 1.5rem 5vw; }
+    .nav-logo img { width: 56px; }
+
+    /* Menu — keep links from overflowing on short phones */
+    .menu-overlay { align-items: flex-start; padding: 12vh 7vw; }
+    .menu-grid { grid-template-columns: 1fr; gap: 5vh; }
+    .menu-link { font-size: clamp(2.8rem, 11vw, 4.5rem); margin-bottom: 1rem; }
+    .menu-sublink { font-size: clamp(1.3rem, 5vw, 2rem); margin-bottom: 1.5rem; }
+
+    /* iOS Safari: background-attachment:fixed is broken on mobile */
+    .footer-cta { background-attachment: scroll; height: 70vh; }
+
+    /* Page hero */
+    .page-hero { height: 40vh; }
+    .page-hero h1 { font-size: clamp(3rem, 10vw, 5rem); }
+
+    /* Body font */
+    .body-font { font-size: clamp(1.4rem, 5.5vw, 2rem); }
+
+    /* Story */
+    .section-title { font-size: clamp(2.5rem, 9vw, 4rem); }
+    .story-content p { margin-bottom: 2.5rem; }
+
+    /* Image break */
+    .image-break { padding: 8vh 5vw; }
+
+    /* Events */
+    .events-header { margin-bottom: 8vh; }
+    .events-header h2 { font-size: clamp(3rem, 11vw, 5rem); }
+    .event-item { margin-bottom: 8vh; padding-top: 2.5rem; }
+    .event-details h3 { font-size: clamp(2.5rem, 9vw, 4rem); margin-bottom: 1.5rem; }
+    .event-date { font-size: 1rem; margin-bottom: 0.5rem; }
+    .event-time, .event-location { font-size: 0.95rem; }
+
+    /* Travel */
+    .travel-grid { margin-top: 5vh; }
+    .travel-block { margin-bottom: 3rem; }
+    .travel-heading { font-size: 1.5rem; }
+
+    /* Content sections (FAQ, RSVP, Registry) */
+    .content-block { margin-bottom: 4rem; }
+    .content-heading { font-size: clamp(1.2rem, 4vw, 1.8rem); }
+
+    /* Footer */
+    .footer-cta h2 { font-size: clamp(3rem, 11vw, 5rem); margin-bottom: 2rem; }
+    .footer-btn { padding: 1rem 3rem; font-size: 1rem; }
+}

@@ -500,14 +500,67 @@
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
+            :root { --section-padding: clamp(8rem, 15vh, 12rem); }
             .story-section, .event-item, .travel-grid, .menu-grid { grid-template-columns: 1fr; gap: 5vh; }
             .section-title, .event-meta { position: static; margin-bottom: 2rem; }
             .image-break { padding: 15vh 5vw; justify-content: center; }
             .image-wrapper { width: 100%; }
             .event-item { padding-top: 3rem; margin-bottom: 15vh; }
             .travel-block { margin-bottom: 5rem; }
-            --section-padding: clamp(8rem, 15vh, 12rem);
             .hero-meta { text-align: left; right: auto; left: 5vw; }
+        }
+
+        @media (max-width: 768px) {
+            :root { --section-padding: clamp(5rem, 10vh, 8rem); }
+
+            /* Nav — tighter on phones */
+            nav { padding: 1.5rem 5vw; }
+            .nav-logo img { width: 56px; }
+
+            /* iOS Safari: background-attachment:fixed is broken on mobile */
+            .hero-bg { background-attachment: scroll; }
+            .footer-cta { background-attachment: scroll; }
+
+            /* Loader */
+            .loader-content { gap: 1.5rem; }
+            .loader-monogram { width: clamp(4rem, 18vw, 5.5rem); }
+            .btn-enter { padding: 0.9rem 2.5rem; font-size: clamp(0.6rem, 3vw, 0.68rem); }
+
+            /* Menu — keep links from overflowing short phones */
+            .menu-link { font-size: clamp(2.8rem, 11vw, 4.5rem); margin-bottom: 1rem; }
+            .menu-sublink { font-size: clamp(1.3rem, 5vw, 2rem); margin-bottom: 1.5rem; }
+
+            /* Hero */
+            .hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
+            .hero-meta { font-size: 0.9rem; }
+
+            /* Body font */
+            .body-font { font-size: clamp(1.4rem, 5.5vw, 2rem); }
+
+            /* Story */
+            .section-title { font-size: clamp(2.5rem, 9vw, 4rem); }
+            .story-content p { margin-bottom: 2.5rem; }
+
+            /* Image break */
+            .image-break { padding: 8vh 5vw; }
+
+            /* Events */
+            .events-header { margin-bottom: 8vh; }
+            .events-header h2 { font-size: clamp(3rem, 11vw, 5rem); }
+            .event-item { margin-bottom: 8vh; padding-top: 2.5rem; }
+            .event-details h3 { font-size: clamp(2.5rem, 9vw, 4rem); margin-bottom: 1.5rem; }
+            .event-date { font-size: 1rem; margin-bottom: 0.5rem; }
+            .event-time, .event-location { font-size: 0.95rem; }
+
+            /* Travel */
+            .travel-grid { margin-top: 5vh; }
+            .travel-block { margin-bottom: 3rem; }
+            .travel-heading { font-size: 1.5rem; }
+
+            /* Footer */
+            .footer-cta { height: 70vh; }
+            .footer-cta h2 { font-size: clamp(3rem, 11vw, 5rem); margin-bottom: 2rem; }
+            .footer-btn { padding: 1rem 3rem; font-size: 1rem; }
         }
     </style>
 </head>
