@@ -558,3 +558,415 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     .footer-cta h2 { font-size: clamp(3rem, 11vw, 5rem); margin-bottom: 2rem; }
     .footer-btn { padding: 1rem 3rem; font-size: 1rem; }
 }
+
+/* ============================================================
+   ADDITIONS — Nav Right, Weekend at a Glance, RSVP Form
+   ============================================================ */
+
+/* --- Nav Right (inner pages) ------------------------------- */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1002;
+}
+
+.nav-rsvp {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Fondamento', cursive;
+    font-size: clamp(0.6rem, 0.7vw, 0.68rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1002;
+    transition: color 0.5s ease, opacity 0.4s ease;
+}
+
+body.menu-open .nav-rsvp { color: var(--color-cream-100); }
+.nav-rsvp:hover { opacity: 0.65; }
+.hamburger:hover span { opacity: 0.6; }
+
+/* --- Weekend at a Glance ----------------------------------- */
+.glance-section {
+    padding: clamp(5rem, 10vh, 8rem) 5vw;
+    background: var(--color-cream-200);
+    border-top: var(--rule-brass);
+    border-bottom: var(--rule-brass);
+}
+
+.glance-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+}
+
+.glance-eyebrow {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--color-verdigris);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.glance-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-brass);
+    opacity: 0.4;
+}
+
+.glance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10vw;
+}
+
+.glance-day-label {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--color-brass);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(156, 131, 85, 0.3);
+    display: block;
+}
+
+.glance-event {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+    align-items: baseline;
+}
+
+.glance-event:last-child { margin-bottom: 0; }
+
+.glance-time {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--color-verdigris);
+    text-transform: uppercase;
+    padding-top: 0.2em;
+}
+
+.glance-event-name {
+    font-family: 'Square Peg', cursive;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    color: var(--color-ink);
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+}
+
+.glance-event-note {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--color-cream-400);
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .glance-grid { grid-template-columns: 1fr; gap: 4rem; }
+    .glance-event { grid-template-columns: 5rem 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+}
+
+/* --- RSVP Form --------------------------------------------- */
+.rsvp-section {
+    padding: var(--section-padding) 5vw;
+    background: radial-gradient(circle at 80% 20%, var(--color-surface-page) 0%, #E8DFCC 100%);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rsvp-progress {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.rsvp-progress__pip {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-cream-400);
+    transition:
+        background  0.5s var(--ease-out-expo),
+        transform   0.5s var(--ease-out-expo);
+}
+
+.rsvp-progress__pip.is-active  { background: var(--color-brass); transform: scale(1.4); }
+.rsvp-progress__pip.is-complete { background: var(--color-verdigris); }
+
+.rsvp-form-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+}
+
+/* Step show/hide + transitions */
+.rsvp-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity   0.7s var(--ease-out-expo),
+        transform 0.7s var(--ease-out-expo);
+}
+
+.rsvp-step.step--active                 { display: block; }
+.rsvp-step.step--active.step--entered   { opacity: 1; transform: translateY(0); }
+.rsvp-step.step--exiting {
+    opacity: 0;
+    transform: translateY(-16px);
+    pointer-events: none;
+    transition:
+        opacity   0.4s var(--ease-out-expo),
+        transform 0.4s var(--ease-out-expo);
+}
+
+/* Step typography */
+.rsvp-step__eyebrow {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--color-verdigris);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.rsvp-step__heading {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    color: var(--color-ink);
+    line-height: 0.85;
+    margin-bottom: 2rem;
+}
+
+.rsvp-step__body {
+    color: var(--color-text-body);
+    margin-bottom: 3rem;
+    max-width: 480px;
+}
+
+/* Fields */
+.rsvp-field { margin-bottom: 2rem; }
+
+.rsvp-label {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--color-brass);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.rsvp-input,
+.rsvp-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-cream-400);
+    color: var(--color-ink);
+    font-family: 'Square Peg', cursive;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    letter-spacing: 0.04em;
+    padding: 0.75rem 0;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    transition: border-color 0.4s ease;
+}
+
+.rsvp-input:focus,
+.rsvp-textarea:focus { border-color: var(--color-brass); }
+
+.rsvp-input::placeholder,
+.rsvp-textarea::placeholder { color: var(--color-cream-400); font-size: 0.9em; }
+
+.rsvp-textarea { resize: vertical; min-height: 80px; }
+
+.rsvp-field__error {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--color-red-600);
+    margin-top: 0.75rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 0.5s var(--ease-out-expo),
+        opacity    0.5s var(--ease-out-expo);
+}
+
+.rsvp-field__error.is-visible { max-height: 4rem; opacity: 1; }
+
+/* Household member list */
+.rsvp-member-list { list-style: none; margin-bottom: 3rem; }
+
+.rsvp-member {
+    font-family: 'Square Peg', cursive;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--color-ink);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(200, 187, 158, 0.4);
+    letter-spacing: 0.04em;
+}
+
+.rsvp-member:first-child { border-top: 1px solid rgba(200, 187, 158, 0.4); }
+
+/* Guest attendance rows */
+.rsvp-guest-rows { margin-bottom: 2rem; }
+
+.rsvp-guest-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(200, 187, 158, 0.3);
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.rsvp-guest-row:first-child { border-top: 1px solid rgba(200, 187, 158, 0.3); }
+
+.rsvp-guest-row__name {
+    font-family: 'Square Peg', cursive;
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    color: var(--color-ink);
+    letter-spacing: 0.04em;
+}
+
+.rsvp-toggle-pair { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.rsvp-toggle {
+    padding: 0.5rem 1.2rem;
+    border: var(--rule-brass);
+    background: transparent;
+    color: var(--color-cream-900);
+    font-family: 'Fondamento', cursive;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    transition:
+        background   0.5s var(--ease-out-expo),
+        color        0.5s var(--ease-out-expo),
+        border-color 0.5s var(--ease-out-expo);
+}
+
+.rsvp-toggle.is-selected[data-value="yes"] {
+    background: var(--color-verdigris);
+    color: var(--color-cream-100);
+    border-color: var(--color-verdigris);
+}
+
+.rsvp-toggle.is-selected[data-value="no"] {
+    background: var(--color-cream-400);
+    color: var(--color-cream-900);
+    border-color: var(--color-cream-400);
+}
+
+/* Sub-event label (step 4) */
+.rsvp-subevent-label {
+    font-family: 'Fondamento', cursive;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--color-brass);
+    text-transform: uppercase;
+    margin: 2.5rem 0 0;
+    padding-bottom: 0.5rem;
+    border-bottom: var(--rule-brass);
+    opacity: 0.8;
+}
+
+.rsvp-subevent-label:first-of-type { margin-top: 0; }
+
+/* Action buttons */
+.rsvp-step__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.rsvp-btn {
+    margin-top: 3rem;
+    padding: 1.2rem 4rem;
+    border: 1px solid rgba(30, 58, 74, 0.5);
+    background: var(--color-blue-900);
+    color: var(--color-cream-100);
+    font-family: 'Fondamento', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    transition:
+        background 0.8s var(--ease-out-expo),
+        opacity    0.4s ease;
+}
+
+.rsvp-btn:hover   { background: var(--color-blue-700); }
+.rsvp-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.rsvp-btn--ghost {
+    background: transparent;
+    color: var(--color-brass);
+    border-color: var(--color-brass);
+    margin-top: 0;
+}
+
+.rsvp-btn--ghost:hover { background: rgba(156, 131, 85, 0.08); }
+
+/* Loading spinner */
+.btn-spinner {
+    display: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(242, 232, 213, 0.4);
+    border-top-color: var(--color-cream-100);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.rsvp-form--loading .btn-spinner { display: inline-block; }
+.rsvp-form--loading .btn-label   { opacity: 0.5; }
+
+/* Confirmation monogram */
+.rsvp-confirmation-monogram { margin-bottom: 3rem; }
+.rsvp-confirmation-monogram img {
+    width: 60px;
+    height: auto;
+    opacity: 0.35;
+}
+
+/* RSVP mobile */
+@media (max-width: 768px) {
+    .rsvp-progress { margin-bottom: 3rem; }
+    .rsvp-input, .rsvp-textarea { font-size: 16px; } /* Prevent iOS Safari zoom */
+    .rsvp-guest-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .rsvp-btn { padding: 1rem 2.5rem; width: 100%; justify-content: center; }
+    .rsvp-step__actions { width: 100%; }
+    .rsvp-step__heading { font-size: clamp(2.5rem, 9vw, 4rem); }
+}
