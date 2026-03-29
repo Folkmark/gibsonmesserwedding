@@ -261,6 +261,9 @@
 
         body.menu-open nav { mix-blend-mode: normal; }
 
+        /* Hero mode — plain white, no blend inversion */
+        nav.nav--hero { mix-blend-mode: normal; }
+
         .nav-logo {
             display: inline-block;
             text-decoration: none;
@@ -297,6 +300,15 @@
             transform-origin: right center;
         }
 
+        /* Nav right group (hamburger + RSVP) */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1002;
+        }
+
         .nav-rsvp {
             color: #FFFFFF;
             text-decoration: none;
@@ -309,6 +321,9 @@
         }
         body.menu-open .nav-rsvp { color: var(--color-cream-100); }
         .nav-rsvp:hover { opacity: 0.65; }
+
+        /* Hamburger hover */
+        .hamburger:hover span { opacity: 0.6; }
 
         .menu-close-btn {
             position: absolute;
@@ -724,10 +739,12 @@
         <a href="#" class="nav-logo reveal-up delay-1">
             <img src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Sam & Riley Monogram">
         </a>
-        <a href="#rsvp" class="nav-rsvp subheader-font reveal-up delay-1">RSVP</a>
-        <button class="hamburger reveal-up delay-2" id="menu-toggle" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-        </button>
+        <div class="nav-right">
+            <button class="hamburger reveal-up delay-2" id="menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="#rsvp" class="nav-rsvp subheader-font reveal-up delay-1">RSVP</a>
+        </div>
     </nav>
 
     <main id="home">
