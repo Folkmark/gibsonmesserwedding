@@ -40,6 +40,12 @@
             --color-text-link: var(--color-blue-700);
             --color-text-body: var(--color-cream-900);
             --color-border-default: var(--color-cream-400);
+
+            /* Institutional accent tokens */
+            --color-ink:       #0F0E0C;
+            --color-verdigris: #4A6B5A;
+            --color-brass:     #9C8355;
+            --rule-brass:      1px solid #9C8355;
             
             /* Spacing & Motion (Awwwards Standards) */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -95,12 +101,12 @@
         .statement-font { font-family: 'Lavishly Yours', cursive; text-transform: none; }
         .subheader-font { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; text-transform: none; }
         
-        .body-font { 
-            font-family: 'Square Peg', cursive; 
-            letter-spacing: 0.075em; 
-            font-size: clamp(2rem, 3vw, 3.5rem); 
-            line-height: 1.3; 
-            text-transform: none; 
+        .body-font {
+            font-family: 'Square Peg', cursive;
+            letter-spacing: 0.04em;
+            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+            line-height: 1.7;
+            text-transform: none;
         }
 
         /* =========================================
@@ -108,14 +114,14 @@
            ========================================= */
         .reveal-up {
             opacity: 0;
-            transform: translateY(80px);
-            filter: blur(12px); /* Deep cinematic depth of field */
-            transition: opacity 1.8s var(--ease-out-expo), transform 1.8s var(--ease-out-expo), filter 1.8s var(--ease-out-expo);
+            transform: translateY(32px);
+            filter: blur(4px);
+            transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo), filter 1.2s var(--ease-out-expo);
             will-change: opacity, transform, filter;
         }
-        .reveal-up.visible { 
-            opacity: 1; 
-            transform: translateY(0); 
+        .reveal-up.visible {
+            opacity: 1;
+            transform: translateY(0);
             filter: blur(0);
         }
         
@@ -127,8 +133,8 @@
            CINEMATIC LOADING SCREEN
            ========================================= */
         @keyframes loaderReveal {
-            from { opacity: 0; transform: translateY(20px) scale(0.94); filter: brightness(0) invert(1) blur(10px); }
-            to   { opacity: 0.95; transform: translateY(0) scale(1); filter: brightness(0) invert(1) blur(0px); }
+            from { opacity: 0; transform: translateY(20px) scale(0.94); filter: sepia(1) saturate(0.3) brightness(1.8) blur(6px); }
+            to   { opacity: 0.95; transform: translateY(0) scale(1); filter: sepia(1) saturate(0.3) brightness(1.8) blur(0px); }
         }
         @keyframes lineExpand {
             from { transform: scaleX(0); opacity: 0; }
@@ -138,16 +144,12 @@
             from { opacity: 0; transform: translateY(10px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes subtlePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(242,232,213,0); }
-            50%       { box-shadow: 0 0 0 10px rgba(242,232,213,0.07); }
-        }
 
         /* Base unit: 2rem. All loader spacing derives from this. */
         #loader {
             position: fixed;
             inset: 0;
-            background: linear-gradient(rgba(30, 58, 74, 0.8), rgba(42, 31, 20, 0.95)), url('assets/Florals.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(30, 58, 74, 0.65), rgba(42, 31, 20, 0.95)), url('assets/Florals.jpg') center/cover no-repeat;
             z-index: 9998;
             display: flex;
             flex-direction: column;
@@ -169,18 +171,18 @@
 
         /* Monogram — sets the proportional width anchor */
         .loader-monogram {
-            width: clamp(5rem, 8vw, 7rem);
+            width: clamp(6rem, 9vw, 8rem);
             height: auto;
-            filter: brightness(0) invert(1);
+            filter: sepia(1) saturate(0.3) brightness(1.8);
             opacity: 0;
             animation: loaderReveal 2.2s var(--ease-out-expo) 0.3s forwards;
         }
 
         /* Divider — same width as monogram to form a cohesive block */
         .loader-divider {
-            width: clamp(5rem, 8vw, 7rem);
+            width: clamp(6rem, 9vw, 8rem);
             height: 1px;
-            background: rgba(242, 232, 213, 0.3);
+            background: rgba(156, 131, 85, 0.6);
             transform: scaleX(0);
             transform-origin: center;
             animation: lineExpand 1s var(--ease-out-expo) 1.9s forwards;
@@ -204,9 +206,10 @@
         }
 
         .loader-date {
+            font-family: 'Fondamento', cursive;
             font-size: clamp(0.6rem, 0.7vw, 0.68rem);
-            color: rgba(242, 232, 213, 0.45);
-            letter-spacing: 0.45em;
+            color: rgba(156, 131, 85, 0.8);
+            letter-spacing: 0.35em;
             text-transform: uppercase;
             line-height: 1;
             opacity: 0;
@@ -221,26 +224,24 @@
             border: 1px solid rgba(242, 232, 213, 0.35);
             color: var(--color-cream-100);
             padding: 0.9rem 3rem;
+            font-family: 'Fondamento', cursive;
             font-size: clamp(0.6rem, 0.7vw, 0.68rem);
-            letter-spacing: 0.35em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             cursor: pointer;
-            border-radius: 100px;
+            border-radius: 0;
             backdrop-filter: blur(5px);
             opacity: 0;
-            animation: loaderFadeUp 1.4s var(--ease-out-expo) 3.8s forwards,
-                       subtlePulse 3s ease-in-out 5.5s infinite;
+            animation: loaderFadeUp 1.4s var(--ease-out-expo) 3.8s forwards;
             transition: background 0.8s var(--ease-out-expo),
                         color 0.8s var(--ease-out-expo),
-                        border-color 0.8s var(--ease-out-expo),
-                        transform 0.8s var(--ease-out-expo);
+                        border-color 0.8s var(--ease-out-expo);
         }
 
         .btn-enter:hover {
             background: var(--color-cream-100);
             color: var(--color-blue-900);
             border-color: var(--color-cream-100);
-            transform: scale(1.04);
         }
 
         /* =========================================
@@ -268,9 +269,9 @@
         }
 
         .nav-logo img {
-            width: 80px; 
+            width: 60px;
             height: auto;
-            filter: brightness(0) invert(1); 
+            filter: brightness(0) invert(1);
             transition: opacity 0.5s ease;
         }
 
@@ -335,11 +336,11 @@
             line-height: 0.8;
             text-decoration: none;
             margin-bottom: 2rem;
-            transform: translateY(40px);
+            transform: translateY(24px);
             opacity: 0;
             transition: transform 1s var(--ease-out-expo), opacity 1s var(--ease-out-expo), color 0.4s ease;
         }
-        .menu-link:hover { color: var(--color-red-400); padding-left: 2rem; } 
+        body.menu-open .menu-link:hover { color: var(--color-red-400); transform: translateX(16px); }
 
         .menu-sublink {
             color: var(--color-blue-400); 
@@ -407,10 +408,10 @@
             /* Atmospheric soft vignette */
             background: radial-gradient(circle at 80% 20%, var(--color-surface-page) 0%, #E8DFCC 100%);
         }
-        .section-title { 
-            font-size: clamp(3rem, 6vw, 6rem); 
-            color: var(--color-brand-primary); 
-            position: sticky; 
+        .section-title {
+            font-size: clamp(3rem, 6vw, 6rem);
+            color: var(--color-ink);
+            position: sticky;
             top: calc(50vh - 80px - 3rem);
         }
         .story-content p { margin-bottom: 5rem; color: var(--color-text-body); max-width: 800px; }
@@ -435,29 +436,38 @@
             background: radial-gradient(circle at 20% 80%, var(--color-surface-page) 0%, #E8DFCC 100%);
         }
         
-        .events-header { text-align: center; margin-bottom: 20vh; }
-        .events-header h2 { font-size: clamp(4rem, 8vw, 8rem); color: var(--color-brand-secondary); }
+        .events-header { text-align: left; margin-bottom: 8rem; }
+        .events-header h2 { font-size: clamp(4rem, 8vw, 8rem); color: var(--color-ink); }
 
         .event-item {
             display: grid;
-            grid-template-columns: 3fr 7fr; 
+            grid-template-columns: 3fr 7fr;
             gap: 15vw;
             margin-bottom: 25vh;
             padding-top: 8vh;
-            border-top: 1px solid rgba(200, 187, 158, 0.4);
+            border-top: 1px solid #9C8355;
             align-items: flex-start;
         }
 
         .event-meta {
-            color: var(--color-brand-primary);
+            color: var(--color-verdigris);
             position: sticky;
             top: calc(50vh - 80px - 3rem);
         }
-        .event-date { font-size: clamp(1.2rem, 2vw, 2rem); margin-bottom: 1rem; color: var(--color-blue-700); }
+        .event-date { font-size: clamp(1.2rem, 2vw, 2rem); margin-bottom: 1rem; color: var(--color-verdigris); }
         .event-time { font-size: 1.1rem; opacity: 0.8; }
         .event-location { font-size: 1.1rem; margin-top: 1rem; color: var(--color-text-body); }
 
-        .event-details h3 { font-size: clamp(3rem, 6vw, 6rem); color: var(--color-brand-primary); margin-bottom: 3rem; line-height: 0.9; }
+        .event-number {
+            font-family: 'Fondamento', cursive;
+            font-size: 0.75rem;
+            color: #9C8355;
+            letter-spacing: 0.2em;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .event-details h3 { font-size: clamp(3rem, 6vw, 6rem); color: var(--color-ink); margin-bottom: 3rem; line-height: 0.9; }
         .event-details p { color: var(--color-text-body); max-width: 800px; }
 
         /* TRAVEL SECTION */
@@ -485,18 +495,21 @@
             background: linear-gradient(rgba(30, 58, 74, 0.7), rgba(42, 31, 20, 0.9)), url('assets/Florals%202.png') center/cover no-repeat;
             background-attachment: fixed;
         }
-        .footer-cta h2 { color: var(--color-cream-100); font-size: clamp(4rem, 10vw, 11rem); margin-bottom: 4rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .footer-cta h2 { color: var(--color-cream-100); font-size: clamp(4rem, 10vw, 11rem); margin-bottom: 4rem; }
         .footer-btn {
             padding: 1.5rem 6rem;
             border: 1px solid rgba(242, 232, 213, 0.4);
             color: var(--color-cream-100);
             text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 100px;
-            transition: all 0.8s var(--ease-out-expo);
+            font-family: 'Fondamento', cursive;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 0;
+            transition: background 0.8s var(--ease-out-expo), color 0.8s var(--ease-out-expo), border-color 0.8s var(--ease-out-expo);
             backdrop-filter: blur(5px);
         }
-        .footer-btn:hover { background: var(--color-cream-100); color: var(--color-blue-900); border-color: var(--color-cream-100); transform: scale(1.05); letter-spacing: 0.05em; }
+        .footer-btn:hover { background: var(--color-cream-100); color: var(--color-blue-900); border-color: var(--color-cream-100); }
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
@@ -535,7 +548,7 @@
             .hero-meta { font-size: 0.9rem; }
 
             /* Body font */
-            .body-font { font-size: clamp(1.4rem, 5.5vw, 2rem); }
+            .body-font { font-size: clamp(1rem, 4vw, 1.3rem); }
 
             /* Story */
             .section-title { font-size: clamp(2.5rem, 9vw, 4rem); }
@@ -574,7 +587,7 @@
             <div class="loader-divider"></div>
             <div class="loader-text-group">
                 <p class="statement-font loader-names">Sam & Riley</p>
-                <p class="subheader-font loader-date">Amsterdam · August 2026</p>
+                <p class="loader-date">AMSTERDAM · XV · VIII · MMXXVI</p>
             </div>
         </div>
         <button id="enter-btn" class="subheader-font btn-enter">Enter</button>
@@ -608,10 +621,12 @@
     <main id="home">
         <section class="hero">
             <div class="hero-bg"></div>
-            <h1 class="statement-font hero-title reveal-up delay-2">Sam and Riley<br>are getting married</h1>
-            <div class="hero-meta subheader-font reveal-up delay-3">
-                August 15th, 2026<br>
-                Amsterdam, the Netherlands
+            <div class="reveal-up delay-1" style="z-index:2;">
+                <p class="subheader-font" style="font-size:0.85rem;letter-spacing:0.35em;color:rgba(242,232,213,0.65);margin-bottom:1rem;text-transform:uppercase;">Are getting married</p>
+                <h1 class="statement-font hero-title" style="font-size:clamp(5rem,12vw,13rem);">Sam and Riley</h1>
+            </div>
+            <div class="hero-meta subheader-font reveal-up delay-2">
+                15 August 2026 · Hotel De L'Europe
             </div>
         </section>
 
@@ -632,6 +647,7 @@
 
         <section class="events-container" id="events">
             <div class="events-header reveal-up">
+                <p class="subheader-font" style="font-size:0.65rem;letter-spacing:0.3em;color:#4A6B5A;text-transform:uppercase;margin-bottom:1rem;">Programme</p>
                 <h2 class="statement-font">Events</h2>
             </div>
             
@@ -641,6 +657,7 @@
                     <div class="event-time">5:30 PM - 6:30 PM</div>
                 </div>
                 <div class="event-details">
+                    <span class="event-number">I.</span>
                     <h3 class="statement-font">Amsterdam canal cruise</h3>
                     <p class="body-font">We will cruise aboard the Wolk through Amsterdam's canals and disembark at the welcome party venue (The LuminAir). There will be an open bar of wine, beer, and soft drinks. <br><br>Dress code: White Party! Since there’s no bride at this wedding, everyone gets to wear white.</p>
                 </div>
@@ -653,6 +670,7 @@
                     <div class="event-location">LuminAir</div>
                 </div>
                 <div class="event-details">
+                    <span class="event-number">II.</span>
                     <h3 class="statement-font">The welcome</h3>
                     <p class="body-font">Meet us in the sky at LuminAir for a night of great views, great drinks, and even better company. <br><br>Dress code: White Party! Since there’s no bride at this wedding, everyone gets to wear white.</p>
                 </div>
@@ -665,8 +683,9 @@
                     <div class="event-location">Hotel De L'Europe</div>
                 </div>
                 <div class="event-details">
+                    <span class="event-number">III.</span>
                     <h3 class="statement-font">The wedding</h3>
-                    <p class="body-font">The celebration continues with our wedding ceremony, where we’ll officially tie the knot surrounded by all of you. <br><br>Dress Code: For the Boys: black-tie if that is fun for you. Otherwise, summer cocktail attire. For the Ladies: Floor-length or cocktail dress would be appropriate.</p>
+                    <p class="body-font">The celebration continues with our wedding ceremony, where we’ll officially tie the knot surrounded by all of you. <br><br>Dress Code: Gentlemen: black tie or summer cocktail attire. For the Ladies: Floor-length or cocktail dress would be appropriate.</p>
                 </div>
             </div>
 
@@ -677,6 +696,7 @@
                     <div class="event-location">Freddy's Bar</div>
                 </div>
                 <div class="event-details">
+                    <span class="event-number">IV.</span>
                     <h3 class="statement-font">The reception</h3>
                     <p class="body-font">Dinner may be over, but the celebration is just getting started! Join us at Freddy’s for the reception as we keep the evening going with great music, great company, and plenty of good cheer.</p>
                 </div>
@@ -712,6 +732,7 @@
         </section>
 
         <footer class="footer-cta reveal-up">
+            <img src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Sam &amp; Riley Monogram" class="reveal-up" style="width:60px;height:auto;filter:brightness(0) invert(1);margin-bottom:2rem;opacity:0.85;">
             <h2 class="statement-font reveal-up delay-1">Join us</h2>
             <div class="reveal-up delay-2" style="margin-top: 3rem;">
                 <a href="#rsvp" class="footer-btn subheader-font">RSVP</a>
@@ -757,7 +778,7 @@
             // Intersection Observer for Scroll Reveals
             const observerOptions = {
                 root: null,
-                rootMargin: "0px 0px -10% 0px", 
+                rootMargin: "0px 0px -15% 0px",
                 threshold: 0.1
             };
 
