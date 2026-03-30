@@ -871,6 +871,55 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
     opacity: 0.35;
 }
 
+/* Card deck interaction hint */
+.rsvp-card-hint {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+    opacity: 0.6;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* RSVP section intro */
+.rsvp-intro {
+    text-align: center;
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    width: 100%;
+    max-width: 620px;
+}
+
+.rsvp-intro__monogram {
+    width: 50px;
+    height: auto;
+    opacity: 0.3;
+    margin: 0 auto 2rem;
+    display: block;
+}
+
+.rsvp-intro__label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--color-verdigris);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.rsvp-intro__heading {
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    color: var(--color-ink);
+    line-height: 0.85;
+    margin-bottom: 1.5rem;
+}
+
+.rsvp-intro__body {
+    max-width: 400px;
+    margin: 0 auto;
+    opacity: 0.65;
+}
+
 /* RSVP mobile */
 @media (max-width: 768px) {
     .rsvp-progress { margin-bottom: 3rem; }
