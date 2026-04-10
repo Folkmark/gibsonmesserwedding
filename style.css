@@ -361,7 +361,6 @@ body.menu-open { overflow-y: hidden; }
 }
 
 .prop-img {
-    max-height: 18vh;
     width: auto;
     filter: drop-shadow(0 10px 20px rgba(42, 31, 20, 0.18));
 }
@@ -369,13 +368,15 @@ body.menu-open { overflow-y: hidden; }
 .prop-ashtray {
     position: relative;
     z-index: 1;
+    height: 220px;
     transform: rotate(-6deg);
 }
 
 .prop-matchbook {
     position: relative;
     z-index: 2;
-    margin-left: -2.5rem;
+    height: 90px;
+    margin-left: -2rem;
     transform: rotate(7deg) translateY(-1rem);
 }
 
