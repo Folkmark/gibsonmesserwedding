@@ -343,6 +343,42 @@ body.menu-open { overflow-y: hidden; }
 
 .image-wrapper.visible img { transform: scale(1); }
 
+/* --- Props Break ------------------------------------------- */
+.props-break {
+    width: 100vw;
+    padding: 12vh 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-cream-200);
+}
+
+.props-duo {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.prop-img {
+    max-height: 38vh;
+    width: auto;
+    filter: drop-shadow(0 20px 40px rgba(42, 31, 20, 0.18));
+}
+
+.prop-ashtray {
+    position: relative;
+    z-index: 1;
+    transform: rotate(-6deg);
+}
+
+.prop-matchbook {
+    position: relative;
+    z-index: 2;
+    margin-left: -5rem;
+    transform: rotate(7deg) translateY(-1rem);
+}
+
 /* --- Events ------------------------------------------------ */
 .events-container {
     padding: var(--section-padding) 5vw;
