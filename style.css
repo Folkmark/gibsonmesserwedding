@@ -361,7 +361,7 @@ body.menu-open { overflow-y: hidden; }
 }
 
 .prop-img {
-    max-height: 18vh;
+    max-height: 11vh;
     width: auto;
     filter: drop-shadow(0 10px 20px rgba(42, 31, 20, 0.18));
 }
