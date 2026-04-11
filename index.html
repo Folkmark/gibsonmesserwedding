@@ -1164,7 +1164,6 @@
                     const tx = -p * 600;
                     const deg = -6 + p * 360;
                     ashtray.style.transform = `translateX(${tx}px) rotate(${deg}deg)`;
-                    ashtray.style.opacity = Math.max(0, 1 - p * 2);
                 }
                 window.addEventListener('scroll', onScroll, { passive: true });
                 onScroll();
