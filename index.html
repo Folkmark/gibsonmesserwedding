@@ -64,9 +64,17 @@
             /* Spacing & Motion (Awwwards Standards) */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-in-out-dramatic: cubic-bezier(0.77, 0, 0.175, 1);
-            
+
+            /* Line height — tuned per typeface */
+            --lh-display: 0.85;      /* Lavishly Yours — large display headings */
+            --lh-heading: 0.9;       /* Lavishly Yours — section/card headings */
+            --lh-label:   1.4;       /* Fondamento — labels, nav, buttons */
+            --lh-body:    1.65;      /* Square Peg — body copy */
+
             /* EXPANDED BREATHING ROOM */
-            --section-padding: clamp(12rem, 25vh, 25rem); 
+            --section-padding: clamp(12rem, 25vh, 25rem);
+            --space-block:        6rem;
+            --space-block-mobile: 3rem;
         }
 
         /* Base Reset */
@@ -112,14 +120,14 @@
         }
 
         /* Typography Assignments */
-        .statement-font { font-family: 'Viaoda Libre', cursive; text-transform: none; }
-        .subheader-font { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; text-transform: none; }
-        
+        .statement-font { font-family: 'Viaoda Libre', cursive; line-height: var(--lh-heading); text-transform: none; }
+        .subheader-font { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; line-height: var(--lh-label); text-transform: none; }
+
         .body-font {
             font-family: 'Square Peg', cursive;
             letter-spacing: 0.04em;
             font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-            line-height: 1.7;
+            line-height: var(--lh-body);
             text-transform: none;
         }
 
@@ -382,7 +390,7 @@
         .menu-link {
             color: var(--color-surface-page);
             font-size: clamp(4rem, 8vw, 10rem);
-            line-height: 0.8;
+            line-height: var(--lh-display);
             text-decoration: none;
             margin-bottom: 2rem;
             transform: translateY(24px);
@@ -430,12 +438,12 @@
             background-attachment: fixed; 
             z-index: -1;
         }
-        .hero-title { 
-            font-size: clamp(4rem, 10vw, 11rem); 
-            color: var(--color-cream-100); 
-            line-height: 0.75; 
-            margin-bottom: 0; 
-            z-index: 2; 
+        .hero-title {
+            font-size: clamp(4rem, 10vw, 11rem);
+            color: var(--color-cream-100);
+            line-height: var(--lh-display);
+            margin-bottom: 0;
+            z-index: 2;
         }
         .hero-meta { 
             position: absolute;
@@ -482,7 +490,7 @@
             position: sticky;
             top: calc(50vh - 80px - 3rem);
         }
-        .story-content p { margin-bottom: 5rem; color: var(--color-text-body); max-width: 800px; }
+        .story-content p { margin-bottom: var(--space-block); color: var(--color-text-body); max-width: 800px; }
 
         /* IMAGE BREAK */
         .image-break { 
@@ -571,7 +579,7 @@
         .card-title {
             font-size: clamp(2.2rem, 4vw, 3.2rem);
             color: var(--color-ink);
-            line-height: 0.9;
+            line-height: var(--lh-heading);
         }
 
         .card-rule {
@@ -593,7 +601,7 @@
         .card-desc {
             font-family: 'Square Peg', cursive;
             font-size: clamp(1rem, 1.5vw, 1.2rem);
-            line-height: 1.7;
+            line-height: var(--lh-body);
             letter-spacing: 0.04em;
             color: var(--color-ink);
         }
@@ -611,7 +619,7 @@
             margin-top: 15vh;
         }
         .travel-heading { color: var(--color-brand-secondary); font-size: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(200, 187, 158, 0.4); padding-bottom: 1rem; }
-        .travel-block { margin-bottom: 8rem; }
+        .travel-block { margin-bottom: var(--space-block); }
 
         /* LINKS */
         a.inline-link { color: var(--color-text-link); text-decoration: none; border-bottom: 1px solid rgba(200, 187, 158, 0.4); transition: all 0.4s; }
@@ -620,7 +628,7 @@
         /* FOOTER CTA */
         .footer-cta {
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            background: linear-gradient(rgba(30, 58, 74, 0.7), rgba(42, 31, 20, 0.9)), url('assets/Florals%202.png') center/cover no-repeat;
+            background: linear-gradient(rgba(30, 58, 74, 0.7), rgba(42, 31, 20, 0.9)), url('assets/florals-2.png') center/cover no-repeat;
             background-attachment: fixed;
         }
         .footer-cta h2 { color: var(--color-cream-100); font-size: clamp(4rem, 10vw, 11rem); margin-bottom: 4rem; }
@@ -646,7 +654,7 @@
             .section-title, .event-meta { position: static; margin-bottom: 2rem; }
             .image-break { padding: 15vh 5vw; justify-content: center; }
             .image-wrapper { width: 100%; }
-            .travel-block { margin-bottom: 5rem; }
+            .travel-block { margin-bottom: var(--space-block); }
             .hero-meta { text-align: left; right: auto; left: 5vw; }
         }
 
@@ -694,7 +702,7 @@
 
             /* Story */
             .section-title { font-size: clamp(2.5rem, 9vw, 4rem); }
-            .story-content p { margin-bottom: 2.5rem; }
+            .story-content p { margin-bottom: var(--space-block-mobile); }
 
             /* Image break */
             .image-break { padding: 8vh 5vw; }
@@ -724,7 +732,7 @@
 
             /* Travel */
             .travel-grid { margin-top: 5vh; }
-            .travel-block { margin-bottom: 3rem; }
+            .travel-block { margin-bottom: var(--space-block-mobile); }
             .travel-heading { font-size: 1.5rem; }
 
             /* Footer */
