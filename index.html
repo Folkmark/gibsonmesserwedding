@@ -1148,6 +1148,27 @@
                     revealObserver.observe(element);
                 }
             });
+
+            // Ashtray roll-away on scroll
+            (function() {
+                const ashtray = document.querySelector('.prop-ashtray');
+                const section = document.querySelector('.props-break');
+                if (!ashtray || !section) return;
+                ashtray.style.willChange = 'transform, opacity';
+                function onScroll() {
+                    const rect = section.getBoundingClientRect();
+                    const vh = window.innerHeight;
+                    // p=0 when section bottom reaches viewport bottom (just visible)
+                    // p=1 when section bottom reaches viewport top (scrolled past)
+                    const p = Math.max(0, Math.min(1, 1 - rect.bottom / vh));
+                    const tx = -p * 600;
+                    const deg = -6 + p * 360;
+                    ashtray.style.transform = `translateX(${tx}px) rotate(${deg}deg)`;
+                    ashtray.style.opacity = Math.max(0, 1 - p * 2);
+                }
+                window.addEventListener('scroll', onScroll, { passive: true });
+                onScroll();
+            })();
         });
     </script>
     <script src="rsvp/rsvp.js"></script>
