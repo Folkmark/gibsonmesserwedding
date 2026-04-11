@@ -43,8 +43,16 @@
     --ease-out-expo:         cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-dramatic:  cubic-bezier(0.77, 0, 0.175, 1);
 
+    /* Line height — tuned per typeface */
+    --lh-display: 0.85;      /* Lavishly Yours — large display headings */
+    --lh-heading: 0.9;       /* Lavishly Yours — section/card headings */
+    --lh-label:   1.4;       /* Fondamento — labels, nav, buttons */
+    --lh-body:    1.65;      /* Square Peg — body copy */
+
     /* Spacing */
     --section-padding: clamp(12rem, 25vh, 25rem);
+    --space-block:        6rem;    /* Between content blocks (desktop) */
+    --space-block-mobile: 3rem;
 }
 
 /* --- Reset ------------------------------------------------- */
@@ -69,13 +77,13 @@ h1, h2, h3, h4, h5, h6, p, a, span, button, li {
 }
 
 /* --- Typography Utilities ---------------------------------- */
-.statement-font  { font-family: 'Lavishly Yours', cursive; text-transform: none; }
-.subheader-font  { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; text-transform: none; }
+.statement-font  { font-family: 'Lavishly Yours', cursive; line-height: var(--lh-heading); text-transform: none; }
+.subheader-font  { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; line-height: var(--lh-label); text-transform: none; }
 .body-font {
     font-family: 'Square Peg', cursive;
     letter-spacing: 0.04em;
     font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-    line-height: 1.7;
+    line-height: var(--lh-body);
     text-transform: none;
 }
 
@@ -197,7 +205,7 @@ body.menu-open .menu-overlay { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%
 .menu-link {
     color: var(--color-surface-page);
     font-size: clamp(4rem, 8vw, 10rem);
-    line-height: 0.8;
+    line-height: var(--lh-display);
     text-decoration: none;
     margin-bottom: 2rem;
     transform: translateY(24px);
@@ -260,7 +268,7 @@ body.menu-open { overflow-y: hidden; }
 .hero-title {
     font-size: clamp(4rem, 10vw, 11rem);
     color: var(--color-cream-100);
-    line-height: 0.75;
+    line-height: var(--lh-display);
     z-index: 2;
 }
 
@@ -292,7 +300,7 @@ body.menu-open { overflow-y: hidden; }
 .page-hero h1 {
     font-size: clamp(4rem, 10vw, 11rem);
     color: var(--color-cream-100);
-    line-height: 0.75;
+    line-height: var(--lh-display);
     z-index: 2;
 }
 
@@ -313,7 +321,7 @@ body.menu-open { overflow-y: hidden; }
     top: calc(50vh - 80px - 3rem);
 }
 
-.story-content p { margin-bottom: 5rem; color: var(--color-text-body); max-width: 800px; }
+.story-content p { margin-bottom: var(--space-block); color: var(--color-text-body); max-width: 800px; }
 .story-content p:last-child { margin-bottom: 0; }
 
 /* --- Image Break ------------------------------------------- */
@@ -420,7 +428,7 @@ body.menu-open { overflow-y: hidden; }
     display: block;
 }
 
-.event-details h3 { font-size: clamp(3rem, 6vw, 6rem); color: var(--color-ink); margin-bottom: 3rem; line-height: 0.9; }
+.event-details h3 { font-size: clamp(3rem, 6vw, 6rem); color: var(--color-ink); margin-bottom: 3rem; line-height: var(--lh-heading); }
 .event-details p { color: var(--color-text-body); max-width: 800px; }
 
 /* --- Travel ------------------------------------------------ */
@@ -445,7 +453,7 @@ body.menu-open { overflow-y: hidden; }
     padding-bottom: 1rem;
 }
 
-.travel-block { margin-bottom: 8rem; }
+.travel-block { margin-bottom: var(--space-block); }
 .travel-block:last-child { margin-bottom: 0; }
 
 /* --- Generic content sections (RSVP, Registry, FAQ) -------- */
@@ -461,7 +469,7 @@ body.menu-open { overflow-y: hidden; }
     align-items: flex-start;
 }
 
-.content-block { margin-bottom: 8rem; }
+.content-block { margin-bottom: var(--space-block); }
 .content-block:last-child { margin-bottom: 0; }
 
 .content-heading {
@@ -536,7 +544,7 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     .image-wrapper { width: 100%; }
 
     .event-item { padding-top: 3rem; margin-bottom: 15vh; }
-    .travel-block { margin-bottom: 5rem; }
+    .travel-block { margin-bottom: var(--space-block); }
 
     .hero-meta { text-align: left; right: auto; left: 5vw; }
 }
@@ -566,7 +574,7 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
 
     /* Story */
     .section-title { font-size: clamp(2.5rem, 9vw, 4rem); }
-    .story-content p { margin-bottom: 2.5rem; }
+    .story-content p { margin-bottom: var(--space-block-mobile); }
 
     /* Image break */
     .image-break { padding: 8vh 5vw; }
@@ -581,11 +589,11 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
 
     /* Travel */
     .travel-grid { margin-top: 5vh; }
-    .travel-block { margin-bottom: 3rem; }
+    .travel-block { margin-bottom: var(--space-block-mobile); }
     .travel-heading { font-size: 1.5rem; }
 
     /* Content sections (FAQ, RSVP, Registry) */
-    .content-block { margin-bottom: 4rem; }
+    .content-block { margin-bottom: var(--space-block-mobile); }
     .content-heading { font-size: clamp(1.2rem, 4vw, 1.8rem); }
 
     /* Footer */
@@ -695,7 +703,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 .rsvp-step__heading {
     font-size: clamp(3rem, 6vw, 5.5rem);
     color: var(--color-ink);
-    line-height: 0.85;
+    line-height: var(--lh-display);
     margin-bottom: 2rem;
 }
 
@@ -944,7 +952,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 .rsvp-intro__heading {
     font-size: clamp(3.5rem, 7vw, 7rem);
     color: var(--color-ink);
-    line-height: 0.85;
+    line-height: var(--lh-display);
     margin-bottom: 1.5rem;
 }
 
