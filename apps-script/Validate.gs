@@ -13,6 +13,13 @@ function validatePayload(payload) {
 
   var valid = ['yes', 'no', 'not_invited'];
 
+  if (payload.dietary_notes && String(payload.dietary_notes).length > 500) {
+    throw new Error('dietary_notes exceeds 500 characters');
+  }
+  if (payload.notes && String(payload.notes).length > 500) {
+    throw new Error('notes exceeds 500 characters');
+  }
+
   payload.guests.forEach(function (g, idx) {
     if (!g.guest_id)    throw new Error('guest[' + idx + '] missing guest_id');
     if (valid.indexOf(g.attending_saturday)       < 0) throw new Error('guest[' + idx + '] invalid attending_saturday');

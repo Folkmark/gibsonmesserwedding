@@ -6,6 +6,20 @@
     <meta name="description" content="Wedding of Riley and Sam, Amsterdam 2026">
     <title>Riley and Sam — Amsterdam</title>
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Riley and Sam — Amsterdam">
+    <meta property="og:description" content="Wedding of Riley and Sam, Amsterdam 2026">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rileyandsam.com/">
+    <meta property="og:image" content="https://rileyandsam.com/assets/apple-touch-icon.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Riley and Sam — Amsterdam">
+    <meta name="twitter:description" content="Wedding of Riley and Sam, Amsterdam 2026">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Lavishly+Yours&family=Square+Peg&display=swap" rel="stylesheet">
@@ -722,17 +736,19 @@
 </head>
 <body>
 
+    <a class="skip-link" href="#home">Skip to content</a>
+
     <div class="texture-overlay"></div>
 
     <!-- Single floating monogram — animates from center to nav on load -->
     <div id="logo-floater">
-        <img id="site-logo" src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Sam &amp; Riley Monogram">
+        <img id="site-logo" src="assets/monogram.png" alt="Sam &amp; Riley Monogram">
     </div>
 
     <div id="loader">
         <div class="loader-content">
             <!-- Invisible spacer — same dimensions as the floating monogram so divider/text align correctly -->
-            <img class="loader-monogram-slot" src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" aria-hidden="true">
+            <img class="loader-monogram-slot" src="assets/monogram.png" aria-hidden="true">
             <div class="loader-divider"></div>
             <div class="loader-text-group">
                 <p class="statement-font loader-names">Sam & Riley</p>
@@ -793,8 +809,8 @@
 
         <section class="props-break">
             <div class="props-duo">
-                <img class="prop-img prop-ashtray reveal-up" src="assets/Ashtray.png" alt="Ashtray">
-                <img class="prop-img prop-matchbook reveal-up delay-1" src="assets/Match Book.png" alt="Match Book">
+                <img class="prop-img prop-ashtray reveal-up" src="assets/Ashtray.png" alt="Ashtray" loading="lazy">
+                <img class="prop-img prop-matchbook reveal-up delay-1" src="assets/match-book.png" alt="Match Book" loading="lazy">
             </div>
         </section>
 
@@ -907,7 +923,7 @@
 
             <!-- Section intro -->
             <div class="rsvp-intro reveal-up">
-                <img src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="" class="rsvp-intro__monogram">
+                <img src="assets/monogram.png" alt="" class="rsvp-intro__monogram" loading="lazy">
                 <p class="subheader-font rsvp-intro__label">R.S.V.P.</p>
                 <h2 class="statement-font rsvp-intro__heading">Join us</h2>
                 <p class="body-font rsvp-intro__body">Please respond by <strong>1 June 2026</strong>.</p>
@@ -980,11 +996,11 @@
                     <p class="rsvp-step__body body-font">Let us know about any dietary restrictions or allergies so we can take care of you properly.</p>
                     <div class="rsvp-field">
                         <label class="rsvp-label subheader-font" for="input-dietary">Dietary restrictions or allergies</label>
-                        <textarea id="input-dietary" class="rsvp-textarea" rows="3" placeholder="None, vegetarian, nut allergy&hellip;"></textarea>
+                        <textarea id="input-dietary" class="rsvp-textarea" rows="3" maxlength="500" placeholder="None, vegetarian, nut allergy&hellip;"></textarea>
                     </div>
                     <div class="rsvp-field">
                         <label class="rsvp-label subheader-font" for="input-notes">Anything else we should know?</label>
-                        <textarea id="input-notes" class="rsvp-textarea" rows="3" placeholder="Optional"></textarea>
+                        <textarea id="input-notes" class="rsvp-textarea" rows="3" maxlength="500" placeholder="Optional"></textarea>
                     </div>
                     <button class="rsvp-btn subheader-font" id="btn-submit">
                         <span class="btn-label">Send our response</span>
@@ -995,19 +1011,19 @@
                 <!-- CONFIRMATION -->
                 <div class="rsvp-step" id="step-confirmation">
                     <div class="rsvp-confirmation-monogram">
-                        <img src="assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="">
+                        <img src="assets/monogram.png" alt="">
                     </div>
                     <h2 class="rsvp-step__heading statement-font" id="confirmation-heading"></h2>
                     <p class="rsvp-step__body body-font" id="confirmation-body"></p>
                     <p class="body-font" style="margin-top:2.5rem;opacity:0.6;font-size:0.85em;">
-                        Changed your mind? Email us at <a href="mailto:[email]" class="inline-link">[email]</a>.
+                        Changed your mind? Email us at <a href="mailto:gibsonmesserwedding@gmail.com" class="inline-link">gibsonmesserwedding@gmail.com</a>.
                     </p>
                 </div>
 
                 <!-- ERROR -->
                 <div class="rsvp-step" id="step-error">
                     <h2 class="rsvp-step__heading statement-font">Something went wrong</h2>
-                    <p class="rsvp-step__body body-font">We weren&rsquo;t able to save your response. Please try again or email us at <a href="mailto:[email]" class="inline-link">[email]</a>.</p>
+                    <p class="rsvp-step__body body-font">We weren&rsquo;t able to save your response. Please try again or email us at <a href="mailto:gibsonmesserwedding@gmail.com" class="inline-link">gibsonmesserwedding@gmail.com</a>.</p>
                     <button class="rsvp-btn subheader-font" id="btn-retry"><span class="btn-label">Try again</span></button>
                 </div>
 

@@ -16,6 +16,9 @@ function findHousehold(rawName) {
   }
 
   var name  = rawName.trim().toLowerCase();
+
+  if (name.length < 2) return { found: false };
+
   var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_GUESTS);
   var data  = sheet.getDataRange().getValues();
 
@@ -26,8 +29,8 @@ function findHousehold(rawName) {
   var col = {};
   headers.forEach(function (h, i) { col[String(h).trim()] = i; });
 
-  // Match: does the entered text contain the guest's first or last name,
-  // or does their display name contain the entered text?
+  // Match: require that the entered text contains the guest's full first name
+  // or full last name, or that the display name contains the entered text.
   var rows = data.slice(1);
   var match = null;
 
@@ -38,8 +41,8 @@ function findHousehold(rawName) {
     var display = String(row[col['display_name']] || '').toLowerCase();
 
     if (
-      name.indexOf(first)   >= 0 ||
-      name.indexOf(last)    >= 0 ||
+      (first.length >= 2 && name.indexOf(first) >= 0) ||
+      (last.length  >= 2 && name.indexOf(last)  >= 0) ||
       display.indexOf(name) >= 0 ||
       name.indexOf(display) >= 0
     ) {
