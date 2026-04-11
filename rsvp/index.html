@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="RSVP for the Gibson–Messer wedding in Amsterdam, August 2026.">
     <title>RSVP — Gibson &amp; Messer</title>
+    <meta property="og:title" content="RSVP — Gibson & Messer">
+    <meta property="og:description" content="RSVP for the Gibson–Messer wedding in Amsterdam, August 2026.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rileyandsam.com/rsvp/">
+    <meta property="og:image" content="https://rileyandsam.com/assets/apple-touch-icon.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="RSVP — Gibson & Messer">
+    <meta name="twitter:description" content="RSVP for the Gibson–Messer wedding in Amsterdam, August 2026.">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Lavishly+Yours&family=Square+Peg&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="texture-overlay"></div>
 
@@ -31,7 +43,7 @@
 
     <nav>
         <a href="/" class="nav-logo">
-            <img src="../assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="Gibson &amp; Messer Monogram">
+            <img src="../assets/monogram.png" alt="Gibson &amp; Messer Monogram">
         </a>
         <div class="nav-right">
             <a href="/rsvp/" class="nav-rsvp subheader-font">RSVP</a>
@@ -41,7 +53,7 @@
         </div>
     </nav>
 
-    <main>
+    <main id="main">
         <section class="page-hero">
             <div class="page-hero-bg" style="background: linear-gradient(rgba(30,58,74,0.5), rgba(42,31,20,0.9)), url('../assets/Florals.jpg') center/cover no-repeat;"></div>
             <h1 class="statement-font reveal-up">Respond</h1>
@@ -66,6 +78,7 @@
                     <h2 class="rsvp-step__heading statement-font">Your name</h2>
                     <p class="rsvp-step__body body-font">Enter your name as it appears on your invitation.</p>
                     <div class="rsvp-field">
+                        <label class="sr-only" for="input-name">Your full name</label>
                         <input
                             type="text"
                             id="input-name"
@@ -139,6 +152,7 @@
                             id="input-dietary"
                             class="rsvp-textarea"
                             rows="3"
+                            maxlength="500"
                             placeholder="None, vegetarian, nut allergy&hellip;"
                         ></textarea>
                     </div>
@@ -148,6 +162,7 @@
                             id="input-notes"
                             class="rsvp-textarea"
                             rows="3"
+                            maxlength="500"
                             placeholder="Optional"
                         ></textarea>
                     </div>
@@ -160,19 +175,19 @@
                 <!-- CONFIRMATION -->
                 <div class="rsvp-step" id="step-confirmation">
                     <div class="rsvp-confirmation-monogram">
-                        <img src="../assets/RileyandSamTwistingHeartMonogramwithCrown (1).png" alt="">
+                        <img src="../assets/monogram.png" alt="">
                     </div>
                     <h2 class="rsvp-step__heading statement-font" id="confirmation-heading"></h2>
                     <p class="rsvp-step__body body-font" id="confirmation-body"></p>
                     <p class="body-font" style="margin-top:2.5rem;opacity:0.6;font-size:0.85em;">
-                        Changed your mind? Email us at <a href="mailto:[email]" class="inline-link">[email]</a> and we&rsquo;ll update your response.
+                        Changed your mind? Email us at <a href="mailto:gibsonmesserwedding@gmail.com" class="inline-link">gibsonmesserwedding@gmail.com</a> and we&rsquo;ll update your response.
                     </p>
                 </div>
 
                 <!-- ERROR -->
                 <div class="rsvp-step" id="step-error">
                     <h2 class="rsvp-step__heading statement-font">Something went wrong</h2>
-                    <p class="rsvp-step__body body-font">We weren&rsquo;t able to save your response. Please try again or email us directly at <a href="mailto:[email]" class="inline-link">[email]</a>.</p>
+                    <p class="rsvp-step__body body-font">We weren&rsquo;t able to save your response. Please try again or email us directly at <a href="mailto:gibsonmesserwedding@gmail.com" class="inline-link">gibsonmesserwedding@gmail.com</a>.</p>
                     <button class="rsvp-btn subheader-font" id="btn-retry">
                         <span class="btn-label">Try again</span>
                     </button>

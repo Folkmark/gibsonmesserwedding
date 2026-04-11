@@ -40,7 +40,8 @@ function doPost(e) {
     return buildResponse(result);
 
   } catch (err) {
-    return buildResponse({ error: 'server_error', message: err.message });
+    Logger.log('doPost error: ' + err.message);
+    return buildResponse({ error: 'server_error', message: 'An unexpected error occurred.' });
   }
 }
 
