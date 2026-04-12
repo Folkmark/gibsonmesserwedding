@@ -268,7 +268,7 @@ body.menu-open { overflow-y: hidden; }
 .hero-title {
     font-size: clamp(5rem, 12vw, 13rem);
     color: var(--color-cream-100);
-    line-height: 1.2;
+    line-height: 1.0;
     margin-bottom: 0;
     z-index: 2;
     text-align: center;
