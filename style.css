@@ -296,6 +296,13 @@ body.menu-open { overflow-y: hidden; }
     gap: 0.65em;
 }
 
+.hero-bottom-left .statement-font {
+    font-weight: 700;
+    font-size: 1.5em;
+    line-height: 0;
+    vertical-align: middle;
+}
+
 .hero-city-crosses {
     color: #BE1622;
     font-size: 0.85em;
