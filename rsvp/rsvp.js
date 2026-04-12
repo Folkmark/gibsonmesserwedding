@@ -81,8 +81,9 @@
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     inEl.classList.add('step--entered');
-                    // Focus first interactive element for accessibility
-                    const focusable = inEl.querySelector('input, button:not(:disabled), textarea');
+                    // Focus first interactive element for accessibility;
+                    // [tabindex="-1"] targets the confirmation heading so screen readers announce it
+                    const focusable = inEl.querySelector('input, button:not(:disabled), textarea, [tabindex="-1"]');
                     if (focusable) focusable.focus({ preventScroll: true });
                 });
             });
@@ -249,7 +250,7 @@
     function renderHousehold() {
         const list = document.getElementById('household-members');
         list.innerHTML = state.household.members
-            .map(m => `<li class="rsvp-member">${escapeHtml(m.display_name)}</li>`)
+            .map((m, i) => `<li class="rsvp-member" style="transition-delay:${(0.12 + i * 0.1).toFixed(2)}s">${escapeHtml(m.display_name)}</li>`)
             .join('');
     }
 
@@ -293,6 +294,13 @@
             t.classList.toggle('is-selected', selected);
             t.setAttribute('aria-pressed', selected ? 'true' : 'false');
         });
+
+        // Row-level state feedback (supplementary — aria-pressed carries semantic state)
+        const row = btn.closest('.rsvp-guest-row');
+        if (row) {
+            row.classList.toggle('row--accepted', value === 'yes');
+            row.classList.toggle('row--declined', value === 'no');
+        }
 
         // Update state
         const g = state.guestResponses.find(r => r.guest_id === guestId);
