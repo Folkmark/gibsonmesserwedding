@@ -1182,6 +1182,163 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
     .rsvp-step__heading { font-size: clamp(2.5rem, 9vw, 4rem); }
 }
 
+/* --- RSVP Modal pop-up card --------------------------------- */
+
+/*
+ * The dialog is sized as the card itself (not full-viewport).
+ * Centering: position:fixed + top/left 50% + translate(-50%,-50%).
+ * Pop-up animation: translate(-50%, calc(-50% + 40px)) scale(0.93)
+ * → translate(-50%, -50%) scale(1) on .is-open.
+ * The offset is baked into the base transform so the animation
+ * `transform` property is the single source of truth.
+ */
+dialog.rsvp-modal {
+    /* Reset UA defaults */
+    padding: 0;
+    border: none;
+    outline: none;
+    margin: 0;
+
+    /* Sizing */
+    width: min(660px, 92vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+
+    /* Centering + pop-up card starting position */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    /* Appearance */
+    background: var(--color-cream-100);
+    box-shadow:
+        0 0 0 1px rgba(200, 187, 158, 0.25),
+        0 40px 120px rgba(15, 14, 12, 0.3);
+
+    /* Pop-up card animation: starts below centre, slightly small */
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 40px)) scale(0.93);
+    transition:
+        opacity    0.55s var(--ease-out-expo),
+        transform  0.65s var(--ease-out-expo);
+}
+
+dialog.rsvp-modal.is-open {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Backdrop: warm dark overlay with blur */
+dialog.rsvp-modal::backdrop {
+    background: rgba(15, 14, 12, 0);
+    backdrop-filter: blur(0px);
+    transition:
+        background       0.55s ease,
+        backdrop-filter  0.55s ease;
+}
+
+dialog.rsvp-modal.is-open::backdrop {
+    background: rgba(15, 14, 12, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+/* Sticky chrome strip — keeps the × visible while form scrolls */
+.rsvp-modal__chrome {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 0.5rem 0;
+    /* Gradient ensures the × reads against form content below */
+    background: linear-gradient(
+        to bottom,
+        var(--color-cream-100) 60%,
+        rgba(242, 232, 213, 0)
+    );
+    pointer-events: none; /* pass clicks through to form */
+}
+
+/* Close button */
+.rsvp-modal__close {
+    pointer-events: all;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--color-brass);
+    font-family: 'Fondamento', cursive;
+    font-size: 1.25rem;
+    cursor: pointer;
+    border-radius: 0;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.rsvp-modal__close:hover  { opacity: 1; }
+.rsvp-modal__close:focus  { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+/* Inner body — negative top margin so chrome gap is absorbed */
+.rsvp-modal__body {
+    margin-top: -0.5rem; /* overlap chrome padding so pips sit flush */
+}
+
+/* Override rsvp-section spacing inside the modal */
+dialog.rsvp-modal .rsvp-section {
+    padding: 1.5rem 3rem 4rem;
+    min-height: auto;
+    background: none;
+    display: block;
+    align-items: unset;
+}
+
+/* Loading indicator: three brass dots */
+.rsvp-modal__loader {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 0 7rem;
+}
+
+.rsvp-modal__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-brass);
+    opacity: 0.2;
+    animation: modal-dot-pulse 1.4s ease-in-out infinite;
+}
+.rsvp-modal__dot:nth-child(2) { animation-delay: 0.2s; }
+.rsvp-modal__dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes modal-dot-pulse {
+    0%, 80%, 100% { opacity: 0.2; transform: scale(0.85); }
+    40%            { opacity: 1;   transform: scale(1);    }
+}
+
+/* Modal-specific mobile overrides */
+@media (max-width: 560px) {
+    dialog.rsvp-modal .rsvp-section { padding: 1rem 1.5rem 3rem; }
+    dialog.rsvp-modal { max-height: 94vh; }
+}
+
+/* Reduced motion: skip the pop-up animation entirely */
+@media (prefers-reduced-motion: reduce) {
+    dialog.rsvp-modal {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        transition: none;
+    }
+    dialog.rsvp-modal::backdrop { transition: none; }
+    .rsvp-modal__dot { animation: none; opacity: 0.6; }
+}
+
 /* --- Accessibility ----------------------------------------- */
 
 .sr-only {

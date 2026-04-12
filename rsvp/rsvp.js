@@ -503,4 +503,68 @@
         init();
     }
 
+    // -------------------------------------------------------------------------
+    // Public reset API — called by rsvp-modal.js when the modal closes
+    // so the next open starts at a clean step 1.
+    // -------------------------------------------------------------------------
+
+    window.__rsvpReset = function () {
+        // Wipe state
+        state.currentStep    = 1;
+        state.enteredName    = '';
+        state.household      = null;
+        state.guestResponses = [];
+        state.dietary        = '';
+        state.notes          = '';
+        state.submitting     = false;
+        state.lastPayload    = null;
+
+        // Reset step visibility: strip all step classes, then re-activate step 1
+        Object.keys(STEP_IDS).forEach(function (key) {
+            var el = document.getElementById(STEP_IDS[key]);
+            if (el) el.classList.remove('step--active', 'step--entered', 'step--exiting');
+        });
+        var step1 = document.getElementById(STEP_IDS[1]);
+        if (step1) step1.classList.add('step--active', 'step--entered');
+
+        // Clear text inputs
+        var nameInput = document.getElementById('input-name');
+        if (nameInput) nameInput.value = '';
+        var dietInput = document.getElementById('input-dietary');
+        if (dietInput) dietInput.value = '';
+        var notesInput = document.getElementById('input-notes');
+        if (notesInput) notesInput.value = '';
+
+        // Clear inline errors
+        clearError('error-name');
+        clearError('error-saturday');
+
+        // Clear dynamically rendered rows / lists
+        ['household-members', 'saturday-rows', 'cruise-rows', 'party-rows'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.innerHTML = '';
+        });
+
+        // Re-disable continue buttons (they re-enable once valid selections are made)
+        var btnSat = document.getElementById('btn-saturday-next');
+        if (btnSat) btnSat.disabled = true;
+        var btnFri = document.getElementById('btn-friday-next');
+        if (btnFri) btnFri.disabled = true;
+
+        // Reset progress pips to step 1
+        document.querySelectorAll('.rsvp-progress__pip').forEach(function (pip) {
+            pip.classList.remove('is-active', 'is-complete');
+            if (pip.dataset.step === '1') pip.classList.add('is-active');
+        });
+        var progress = document.getElementById('rsvp-progress');
+        if (progress) progress.style.opacity = '1';
+
+        // Ensure no lingering loading state
+        setLoading(false);
+        var btnLookup = document.getElementById('btn-lookup');
+        if (btnLookup) btnLookup.disabled = false;
+        var btnSubmit = document.getElementById('btn-submit');
+        if (btnSubmit) btnSubmit.disabled = false;
+    };
+
 })();
