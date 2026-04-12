@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+  OG image template for rileyandsam.com
+  Source of truth for assets/og-image.png (1200 × 630 px)
+  To regenerate: python3 /tmp/gen_og_image.py  (from project root)
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>OG Image Preview — Riley &amp; Sam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Tangerine:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #1E3A4A;
+    }
+
+    .frame {
+      position: relative;
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+    }
+
+    /* Background photo */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('CityScape.jpeg');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(10%) sepia(20%) contrast(110%);
+    }
+
+    /* Brand overlay gradient: rgba(30,58,74,0.6) top → rgba(42,31,20,0.85) bottom */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(30, 58, 74, 0.60),
+        rgba(42, 31, 20, 0.85)
+      );
+    }
+
+    /* Centre content block */
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0 80px;
+    }
+
+    .monogram {
+      height: 88px;
+      width: auto;
+      filter: brightness(0) invert(1) sepia(0.2) brightness(0.95);
+      opacity: 0.88;
+      margin-bottom: 26px;
+    }
+
+    .rule {
+      width: 220px;
+      height: 1px;
+      background: #9C8355;
+      flex-shrink: 0;
+    }
+
+    .title {
+      font-family: 'Tangerine', 'FreeSerif', serif;
+      font-weight: 400;
+      font-size: 130px;
+      line-height: 1.05;
+      color: #F2E8D5;
+      text-align: center;
+      margin: 22px 0;
+      letter-spacing: 0.01em;
+    }
+
+    .sub {
+      font-family: 'Fondamento', 'Georgia', serif;
+      font-weight: 400;
+      font-size: 28px;
+      color: #C8BB9E;
+      text-align: center;
+      letter-spacing: 0.04em;
+      margin-top: 22px;
+    }
+
+    .name {
+      font-family: 'Fondamento', 'Georgia', serif;
+      font-weight: 400;
+      font-size: 22px;
+      color: #9C8355;
+      text-align: center;
+      letter-spacing: 0.06em;
+      margin-top: 12px;
+    }
+
+    /* URL bottom-right */
+    .url {
+      position: absolute;
+      bottom: 30px;
+      right: 44px;
+      font-family: 'Fondamento', 'Georgia', serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: #C8BB9E;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="bg"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <img class="monogram" src="monogram.png" alt="">
+      <div class="rule"></div>
+      <div class="title">Riley &amp; Sam</div>
+      <div class="rule"></div>
+      <div class="sub">Amsterdam &nbsp;·&nbsp; XV · VIII · MMXXVI</div>
+      <div class="name">Gibson–Messer</div>
+    </div>
+    <div class="url">rileyandsam.com</div>
+  </div>
+</body>
+</html>
