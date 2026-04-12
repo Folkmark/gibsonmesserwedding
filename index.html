@@ -988,16 +988,21 @@
                 <p class="body-font rsvp-intro__body">Please respond by <strong>1 June 2026</strong>.</p>
             </div>
 
-            <!-- Progress indicator -->
-            <div class="rsvp-progress" id="rsvp-progress" aria-hidden="true">
-                <span class="rsvp-progress__pip is-active" data-step="1"></span>
-                <span class="rsvp-progress__pip" data-step="2"></span>
-                <span class="rsvp-progress__pip" data-step="3"></span>
-                <span class="rsvp-progress__pip" data-step="4"></span>
-                <span class="rsvp-progress__pip" data-step="5"></span>
-            </div>
+            <!-- Card deck: two ghost layers behind the active card -->
+            <div class="rsvp-deck-wrap">
+                <div class="rsvp-deck-layer" aria-hidden="true"></div>
+                <div class="rsvp-deck-layer" aria-hidden="true"></div>
 
-            <div class="rsvp-form-wrapper" id="rsvp-wrapper">
+                <div class="rsvp-form-wrapper" id="rsvp-wrapper">
+
+                    <!-- Progress indicator — lives inside the card -->
+                    <div class="rsvp-progress" id="rsvp-progress" aria-hidden="true">
+                        <span class="rsvp-progress__pip is-active" data-step="1"></span>
+                        <span class="rsvp-progress__pip" data-step="2"></span>
+                        <span class="rsvp-progress__pip" data-step="3"></span>
+                        <span class="rsvp-progress__pip" data-step="4"></span>
+                        <span class="rsvp-progress__pip" data-step="5"></span>
+                    </div>
 
                 <!-- STEP 1 -->
                 <div class="rsvp-step step--active step--entered" id="step-name">
@@ -1073,7 +1078,8 @@
                     <div class="rsvp-confirmation-monogram">
                         <img src="assets/monogram.png" alt="">
                     </div>
-                    <h2 class="rsvp-step__heading statement-font" id="confirmation-heading"></h2>
+                    <h2 class="rsvp-step__heading statement-font" id="confirmation-heading" tabindex="-1"></h2>
+                    <div class="rsvp-confirmation-rule" aria-hidden="true"></div>
                     <p class="rsvp-step__body body-font" id="confirmation-body"></p>
                     <p class="body-font" style="margin-top:2.5rem;opacity:0.6;font-size:0.85em;">
                         Changed your mind? Email us at <a href="mailto:gibsonmesserwedding@gmail.com" class="inline-link">gibsonmesserwedding@gmail.com</a>.
@@ -1087,7 +1093,8 @@
                     <button class="rsvp-btn subheader-font" id="btn-retry"><span class="btn-label">Try again</span></button>
                 </div>
 
-            </div>
+                </div><!-- /.rsvp-form-wrapper -->
+            </div><!-- /.rsvp-deck-wrap -->
         </section>
 
         <!-- FAQ -->
