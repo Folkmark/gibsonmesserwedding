@@ -868,11 +868,21 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
     outline: none;
     border-radius: 0;
     -webkit-appearance: none;
-    transition: border-color 0.4s ease;
+    /* Brass underline draws left→right on focus */
+    background-image: linear-gradient(var(--color-brass), var(--color-brass));
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: left bottom;
+    transition:
+        border-color     0.4s ease,
+        background-size  0.45s var(--ease-out-expo);
 }
 
 .rsvp-input:focus,
-.rsvp-textarea:focus { border-color: var(--color-brass); }
+.rsvp-textarea:focus {
+    border-bottom-color: rgba(200, 187, 158, 0.2); /* dim default line so brass overlay reads cleanly */
+    background-size: 100% 1px;
+}
 
 .rsvp-input::placeholder,
 .rsvp-textarea::placeholder { color: var(--color-cream-400); font-size: 0.9em; }
@@ -909,6 +919,22 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 
 .rsvp-member:first-child { border-top: 1px solid rgba(200, 187, 158, 0.4); }
 
+/* Staggered member name entrance on step--entered */
+.rsvp-step .rsvp-member {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+        opacity   0.5s var(--ease-out-expo),
+        transform 0.5s var(--ease-out-expo);
+}
+.rsvp-step.step--entered .rsvp-member {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    .rsvp-step .rsvp-member { opacity: 1; transform: none; transition: none; }
+}
+
 /* Guest attendance rows */
 .rsvp-guest-rows { margin-bottom: 2rem; }
 
@@ -920,9 +946,19 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
     border-bottom: 1px solid rgba(200, 187, 158, 0.3);
     gap: 2rem;
     flex-wrap: wrap;
+    transition: background 0.6s var(--ease-out-expo);
 }
 
 .rsvp-guest-row:first-child { border-top: 1px solid rgba(200, 187, 158, 0.3); }
+
+/* Row-level acceptance state — supplementary to aria-pressed on toggles */
+.rsvp-guest-row.row--accepted {
+    background: rgba(74, 107, 90, 0.07); /* verdigris wash */
+}
+.rsvp-guest-row.row--declined .rsvp-guest-row__name {
+    opacity: 0.45;
+    transition: opacity 0.5s ease;
+}
 
 .rsvp-guest-row__name {
     font-family: 'Square Peg', cursive;
@@ -1033,12 +1069,58 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 .rsvp-form--loading .btn-spinner { display: inline-block; }
 .rsvp-form--loading .btn-label   { opacity: 0.5; }
 
-/* Confirmation monogram */
-.rsvp-confirmation-monogram { margin-bottom: 3rem; }
-.rsvp-confirmation-monogram img {
-    width: 60px;
-    height: auto;
-    opacity: 0.35;
+/* Confirmation screen — sequential arrival sequence */
+.rsvp-confirmation-monogram {
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: scale(0.88);
+    transition:
+        opacity   0.9s var(--ease-out-expo),
+        transform 0.9s var(--ease-out-expo);
+}
+#step-confirmation.step--entered .rsvp-confirmation-monogram {
+    opacity: 0.6;
+    transform: scale(1);
+}
+.rsvp-confirmation-monogram img { width: 60px; height: auto; }
+
+#step-confirmation .rsvp-step__heading {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        opacity   0.8s var(--ease-out-expo) 0.3s,
+        transform 0.8s var(--ease-out-expo) 0.3s;
+}
+#step-confirmation.step--entered .rsvp-step__heading {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Brass rule draws across beneath the heading — 0.5rem grid spacing */
+.rsvp-confirmation-rule {
+    height: 1px;
+    background: var(--color-brass);
+    width: 0;
+    margin: 1.5rem 0 2rem;
+    transition: width 1s var(--ease-out-expo) 0.65s;
+}
+#step-confirmation.step--entered .rsvp-confirmation-rule {
+    width: 2.5rem;
+}
+
+#step-confirmation .rsvp-step__body {
+    opacity: 0;
+    transition: opacity 0.8s ease 0.95s;
+}
+#step-confirmation.step--entered .rsvp-step__body {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rsvp-confirmation-monogram,
+    #step-confirmation .rsvp-step__heading,
+    #step-confirmation .rsvp-step__body { opacity: 1; transform: none; transition: none; }
+    .rsvp-confirmation-rule { width: 2.5rem; transition: none; }
 }
 
 /* Card deck interaction hint */
