@@ -252,8 +252,8 @@ body.menu-open { overflow-y: hidden; }
     height: 100vh; width: 100vw;
     position: relative;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     padding: 5vw;
     overflow: hidden;
 }
@@ -266,10 +266,12 @@ body.menu-open { overflow-y: hidden; }
 }
 
 .hero-title {
-    font-size: clamp(4rem, 10vw, 11rem);
+    font-size: clamp(5rem, 12vw, 13rem);
     color: var(--color-cream-100);
-    line-height: var(--lh-display);
+    line-height: 1.2;
+    margin-bottom: 0;
     z-index: 2;
+    text-align: center;
 }
 
 .hero-meta {
@@ -279,6 +281,28 @@ body.menu-open { overflow-y: hidden; }
     font-size: clamp(1rem, 1.5vw, 1.5rem);
     color: var(--color-cream-200);
     z-index: 2;
+}
+
+.hero-bottom-left {
+    position: absolute;
+    bottom: 5vw; left: 5vw;
+    text-align: left;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    color: var(--color-cream-200);
+    z-index: 2;
+    line-height: var(--lh-label);
+    display: flex;
+    align-items: center;
+    gap: 0.65em;
+}
+
+.hero-city-crosses {
+    color: #BE1622;
+    font-size: 0.85em;
+    line-height: 0.95;
+    letter-spacing: 0;
+    text-align: center;
+    font-family: serif;
 }
 
 /* --- Page Hero (inner pages) ------------------------------- */
@@ -671,7 +695,7 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     .event-item { padding-top: 3rem; margin-bottom: 15vh; }
     .travel-block { margin-bottom: var(--space-block); }
 
-    .hero-meta { text-align: left; right: auto; left: 5vw; }
+    .hero-meta { text-align: right; }
 }
 
 @media (max-width: 768px) {
@@ -689,6 +713,17 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
 
     /* iOS Safari: background-attachment:fixed is broken on mobile */
     .footer-cta { background-attachment: scroll; height: 70vh; }
+
+    /* Hero */
+    .hero { justify-content: center; align-items: center; }
+    .hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
+    .hero-meta {
+        position: absolute;
+        bottom: 5vw; left: 5vw; right: auto;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+    .hero-bottom-left { bottom: calc(5vw + 3rem); font-size: 0.85rem; }
 
     /* Page hero */
     .page-hero { height: 40vh; }
