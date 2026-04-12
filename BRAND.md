@@ -70,8 +70,8 @@ linear-gradient(rgba(30,58,74,0.6), rgba(42,31,20,0.85))
 | Class | Typeface | Size | Tracking | Use |
 |---|---|---|---|---|
 | `.statement-font` | Tangerine | contextual (see below) | none | Hero titles, section headings, CTA text |
-| `.subheader-font` | Fondamento | contextual | `0.02em` | Labels, nav, event meta, eyebrows |
-| `.body-font` | Square Peg | `clamp(1.1rem, 1.8vw, 1.5rem)` | `0.04em` | All body copy, cards, descriptions |
+| `.subheader-font` | Fondamento | contextual | `var(--letter-tight)` | Labels, nav, event meta, eyebrows |
+| `.body-font` | Square Peg | `clamp(1.1rem, 1.8vw, 1.5rem)` | `var(--letter-body)` | All body copy, cards, descriptions |
 
 ### Display Sizes
 
@@ -89,10 +89,12 @@ linear-gradient(rgba(30,58,74,0.6), rgba(42,31,20,0.85))
 
 | Token | Value | Applied to |
 |---|---|---|
-| `--lh-display` | `1.05` | Large display headings |
+| `--lh-display` | `1.05` | Large display headings (Tangerine) |
 | `--lh-heading` | `1.1` | Section/card headings |
 | `--lh-label` | `1.4` | Fondamento labels, nav |
 | `--lh-body` | `1.65` | Square Peg body copy |
+| `--lh-prose` | `1.55` | Square Peg prose dark pullquotes |
+| `--lh-meta` | `1.8` | Fondamento card-meta, loader text |
 
 ### Eyebrow / Label Pattern
 
@@ -101,7 +103,7 @@ Small-caps labels in Fondamento, used to precede section headings:
 ```css
 font-family: 'Fondamento', cursive;
 font-size: 0.65rem;
-letter-spacing: 0.3em;
+letter-spacing: var(--letter-eyebrow); /* 0.3em */
 color: #4A6B5A; /* verdigris */
 text-transform: uppercase;
 ```
@@ -119,6 +121,64 @@ Examples: `PROGRAMME`, `A NOTE FROM US`, `R.S.V.P.`
 | `--section-padding` | `clamp(12rem, 25vh, 25rem)` | Top/bottom padding on all major sections |
 | `--space-block` | `6rem` | Between content blocks within a section (desktop) |
 | `--space-block-mobile` | `3rem` | Between content blocks (mobile) |
+
+### Shadow Tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `--shadow-sm` | `0 10px 20px rgba(42,31,20,0.12)` | Story-block image, subtle lifts |
+| `--shadow-lg` | `0 40px 100px rgba(42,31,20,0.15)` | Image-break wrapper |
+| `--shadow-card` | `4px 12px 32px rgba(42,31,20,0.18)` | Event card, resting state |
+| `--shadow-card-hover` | `6px 18px 48px rgba(42,31,20,0.24)` | Event card hover (inactive) |
+| `--shadow-card-active` | `8px 24px 64px rgba(42,31,20,0.28)` | Event card active / raised |
+
+All shadows use `rgba(42,31,20,…)` — the darkest ink tint. No cool or neutral shadows.
+
+### Border Tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `--border-default` | `1px solid rgba(200,187,158,0.4)` | Content headings, travel headings, member list |
+| `--border-subtle` | `1px solid rgba(200,187,158,0.3)` | Guest-row dividers |
+| `--border-menu` | `1px solid rgba(91,143,175,0.3)` | Menu sublink bottom border |
+| `--rule-brass` | `1px solid #9C8355` | Event item top rule, RSVP toggle border |
+
+### Z-index Scale
+
+| Token | Value | Layer |
+|---|---|---|
+| `--z-navigation` | `1000` | Fixed nav bar |
+| `--z-menu` | `1001` | Fullscreen menu overlay |
+| `--z-chrome` | `1002` | Hamburger, close btn, nav-logo (always above menu) |
+| `--z-texture` | `9999` | Parchment overlay (over everything) |
+| `--z-loader` | `9998` | Loader screen (under texture) |
+| `--z-skip` | `10000` | Skip-to-content link |
+| `--z-floater` | `10001` | Floating monogram (above all) |
+
+### Duration Tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `--duration-fast` | `0.4s` | Hover state changes, opacity toggles |
+| `--duration-base` | `0.8s` | Button transitions, spinner |
+| `--duration-reveal` | `1.2s` | Scroll reveal, menu clip-path, loader fade |
+| `--duration-cinematic` | `2.5s` | Image scale-out on reveal |
+
+### Letter Spacing Tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `--letter-tight` | `0.02em` | Fondamento subheadings |
+| `--letter-body` | `0.04em` | Square Peg body copy |
+| `--letter-label` | `0.2em` | Uppercase nav labels, RSVP field labels |
+| `--letter-eyebrow` | `0.3em` | Eyebrow / section labels (PROGRAMME, R.S.V.P.) |
+
+### Blur Values
+
+| Token | Value | Use |
+|---|---|---|
+| `--blur-reveal` | `4px` | `filter: blur()` on `.reveal-up` resting state |
+| `--blur-glass` | `5px` | `backdrop-filter: blur()` on footer button |
 
 ### Grid System
 
@@ -155,7 +215,7 @@ A fixed, full-viewport overlay applies grain and warmth to every surface:
 background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
 mix-blend-mode: multiply;
 opacity: 0.65;
-z-index: 9999;
+z-index: var(--z-texture); /* 9999 */
 pointer-events: none;
 ```
 
@@ -202,14 +262,14 @@ Every content element enters with this animation, triggered by IntersectionObser
 /* Resting state */
 opacity: 0;
 transform: translateY(32px);
-filter: blur(4px);
+filter: blur(var(--blur-reveal)); /* 4px */
 
 /* Active state (.visible added by JS) */
 opacity: 1;
 transform: translateY(0);
 filter: blur(0);
 
-transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+transition: all var(--duration-reveal) var(--ease-out-expo); /* 1.2s */
 ```
 
 **Stagger delays:** `.delay-1` (0.1s), `.delay-2` (0.2s), `.delay-3` (0.3s). Use sparingly — only when two elements in the same visual cluster benefit from slight offset.
@@ -220,7 +280,7 @@ Images within `.image-wrapper` begin scaled up and settle on entry:
 
 ```css
 transform: scale(1.05);
-transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+transition: transform var(--duration-cinematic) var(--ease-out-expo); /* 2.5s */
 /* On .visible: scale(1) */
 ```
 
@@ -233,7 +293,7 @@ Opens and closes via `clip-path` — no fade, no slide, a wipe:
 ```css
 clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);   /* closed */
 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* open */
-transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+transition: clip-path var(--duration-reveal) var(--ease-in-out-dramatic); /* 1.2s */
 ```
 
 ### Intro / Loader Sequence
@@ -254,7 +314,7 @@ After 4.8s, the loader fades out and the floating monogram flies from center to 
 Steps exit upward, enter from below:
 
 ```css
-/* Exit */   opacity: 0; transform: translateY(-16px); duration: 0.4s
+/* Exit */   opacity: 0; transform: translateY(-16px); duration: var(--duration-fast)  /* 0.4s */
 /* Entrance */ opacity: 0; transform: translateY(20px); duration: 0.7s
 ```
 
@@ -266,9 +326,9 @@ Steps exit upward, enter from below:
 
 Three-column grid: `[RSVP] [Logo] [Hamburger]`
 
-- Fixed, full-width, `z-index: 1000`
+- Fixed, full-width, `z-index: var(--z-navigation)` (`1000`)
 - `mix-blend-mode: difference` on light backgrounds (inverts the white elements to appear dark over light hero)
-- Switches to `mix-blend-mode: normal` when menu is open
+- Switches to `mix-blend-mode: normal` when menu is open or `.nav--hero` is applied
 - Logo shrinks from 72px → 42px on scroll past 80px
 - The floating monogram (`#logo-floater`) is a separate fixed element that animates from center on load
 
@@ -302,9 +362,9 @@ Clicking any inactive card makes it active (rises `translateY(-64px)`, rotates t
 ### RSVP Progress Pips
 
 ```
-Inactive:  6px circle, color: #C8BB9E (sand)
-Active:    6px circle scale(1.4), color: #9C8355 (brass)
-Complete:  6px circle, color: #4A6B5A (verdigris)
+Inactive:  6px circle, color: var(--color-cream-400) /* #C8BB9E */
+Active:    6px circle scale(1.4), color: var(--color-brass) /* #9C8355 */
+Complete:  6px circle, color: var(--color-verdigris) /* #4A6B5A */
 ```
 
 ### Footer CTA
@@ -312,9 +372,105 @@ Complete:  6px circle, color: #4A6B5A (verdigris)
 Full-viewport-height section. Always uses the florals background with the dark overlay tint. The single button uses a ghost style (transparent bg, `rgba(242,232,213,0.4)` border, cream text) with a backdrop blur:
 
 ```css
-backdrop-filter: blur(5px);
+backdrop-filter: blur(var(--blur-glass)); /* 5px */
 /* hover: */ background: #F2E8D5; color: #1E3A4A; border-color: #F2E8D5;
 ```
+
+---
+
+## Accessibility
+
+Accessibility is not optional. These rules are part of the design system, not an afterthought.
+
+### Focus System
+
+All interactive elements receive a visible focus indicator via `:focus-visible`. The base style uses brass as the focus color — visible against cream surfaces and consistent with the palette:
+
+```css
+:focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+}
+```
+
+**On dark surfaces** (nav, menu overlay), the focus ring inverts to cream so it remains visible against the dark background:
+
+```css
+nav :focus-visible {
+    outline-color: var(--color-cream-100);
+}
+```
+
+**Form inputs** use a bottom-border focus pattern in place of an outline ring, since they have no visible border on unfocused sides. The focus state adds a colored underline using `box-shadow` to avoid layout shift:
+
+```css
+.rsvp-input:focus-visible,
+.rsvp-textarea:focus-visible {
+    outline: none;
+    border-color: var(--color-brass);
+    box-shadow: 0 2px 0 var(--color-brass);
+}
+```
+
+Never set `outline: none` without providing an equivalent visible alternative.
+
+### Skip Link
+
+A visually hidden "Skip to content" link appears on focus, allowing keyboard users to bypass the navigation:
+
+```css
+.skip-link {
+    position: absolute;
+    top: -100%;
+    /* On :focus → top: 1rem */
+}
+```
+
+### Screen Reader Utilities
+
+```css
+.sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+```
+
+Applied to form labels and ARIA descriptions that should be announced but not visible.
+
+### Reduced Motion
+
+`@media (prefers-reduced-motion: reduce)` disables all CSS animations and transitions. Additionally, the home-page loader is hidden immediately (`.reveal-up` elements are set to visible at rest, `#loader` is `display: none`, body scroll lock is lifted):
+
+```css
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal-up { opacity: 1; transform: none; filter: none; }
+    #loader { display: none; }
+    body.page-home { height: auto; overflow-y: auto; }
+}
+```
+
+### WCAG Contrast Notes
+
+| Pairing | Ratio | Rating |
+|---|---|---|
+| Dark ink `#2A1F14` on cream `#F2E8D5` | ~10.5:1 | AAA |
+| Cream `#F2E8D5` on midnight `#1E3A4A` | ~9.2:1 | AAA |
+| Verdigris `#4A6B5A` on cream `#F2E8D5` | ~4.6:1 | AA |
+| Brass `#9C8355` on cream `#F2E8D5` | ~2.9:1 | Decorative only — never used for body text |
+| Slate `#5B8FAF` on midnight `#1E3A4A` | ~3.5:1 | AA Large |
+
+Brass and slate are **decorative tokens only**. Do not use them as the sole means of conveying information, and never apply them to body-weight body copy.
 
 ---
 
@@ -353,6 +509,8 @@ backdrop-filter: blur(5px);
 - Apply `.reveal-up` to every content element that enters on scroll
 - Keep all type at `font-weight: 400`
 - Use Fondamento for any label, eyebrow, or metadata that needs authority
+- Provide `:focus-visible` styles on every interactive element
+- Use token names — never hardcode `rgba(42,31,20,0.18)` when `var(--shadow-card)` exists
 
 ### Don't
 - Use `font-weight` above 400 on any element
@@ -363,6 +521,8 @@ backdrop-filter: blur(5px);
 - Add `box-shadow` values outside the established range (`rgba(42,31,20,...)` tints only)
 - Use any Google Font not in the approved set of three
 - Introduce a fourth color family — the red/blue/cream/brass palette is complete
+- Set `outline: none` without a visible replacement focus indicator
+- Use brass or slate as body text color — decorative use only
 
 ---
 
