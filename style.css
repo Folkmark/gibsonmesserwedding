@@ -303,6 +303,7 @@ body.menu-open { overflow-y: hidden; }
     letter-spacing: 0;
     text-align: center;
     font-family: serif;
+    font-weight: 900;
 }
 
 /* --- Page Hero (inner pages) ------------------------------- */
