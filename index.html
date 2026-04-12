@@ -299,7 +299,7 @@
 
         nav.nav--scrolled .nav-logo { width: 42px; height: 42px; }
 
-        /* RSVP — left column */
+        /* RSVP — left column, ghost pill */
         .nav-rsvp {
             color: #FFFFFF;
             text-decoration: none;
@@ -308,10 +308,53 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             z-index: 1002;
-            transition: opacity 0.4s ease;
+
+            /* Ghost pill */
+            background: transparent;
+            padding: 0.6em 1.8em;
+            border-radius: 100px;
+            border: 1px solid rgba(200, 57, 43, 0.6);
+
+            /* Warm glow at rest */
+            box-shadow:
+                0 0 0 0 rgba(200, 57, 43, 0),
+                0 2px 8px rgba(200, 57, 43, 0.1);
+
+            transition:
+                box-shadow  1.2s var(--ease-out-expo),
+                background  0.8s var(--ease-out-expo),
+                color       0.5s ease,
+                transform   0.8s var(--ease-out-expo),
+                opacity     0.4s ease;
+
+            animation: rsvp-breathe 4s ease-in-out infinite;
+        }
+        .nav-rsvp:hover {
+            opacity: 1;
+            background: var(--color-red-600);
+            color: var(--color-cream-100);
+            border-color: var(--color-red-600);
+            box-shadow:
+                0 0 0 4px rgba(200, 57, 43, 0.08),
+                0 4px 20px rgba(200, 57, 43, 0.25);
+            transform: translateY(-1px);
+            animation-play-state: paused;
         }
         body.menu-open .nav-rsvp { color: var(--color-cream-100); }
-        .nav-rsvp:hover { opacity: 0.65; }
+
+        /* Breathing glow — subtle, cinematic pulsation */
+        @keyframes rsvp-breathe {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 0 rgba(200, 57, 43, 0),
+                    0 2px 8px rgba(200, 57, 43, 0.1);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 5px rgba(200, 57, 43, 0.05),
+                    0 4px 16px rgba(200, 57, 43, 0.2);
+            }
+        }
 
         /* Hamburger — right column, self-aligned right */
         .hamburger {
@@ -453,6 +496,8 @@
             background: var(--color-blue-900);
             padding: clamp(6rem, 14vh, 10rem) clamp(2rem, 12vw, 16rem);
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
         }
 
@@ -465,6 +510,26 @@
             text-align: center;
             max-width: 920px;
             opacity: 0.92;
+        }
+
+        .prose-cta {
+            margin-top: 3rem;
+            padding: 1rem 4rem;
+            border: 1px solid rgba(242, 232, 213, 0.35);
+            color: var(--color-cream-100);
+            text-decoration: none;
+            font-family: 'Fondamento', cursive;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 0;
+            display: inline-block;
+            transition: background 0.8s var(--ease-out-expo), border-color 0.8s var(--ease-out-expo);
+            backdrop-filter: blur(5px);
+        }
+        .prose-cta:hover {
+            background: var(--color-red-600);
+            border-color: var(--color-red-600);
         }
 
         /* NARRATIVE SECTION */
@@ -708,7 +773,7 @@
             .hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
 
             /* Nav RSVP on mobile */
-            .nav-rsvp { font-size: clamp(0.6rem, 3vw, 0.68rem); }
+            .nav-rsvp { font-size: clamp(0.6rem, 3vw, 0.68rem); padding: 0.5em 1.4em; }
 
             /* Body font */
             .body-font { font-size: clamp(1rem, 4vw, 1.3rem); }
@@ -825,6 +890,7 @@
 
         <section class="prose-dark-section">
             <p class="prose-dark-body reveal-up">Join us in Amsterdam this August to celebrate our wedding with a weekend that will feel romantic, festive, and just a little indulgent. More than anything, we wanted the weekend to feel generous, joyful, and unmistakably ours&thinsp;&mdash;&thinsp;a celebration not only of our marriage, but of the world we&rsquo;re lucky enough to share with you.</p>
+            <a href="#rsvp" class="prose-cta subheader-font reveal-up delay-1">RSVP</a>
         </section>
 
         <section class="story-section story-section--blocks" id="story">

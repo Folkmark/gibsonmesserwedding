@@ -634,6 +634,36 @@ a.inline-link {
 }
 a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-action-bg); }
 
+/* --- Section RSVP CTA (inline, on cream backgrounds) ------ */
+.section-rsvp-cta {
+    text-align: center;
+    margin-top: var(--space-block);
+    padding-top: var(--space-block);
+}
+
+.section-rsvp-cta a {
+    display: inline-block;
+    padding: 1rem 4rem;
+    border: 1px solid rgba(200, 57, 43, 0.4);
+    color: var(--color-red-600);
+    text-decoration: none;
+    font-family: 'Fondamento', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 0;
+    transition:
+        background   0.8s var(--ease-out-expo),
+        color        0.8s var(--ease-out-expo),
+        border-color 0.8s var(--ease-out-expo);
+}
+
+.section-rsvp-cta a:hover {
+    background: var(--color-red-600);
+    color: var(--color-cream-100);
+    border-color: var(--color-red-600);
+}
+
 /* --- Footer CTA -------------------------------------------- */
 .footer-cta {
     height: 60vh;
@@ -704,6 +734,7 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     /* Nav */
     nav { padding: 1.5rem 5vw; }
     .nav-logo img { width: 56px; }
+    .nav-rsvp { padding: 0.5em 1.4em; }
 
     /* Menu — keep links from overflowing on short phones */
     .menu-overlay { align-items: flex-start; padding: 12vh 7vw; }
@@ -759,6 +790,10 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     .content-block { margin-bottom: var(--space-block-mobile); }
     .content-heading { font-size: clamp(1.2rem, 4vw, 1.8rem); }
 
+    /* Section RSVP CTA */
+    .section-rsvp-cta { margin-top: var(--space-block-mobile); padding-top: var(--space-block-mobile); }
+    .section-rsvp-cta a { padding: 0.9rem 3rem; }
+
     /* Footer */
     .footer-cta h2 { font-size: clamp(3rem, 11vw, 5rem); margin-bottom: 2rem; }
     .footer-btn { padding: 1rem 3rem; font-size: 1rem; }
@@ -786,12 +821,56 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     text-transform: uppercase;
     position: relative;
     z-index: 1002;
-    transition: color 0.5s ease, opacity 0.4s ease;
+
+    /* Ghost pill */
+    background: transparent;
+    padding: 0.6em 1.8em;
+    border-radius: 100px;
+    border: 1px solid rgba(200, 57, 43, 0.6);
+
+    /* Warm glow at rest */
+    box-shadow:
+        0 0 0 0 rgba(200, 57, 43, 0),
+        0 2px 8px rgba(200, 57, 43, 0.1);
+
+    transition:
+        box-shadow  1.2s var(--ease-out-expo),
+        background  0.8s var(--ease-out-expo),
+        color       0.5s ease,
+        transform   0.8s var(--ease-out-expo),
+        opacity     0.4s ease;
+
+    animation: rsvp-breathe 4s ease-in-out infinite;
+}
+
+.nav-rsvp:hover {
+    opacity: 1;
+    background: var(--color-red-600);
+    color: var(--color-cream-100);
+    border-color: var(--color-red-600);
+    box-shadow:
+        0 0 0 4px rgba(200, 57, 43, 0.08),
+        0 4px 20px rgba(200, 57, 43, 0.25);
+    transform: translateY(-1px);
+    animation-play-state: paused;
 }
 
 body.menu-open .nav-rsvp { color: var(--color-cream-100); }
-.nav-rsvp:hover { opacity: 0.65; }
 .hamburger:hover span { opacity: 0.6; }
+
+/* Breathing glow — subtle, cinematic pulsation */
+@keyframes rsvp-breathe {
+    0%, 100% {
+        box-shadow:
+            0 0 0 0 rgba(200, 57, 43, 0),
+            0 2px 8px rgba(200, 57, 43, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 0 5px rgba(200, 57, 43, 0.05),
+            0 4px 16px rgba(200, 57, 43, 0.2);
+    }
+}
 
 
 /* --- RSVP Form --------------------------------------------- */
@@ -1192,6 +1271,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .nav-rsvp { animation: none; }
     .rsvp-confirmation-monogram,
     #step-confirmation .rsvp-step__heading,
     #step-confirmation .rsvp-step__body { opacity: 1; transform: none; transition: none; }
