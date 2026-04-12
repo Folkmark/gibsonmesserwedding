@@ -57,22 +57,28 @@
 
     <main id="main">
         <section class="page-hero">
-            <div class="page-hero-bg" style="background: linear-gradient(rgba(30,58,74,0.5), rgba(42,31,20,0.9)), url('../assets/Florals.jpg') center/cover no-repeat;"></div>
+            <!-- Fixed attachment lets the painting continue seamlessly into the section below -->
+            <div class="page-hero-bg" style="background: linear-gradient(rgba(30,58,74,0.45), rgba(42,31,20,0.8)), url('../assets/Florals.jpg') center/cover no-repeat fixed;"></div>
             <h1 class="statement-font reveal-up">Respond</h1>
         </section>
 
         <section class="rsvp-section">
 
-            <!-- Progress indicator (steps 1–5) -->
-            <div class="rsvp-progress" id="rsvp-progress" aria-hidden="true">
-                <span class="rsvp-progress__pip is-active" data-step="1"></span>
-                <span class="rsvp-progress__pip" data-step="2"></span>
-                <span class="rsvp-progress__pip" data-step="3"></span>
-                <span class="rsvp-progress__pip" data-step="4"></span>
-                <span class="rsvp-progress__pip" data-step="5"></span>
-            </div>
+            <!-- Card deck: two ghost layers behind the active card -->
+            <div class="rsvp-deck-wrap">
+                <div class="rsvp-deck-layer" aria-hidden="true"></div>
+                <div class="rsvp-deck-layer" aria-hidden="true"></div>
 
-            <div class="rsvp-form-wrapper" id="rsvp-wrapper">
+                <div class="rsvp-form-wrapper" id="rsvp-wrapper">
+
+                    <!-- Progress indicator — lives inside the card -->
+                    <div class="rsvp-progress" id="rsvp-progress" aria-hidden="true">
+                        <span class="rsvp-progress__pip is-active" data-step="1"></span>
+                        <span class="rsvp-progress__pip" data-step="2"></span>
+                        <span class="rsvp-progress__pip" data-step="3"></span>
+                        <span class="rsvp-progress__pip" data-step="4"></span>
+                        <span class="rsvp-progress__pip" data-step="5"></span>
+                    </div>
 
                 <!-- STEP 1 — Name entry -->
                 <div class="rsvp-step step--active step--entered" id="step-name">
@@ -196,7 +202,8 @@
                     </button>
                 </div>
 
-            </div>
+                </div><!-- /.rsvp-form-wrapper -->
+            </div><!-- /.rsvp-deck-wrap -->
         </section>
     </main>
 
