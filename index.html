@@ -432,6 +432,17 @@
             color: var(--color-cream-200);
             z-index: 2;
             line-height: var(--lh-label);
+            display: flex;
+            align-items: center;
+            gap: 0.65em;
+        }
+        .hero-city-crosses {
+            color: #BE1622;
+            font-size: 0.85em;
+            line-height: 0.95;
+            letter-spacing: 0;
+            text-align: center;
+            font-family: serif;
         }
 
         /* DARK PROSE SECTION */
@@ -801,7 +812,8 @@
                 <h1 class="statement-font hero-title" style="font-size:clamp(5rem,12vw,13rem);">Riley &amp; Sam<br>are getting married!</h1>
             </div>
             <div class="hero-bottom-left subheader-font reveal-up delay-2">
-                City of<br>Amsterdam
+                <span>City of<br>Amsterdam</span>
+                <span class="hero-city-crosses" aria-hidden="true">×<br>×<br>×</span>
             </div>
             <div class="hero-meta subheader-font reveal-up delay-3">
                 15 August 2026 · Hotel De L'Europe
