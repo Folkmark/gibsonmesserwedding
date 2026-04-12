@@ -283,6 +283,9 @@
 
         body.menu-open nav { mix-blend-mode: normal; z-index: 1002; }
         nav.nav--hero { mix-blend-mode: normal; }
+        nav.nav--hero .nav-rsvp { color: var(--color-cream-100); }
+        nav.nav--hero .hamburger span { background-color: var(--color-cream-100); }
+        body.entered.hero-visible #logo-floater { mix-blend-mode: normal; }
 
         /* Logo — centered column click target (actual logo is #logo-floater) */
         .nav-logo {
@@ -1204,17 +1207,23 @@
                 }, 500);
             }, 4800);
 
-            // Scroll: shrink logo when user scrolls past 80px
+            // Scroll: shrink logo when user scrolls past 80px; track hero visibility
             const navEl = document.querySelector('nav');
             window.addEventListener('scroll', () => {
                 const scrolled = window.scrollY > 80;
+                const isHero = window.scrollY < window.innerHeight;
                 navEl.classList.toggle('nav--scrolled', scrolled);
+                navEl.classList.toggle('nav--hero', isHero);
+                document.body.classList.toggle('hero-visible', isHero);
                 if (document.body.classList.contains('entered')) {
                     const isMobile = window.innerWidth <= 768;
                     document.getElementById('site-logo').style.width =
                         scrolled ? (isMobile ? '36px' : '42px') : (isMobile ? '52px' : '72px');
                 }
             }, { passive: true });
+            // Initialize hero state on page load (before any scroll)
+            navEl.classList.toggle('nav--hero', window.scrollY < window.innerHeight);
+            document.body.classList.toggle('hero-visible', window.scrollY < window.innerHeight);
 
             // Menu Toggle Logic
             const menuToggle = document.getElementById("menu-toggle");
