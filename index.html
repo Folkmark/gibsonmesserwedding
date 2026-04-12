@@ -485,11 +485,25 @@
 
         /* EVENTS - EXPANSIVE BREATHING ROOM */
         .events-container {
-            padding: var(--section-padding) 5vw;
+            padding: 0;
             background: radial-gradient(circle at 20% 80%, var(--color-surface-page) 0%, #E8DFCC 100%);
+            position: relative;
+            height: 500vh;
         }
-        
-        .events-header { text-align: left; margin-bottom: 8rem; }
+
+        .events-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 5vw;
+            overflow: hidden;
+        }
+
+        .events-header { text-align: left; margin-bottom: 4rem; width: 100%; max-width: 1100px; }
         .events-header h2 { font-size: clamp(4rem, 8vw, 8rem); color: var(--color-ink); }
 
         /* ---- Card Deck ------------------------------------------ */
@@ -499,8 +513,10 @@
             justify-content: center;
             align-items: flex-end;
             height: 680px;
-            margin-top: 6rem;
+            margin-top: 2rem;
             overflow: visible;
+            width: 100%;
+            max-width: 800px;
         }
 
         .event-card {
@@ -673,7 +689,9 @@
             /* Image break */
             .image-break { padding: 8vh 5vw; }
 
-            /* Events */
+            /* Events — disable scroll-pinning on mobile */
+            .events-container { height: auto; padding: var(--section-padding) 5vw; }
+            .events-sticky { position: static; height: auto; display: block; padding: 0; overflow: visible; }
             .events-header { margin-bottom: 8vh; }
             .events-header h2 { font-size: clamp(3rem, 11vw, 5rem); }
 
@@ -705,6 +723,11 @@
             .footer-cta { height: 70vh; }
             .footer-cta h2 { font-size: clamp(3rem, 11vw, 5rem); margin-bottom: 2rem; }
             .footer-btn { padding: 1rem 3rem; font-size: 1rem; }
+        }
+
+        @media (max-height: 750px) and (min-width: 769px) {
+            .card-deck { transform: scale(0.82); transform-origin: center top; margin-top: 0; }
+            .events-header { margin-bottom: 2rem; }
         }
     </style>
     <link rel="stylesheet" href="style.css">
@@ -820,6 +843,7 @@
         </section>
 
         <section class="events-container" id="events">
+            <div class="events-sticky">
             <div class="events-header reveal-up">
                 <p class="subheader-font" style="font-size:0.65rem;letter-spacing:0.3em;color:#4A6B5A;text-transform:uppercase;margin-bottom:1rem;">Programme</p>
                 <h2 class="statement-font">Events</h2>
@@ -892,7 +916,8 @@
                 </div>
 
             </div>
-            <p class="subheader-font rsvp-card-hint">Select a card to explore</p>
+            <p class="subheader-font rsvp-card-hint">Scroll to explore · or select a card</p>
+            </div>
         </section>
 
         <section class="travel-section" id="travel">
@@ -1169,15 +1194,43 @@
                 });
             }, observerOptions);
 
-            // Card deck — click to play a card
-            const eventCards = document.querySelectorAll('.event-card');
-            eventCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    if (card.classList.contains('active')) return;
-                    eventCards.forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
+            // Card deck — click to select + scroll to advance
+            (function () {
+                const section    = document.querySelector('.events-container');
+                const eventCards = document.querySelectorAll('.event-card');
+                const CARD_COUNT = eventCards.length;
+                const BREAKPOINT = 769;
+
+                if (!section || !eventCards.length) return;
+
+                function setActiveCard(index) {
+                    const i = Math.max(0, Math.min(CARD_COUNT - 1, index));
+                    eventCards.forEach((card, n) => card.classList.toggle('active', n === i));
+                }
+
+                // Click handler (all screen sizes)
+                eventCards.forEach((card, i) => {
+                    card.addEventListener('click', () => {
+                        if (card.classList.contains('active')) return;
+                        setActiveCard(i);
+                    });
                 });
-            });
+
+                // Scroll-through (desktop only)
+                function onScroll() {
+                    if (window.innerWidth < BREAKPOINT) return;
+                    const rect       = section.getBoundingClientRect();
+                    const scrollable = section.offsetHeight - window.innerHeight;
+                    const scrolled   = -rect.top;
+                    const progress   = Math.max(0, Math.min(1, scrolled / scrollable));
+                    const cardIndex  = Math.min(CARD_COUNT - 1, Math.floor(progress * CARD_COUNT));
+                    setActiveCard(cardIndex);
+                }
+
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', onScroll, { passive: true });
+                onScroll();
+            })();
 
             document.querySelectorAll('.reveal-up, .image-wrapper').forEach(element => {
                 if(!element.closest('.hero') && !element.closest('nav')) {
