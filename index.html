@@ -397,7 +397,7 @@
         /* HERO */
         .hero {
             height: 100vh; width: 100vw; position: relative;
-            display: flex; align-items: flex-end; justify-content: flex-start;
+            display: flex; align-items: center; justify-content: center;
             padding: 5vw; overflow: hidden;
         }
         .hero-bg {
@@ -412,15 +412,26 @@
             line-height: var(--lh-display);
             margin-bottom: 0;
             z-index: 2;
+            text-align: center;
         }
-        .hero-meta { 
+        .hero-meta {
             position: absolute;
             bottom: 5vw;
             right: 5vw;
             text-align: right;
-            font-size: clamp(1rem, 1.5vw, 1.5rem); 
-            color: var(--color-cream-200); 
-            z-index: 2; 
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            color: var(--color-cream-200);
+            z-index: 2;
+        }
+        .hero-bottom-left {
+            position: absolute;
+            bottom: 5vw;
+            left: 5vw;
+            text-align: left;
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            color: var(--color-cream-200);
+            z-index: 2;
+            line-height: var(--lh-label);
         }
 
         /* DARK PROSE SECTION */
@@ -663,19 +674,19 @@
             .menu-link { font-size: clamp(2.8rem, 11vw, 4.5rem); margin-bottom: 1rem; }
             .menu-sublink { font-size: clamp(1.3rem, 5vw, 2rem); margin-bottom: 1.5rem; }
 
-            /* Hero — stack vertically to prevent overlap */
+            /* Hero */
             .hero {
-                flex-direction: column;
-                justify-content: flex-end;
-                align-items: flex-start;
-                gap: 1.25rem;
-                padding-bottom: 7vw;
+                justify-content: center;
+                align-items: center;
             }
             .hero-meta {
-                position: static;
-                text-align: left;
+                position: absolute;
+                bottom: 5vw;
+                right: 5vw;
+                text-align: right;
                 font-size: 0.9rem;
             }
+            .hero-bottom-left { font-size: 0.9rem; }
             .hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
 
             /* Nav RSVP on mobile */
@@ -783,10 +794,12 @@
         <section class="hero">
             <div class="hero-bg"></div>
             <div class="reveal-up delay-1" style="z-index:2;">
-                <h1 class="statement-font hero-title" style="font-size:clamp(5rem,12vw,13rem);">Riley & Sam</h1>
-                <p class="subheader-font" style="font-size:0.85rem;letter-spacing:0.35em;color:rgba(242,232,213,0.65);margin-top:1.25rem;text-transform:uppercase;">Are getting married</p>
+                <h1 class="statement-font hero-title" style="font-size:clamp(5rem,12vw,13rem);">Riley &amp; Sam<br>are getting married!</h1>
             </div>
-            <div class="hero-meta subheader-font reveal-up delay-2">
+            <div class="hero-bottom-left subheader-font reveal-up delay-2">
+                City of<br>Amsterdam
+            </div>
+            <div class="hero-meta subheader-font reveal-up delay-3">
                 15 August 2026 · Hotel De L'Europe
             </div>
         </section>
