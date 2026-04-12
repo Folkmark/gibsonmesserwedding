@@ -324,6 +324,73 @@ body.menu-open { overflow-y: hidden; }
 .story-content p { margin-bottom: var(--space-block); color: var(--color-text-body); max-width: 800px; }
 .story-content p:last-child { margin-bottom: 0; }
 
+/* --- Story Blocks (alternating text + image) -------------- */
+.story-section--blocks {
+    grid-template-columns: 1fr;
+    gap: clamp(4rem, 8vh, 8rem);
+}
+
+.story-section--blocks .section-title {
+    position: static;
+}
+
+.story-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6rem, 12vh, 12rem);
+}
+
+.story-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 8vw, 10rem);
+    align-items: center;
+}
+
+.story-block--reverse {
+    direction: rtl;
+}
+.story-block--reverse > * {
+    direction: ltr;
+}
+
+.story-block__text {
+    max-width: 800px;
+}
+
+.story-block__text p {
+    margin-bottom: var(--space-block);
+    color: var(--color-text-body);
+}
+.story-block__text p:last-child {
+    margin-bottom: 0;
+}
+
+.story-block__image {
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(42, 31, 20, 0.12);
+}
+
+.story-block__image img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    filter: grayscale(10%) sepia(20%) contrast(110%);
+    transform: scale(1.04);
+    transition: transform 2.5s var(--ease-out-expo);
+}
+
+.story-block__image.visible img {
+    transform: scale(1);
+}
+
+.story-block__image--illustration img {
+    filter: none;
+    object-fit: contain;
+    max-height: 400px;
+}
+
 /* --- Image Break ------------------------------------------- */
 .image-break {
     width: 100vw;
@@ -543,6 +610,10 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     .image-break { padding: 15vh 5vw; justify-content: center; }
     .image-wrapper { width: 100%; }
 
+    .story-block { grid-template-columns: 1fr; gap: 3rem; }
+    .story-block--reverse { direction: ltr; }
+    .story-block__image { order: -1; }
+
     .event-item { padding-top: 3rem; margin-bottom: 15vh; }
     .travel-block { margin-bottom: var(--space-block); }
 
@@ -575,6 +646,9 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     /* Story */
     .section-title { font-size: clamp(2.5rem, 9vw, 4rem); }
     .story-content p { margin-bottom: var(--space-block-mobile); }
+    .story-block__text p { margin-bottom: var(--space-block-mobile); }
+    .story-block__image img { max-height: 300px; }
+    .story-block__image--illustration img { max-height: 260px; }
 
     /* Image break */
     .image-break { padding: 8vh 5vw; }
