@@ -168,13 +168,13 @@ body.menu-open nav { mix-blend-mode: normal; }
         transform         0.6s var(--ease-out-expo),
         background-color  0.5s ease,
         opacity           0.4s ease;
-    transform-origin: right center;
+    transform-origin: center center;
 }
 
 body.menu-open .hamburger span                 { background-color: var(--color-cream-100); }
-body.menu-open .hamburger span:nth-child(1)    { transform: rotate(-45deg) scaleX(1.1) translateY(-1px); }
+body.menu-open .hamburger span:nth-child(1)    { transform: translateY(6.5px) rotate(-45deg); }
 body.menu-open .hamburger span:nth-child(2)    { opacity: 0; transform: scaleX(0); }
-body.menu-open .hamburger span:nth-child(3)    { transform: rotate(45deg)  scaleX(1.1) translateY(1px);  }
+body.menu-open .hamburger span:nth-child(3)    { transform: translateY(-6.5px) rotate(45deg); }
 
 /* --- Fullscreen Menu Overlay ------------------------------- */
 .menu-overlay {
