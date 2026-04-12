@@ -412,7 +412,7 @@
         .hero-title {
             font-size: clamp(4rem, 10vw, 11rem);
             color: var(--color-cream-100);
-            line-height: var(--lh-display);
+            line-height: 1.2;
             margin-bottom: 0;
             z-index: 2;
             text-align: center;
@@ -653,7 +653,7 @@
             .image-break { padding: 15vh 5vw; justify-content: center; }
             .image-wrapper { width: 100%; }
             .travel-block { margin-bottom: var(--space-block); }
-            .hero-meta { text-align: left; right: auto; left: 5vw; }
+            .hero-meta { text-align: right; }
         }
 
         @media (max-width: 768px) {
@@ -685,11 +685,15 @@
             .hero-meta {
                 position: absolute;
                 bottom: 5vw;
-                right: 5vw;
-                text-align: right;
-                font-size: 0.9rem;
+                left: 5vw;
+                right: auto;
+                text-align: left;
+                font-size: 0.85rem;
             }
-            .hero-bottom-left { font-size: 0.9rem; }
+            .hero-bottom-left {
+                bottom: calc(5vw + 3rem);
+                font-size: 0.85rem;
+            }
             .hero-title { font-size: clamp(3rem, 12vw, 5.5rem); }
 
             /* Nav RSVP on mobile */
