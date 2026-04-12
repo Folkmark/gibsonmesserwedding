@@ -762,17 +762,63 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 /* --- RSVP Form --------------------------------------------- */
 .rsvp-section {
     padding: var(--section-padding) 5vw;
-    background: radial-gradient(circle at 80% 20%, var(--color-surface-page) 0%, #E8DFCC 100%);
+    /* Floral painting — fixed so it continues seamlessly from the page-hero above */
+    background:
+        linear-gradient(rgba(30, 58, 74, 0.45), rgba(42, 31, 20, 0.65)),
+        url('../assets/Florals.jpg') center / cover no-repeat fixed;
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* ── Card deck ──────────────────────────────────────────────── */
+
+/* Outer wrapper — establishes isolated stacking context for the ghost layers */
+.rsvp-deck-wrap {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: 620px;
+}
+
+/* Ghost card layers — absolutely fill the wrap and peek out via rotation */
+.rsvp-deck-layer {
+    position: absolute;
+    inset: 0;
+    background: var(--color-cream-200);
+    border: var(--rule-brass);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.rsvp-deck-layer:first-child {
+    transform: rotate(-2.5deg) translate(-8px, 16px);
+    opacity: 0.55;
+}
+
+.rsvp-deck-layer:nth-child(2) {
+    transform: rotate(1.8deg) translate(6px, 10px);
+    opacity: 0.75;
+}
+
+/* Active card — the form wrapper itself */
+.rsvp-form-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: var(--color-cream-100);
+    border: var(--rule-brass);
+    box-shadow: var(--shadow-card-active);
+    padding: 3rem;
+}
+
+/* ── Progress pips (now inside the card) ───────────────────── */
 .rsvp-progress {
     display: flex;
     gap: 0.6rem;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
+    padding-top: 0.5rem;
     align-items: center;
     justify-content: center;
 }
@@ -789,12 +835,6 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 
 .rsvp-progress__pip.is-active  { background: var(--color-brass); transform: scale(1.4); }
 .rsvp-progress__pip.is-complete { background: var(--color-verdigris); }
-
-.rsvp-form-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 620px;
-}
 
 /* Step show/hide + transitions */
 .rsvp-step {
@@ -1174,7 +1214,14 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 
 /* RSVP mobile */
 @media (max-width: 768px) {
-    .rsvp-progress { margin-bottom: 3rem; }
+    /* Disable fixed attachment — broken on iOS Safari */
+    .rsvp-section { background-attachment: scroll; }
+
+    /* Simplify card deck: single card, no ghost layers (avoids overflow issues) */
+    .rsvp-deck-layer { display: none; }
+    .rsvp-form-wrapper { padding: 2rem 1.5rem; }
+
+    .rsvp-progress { margin-bottom: 2.5rem; }
     .rsvp-input, .rsvp-textarea { font-size: 16px; } /* Prevent iOS Safari zoom */
     .rsvp-guest-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .rsvp-btn { padding: 1rem 2.5rem; width: 100%; justify-content: center; }
@@ -1295,6 +1342,16 @@ dialog.rsvp-modal .rsvp-section {
     background: none;
     display: block;
     align-items: unset;
+}
+
+/* Inside the modal the dialog IS the card — suppress the deck chrome */
+dialog.rsvp-modal .rsvp-deck-wrap { max-width: none; }
+dialog.rsvp-modal .rsvp-deck-layer { display: none; }
+dialog.rsvp-modal .rsvp-form-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
 }
 
 /* Loading indicator: three brass dots */
