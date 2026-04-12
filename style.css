@@ -298,9 +298,8 @@ body.menu-open { overflow-y: hidden; }
 
 .hero-bottom-left .statement-font {
     font-weight: 700;
-    font-size: 1.5em;
-    line-height: 0;
-    vertical-align: middle;
+    font-size: 2em;
+    vertical-align: 0.2em;
 }
 
 .hero-city-crosses {
