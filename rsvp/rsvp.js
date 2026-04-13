@@ -265,14 +265,14 @@
                         data-event="${eventKey}"
                         data-value="yes"
                         aria-pressed="false"
-                    >Happily, yes</button>
+                    >With pleasure</button>
                     <button
                         class="rsvp-toggle subheader-font"
                         data-guest="${g.guest_id}"
                         data-event="${eventKey}"
                         data-value="no"
                         aria-pressed="false"
-                    >Sadly, no</button>
+                    >With regret</button>
                 </div>
             </div>
         `).join('');
