@@ -859,13 +859,26 @@
             </div>
             <div class="hero-bottom-left subheader-font reveal-up delay-2">
                 <svg class="hero-coat-of-arms" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 52" aria-label="Amsterdam coat of arms">
-                    <path d="M3,2 L37,2 L37,30 Q37,45 20,51 Q3,45 3,30 Z" fill="#1C1C1C" stroke="#C8A97E" stroke-width="0.75"/>
-                    <line x1="15" y1="6"  x2="25" y2="16" stroke="#BE1622" stroke-width="2.5" stroke-linecap="round"/>
-                    <line x1="25" y1="6"  x2="15" y2="16" stroke="#BE1622" stroke-width="2.5" stroke-linecap="round"/>
-                    <line x1="15" y1="20" x2="25" y2="30" stroke="#BE1622" stroke-width="2.5" stroke-linecap="round"/>
-                    <line x1="25" y1="20" x2="15" y2="30" stroke="#BE1622" stroke-width="2.5" stroke-linecap="round"/>
-                    <line x1="15" y1="34" x2="25" y2="44" stroke="#BE1622" stroke-width="2.5" stroke-linecap="round"/>
-                    <line x1="25" y1="34" x2="15" y2="44" stroke="#BE1622" stroke-width="2.5" stroke-linecap="round"/>
+                    <defs>
+                        <clipPath id="shield-clip-ams">
+                            <path d="M3,2 L37,2 L37,30 Q37,45 20,51 Q3,45 3,30 Z"/>
+                        </clipPath>
+                    </defs>
+                    <g clip-path="url(#shield-clip-ams)">
+                        <!-- Red field -->
+                        <rect x="0" y="0" width="40" height="52" fill="#BE1622"/>
+                        <!-- Black vertical pale -->
+                        <rect x="14" y="0" width="12" height="52" fill="#1C1C1C"/>
+                        <!-- Three white St. Andrew's crosses -->
+                        <line x1="16" y1="7"  x2="24" y2="15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                        <line x1="24" y1="7"  x2="16" y2="15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                        <line x1="16" y1="21" x2="24" y2="29" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                        <line x1="24" y1="21" x2="16" y2="29" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                        <line x1="16" y1="35" x2="24" y2="43" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                        <line x1="24" y1="35" x2="16" y2="43" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                    </g>
+                    <!-- Shield border -->
+                    <path d="M3,2 L37,2 L37,30 Q37,45 20,51 Q3,45 3,30 Z" fill="none" stroke="#C8A97E" stroke-width="0.75"/>
                 </svg>
                 <span>City <span class="statement-font">of</span><br>Amsterdam</span>
             </div>
