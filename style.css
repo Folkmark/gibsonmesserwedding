@@ -833,7 +833,7 @@ a.inline-link:hover { color: var(--color-action-bg); border-color: var(--color-a
     background: transparent;
     padding: 0.6em 1.8em;
     border-radius: 100px;
-    border: 1px solid rgba(200, 57, 43, 0.6);
+    border: 1px solid currentColor;
 
     /* Warm glow at rest */
     box-shadow:
@@ -1315,7 +1315,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 .rsvp-intro__label {
     font-size: 0.65rem;
     letter-spacing: 0.3em;
-    color: var(--color-verdigris);
+    color: var(--color-cream-200);
     text-transform: uppercase;
     margin-bottom: 1rem;
     display: block;
@@ -1323,7 +1323,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 
 .rsvp-intro__heading {
     font-size: clamp(3.5rem, 7vw, 7rem);
-    color: var(--color-ink);
+    color: var(--color-cream-100);
     line-height: var(--lh-display);
     margin-bottom: 1.5rem;
 }
@@ -1331,6 +1331,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 .rsvp-intro__body {
     max-width: 400px;
     margin: 0 auto;
+    color: var(--color-cream-100);
     opacity: 0.65;
 }
 
