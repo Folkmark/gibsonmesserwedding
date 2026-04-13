@@ -302,14 +302,10 @@ body.menu-open { overflow-y: hidden; }
     vertical-align: -0.05em;
 }
 
-.hero-city-crosses {
-    color: #BE1622;
-    font-size: 0.85em;
-    line-height: 0.95;
-    letter-spacing: 0;
-    text-align: center;
-    font-family: serif;
-    font-weight: 900;
+.hero-coat-of-arms {
+    height: 3em;
+    width: auto;
+    flex-shrink: 0;
 }
 
 /* --- Page Hero (inner pages) ------------------------------- */
