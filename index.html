@@ -381,10 +381,10 @@
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             background: radial-gradient(circle at 50% 100%, var(--color-blue-700), var(--color-blue-900));
-            z-index: 1001; 
+            z-index: 1001;
             display: flex;
-            align-items: center;
-            padding: 0 10vw;
+            align-items: flex-start;
+            padding: calc(2 * 2.5rem + 72px + 1rem) 10vw 0;
             clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
             transition: clip-path 1.2s var(--ease-in-out-dramatic);
         }
@@ -431,7 +431,6 @@
         body.menu-open .menu-link:nth-child(1) { transition-delay: 0.3s; }
         body.menu-open .menu-link:nth-child(2) { transition-delay: 0.4s; }
         body.menu-open .menu-link:nth-child(3) { transition-delay: 0.5s; }
-        body.menu-open .menu-link:nth-child(4) { transition-delay: 0.6s; }
         body.menu-open .menu-sublink:nth-child(1) { transition-delay: 0.5s; }
         body.menu-open .menu-sublink:nth-child(2) { transition-delay: 0.6s; }
         body.menu-open .menu-sublink:nth-child(3) { transition-delay: 0.7s; }
@@ -842,7 +841,6 @@
                 <a href="#story"  class="statement-font menu-link menu-close-trigger">Our story</a>
                 <a href="#events" class="statement-font menu-link menu-close-trigger">The Weekend</a>
                 <a href="/info/"  class="statement-font menu-link menu-close-trigger">Info</a>
-                <a href="#rsvp"   class="statement-font menu-link menu-close-trigger">RSVP</a>
             </div>
             <div class="menu-col">
             </div>
