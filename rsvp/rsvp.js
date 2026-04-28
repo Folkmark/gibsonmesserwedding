@@ -40,7 +40,6 @@
         1: 'step-name',
         2: 'step-household',
         3: 'step-saturday',
-        4: 'step-friday',
         5: 'step-dietary',
         confirmation: 'step-confirmation',
         error: 'step-error',
@@ -103,7 +102,7 @@
 
     function updateProgress(stepKey) {
         const pips = document.querySelectorAll('.rsvp-progress__pip');
-        const numericSteps = [1, 2, 3, 4, 5];
+        const numericSteps = [1, 2, 3, 5];
         const currentNum = typeof stepKey === 'number' ? stepKey : null;
 
         if (currentNum === null) {
@@ -134,21 +133,11 @@
                 .filter(g => g.attending_saturday !== 'not_invited')
                 .every(g => g.attending_saturday !== null);
         }
-        if (stepKey === 4) {
-            const fridayGuests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-            return fridayGuests.every(g =>
-                g.attending_friday_cruise !== null && g.attending_friday_party !== null
-            );
-        }
         return true;
     }
 
     function nextStepFrom(stepKey) {
-        if (stepKey === 3) {
-            const anyFriday = state.guestResponses.some(g => g.attending_friday_cruise !== 'not_invited');
-            return anyFriday ? 4 : 5;
-        }
-        const ordered = [1, 2, 3, 4, 5, 'confirmation'];
+        const ordered = [1, 2, 3, 5, 'confirmation'];
         const idx = ordered.indexOf(stepKey);
         return idx >= 0 ? ordered[idx + 1] : 'confirmation';
     }
@@ -228,8 +217,8 @@
                 guest_id:                m.guest_id,
                 display_name:            m.display_name,
                 attending_saturday:      m.invited_saturday ? null : 'not_invited',
-                attending_friday_cruise: m.invited_friday   ? null : 'not_invited',
-                attending_friday_party:  m.invited_friday   ? null : 'not_invited',
+                attending_friday_cruise: 'not_invited',
+                attending_friday_party:  'not_invited',
             }));
 
             renderHousehold();
@@ -323,13 +312,6 @@
         const guests = state.guestResponses.filter(g => g.attending_saturday !== 'not_invited');
         renderToggleRows(document.getElementById('saturday-rows'), guests, 'saturday');
         document.getElementById('btn-saturday-next').disabled = !validateStep(3);
-    }
-
-    function renderFridayRows() {
-        const fridayGuests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-        renderToggleRows(document.getElementById('cruise-rows'), fridayGuests, 'cruise');
-        renderToggleRows(document.getElementById('party-rows'),  fridayGuests, 'party');
-        document.getElementById('btn-friday-next').disabled = !validateStep(4);
     }
 
     function renderConfirmation() {
@@ -453,16 +435,7 @@
     function initStep3() {
         document.getElementById('btn-saturday-next').addEventListener('click', () => {
             if (!validateStep(3)) return;
-            const next = nextStepFrom(3);
-            if (next === 4) renderFridayRows();
-            goTo(next);
-        });
-    }
-
-    function initStep4() {
-        document.getElementById('btn-friday-next').addEventListener('click', () => {
-            if (!validateStep(4)) return;
-            goTo(nextStepFrom(4));
+            goTo(nextStepFrom(3));
         });
     }
 
@@ -492,7 +465,6 @@
         initStep1();
         initStep2();
         initStep3();
-        initStep4();
         initStep5();
         initRetry();
     }
@@ -540,7 +512,7 @@
         clearError('error-saturday');
 
         // Clear dynamically rendered rows / lists
-        ['household-members', 'saturday-rows', 'cruise-rows', 'party-rows'].forEach(function (id) {
+        ['household-members', 'saturday-rows'].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.innerHTML = '';
         });
@@ -548,8 +520,6 @@
         // Re-disable continue buttons (they re-enable once valid selections are made)
         var btnSat = document.getElementById('btn-saturday-next');
         if (btnSat) btnSat.disabled = true;
-        var btnFri = document.getElementById('btn-friday-next');
-        if (btnFri) btnFri.disabled = true;
 
         // Reset progress pips to step 1
         document.querySelectorAll('.rsvp-progress__pip').forEach(function (pip) {
