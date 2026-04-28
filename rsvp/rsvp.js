@@ -14,7 +14,7 @@
     // Configuration
     // -------------------------------------------------------------------------
 
-    const GAS_ENDPOINT = 'REPLACE_WITH_YOUR_DEPLOYMENT_URL';
+    const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbynAWYz0dZjzN5qALpNG0thBW9PWMa58jQ9nDHdxgwow8y2lsFKkm5H_cHW69nUGjEu/exec';
     const FETCH_TIMEOUT_MS = 12000;
 
     // -------------------------------------------------------------------------
