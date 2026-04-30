@@ -77,7 +77,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, button, li {
 }
 
 /* --- Typography Utilities ---------------------------------- */
-.statement-font  { font-family: 'Tangerine', cursive; line-height: var(--lh-heading); text-transform: none; }
+.statement-font  { font-family: 'Jim Nightshade', cursive; line-height: var(--lh-heading); text-transform: none; }
 .subheader-font  { font-family: 'Fondamento', cursive; letter-spacing: 0.02em; line-height: var(--lh-label); text-transform: none; }
 .body-font {
     font-family: 'Square Peg', cursive;
