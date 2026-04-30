@@ -74,9 +74,17 @@
         outEl.classList.remove('step--entered');
         outEl.classList.add('step--exiting');
 
+        let cleanupFired = false;
         const cleanup = () => {
+            if (cleanupFired) return;
+            cleanupFired = true;
+
             outEl.classList.remove('step--active', 'step--exiting');
             inEl.classList.add('step--active');
+
+            // Render step-specific content after the step becomes active
+            if (stepKey === 4) renderFridayRows();
+
             // Trigger entrance on next frame
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
