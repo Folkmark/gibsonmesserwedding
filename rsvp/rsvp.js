@@ -14,7 +14,7 @@
     // Configuration
     // -------------------------------------------------------------------------
 
-    const GAS_ENDPOINT = 'REPLACE_WITH_YOUR_DEPLOYMENT_URL';
+    const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbynAWYz0dZjzN5qALpNG0thBW9PWMa58jQ9nDHdxgwow8y2lsFKkm5H_cHW69nUGjEu/exec';
     const FETCH_TIMEOUT_MS = 12000;
 
     // -------------------------------------------------------------------------
@@ -74,9 +74,17 @@
         outEl.classList.remove('step--entered');
         outEl.classList.add('step--exiting');
 
+        let cleanupFired = false;
         const cleanup = () => {
+            if (cleanupFired) return;
+            cleanupFired = true;
+
             outEl.classList.remove('step--active', 'step--exiting');
             inEl.classList.add('step--active');
+
+            // Render step-specific content after the step becomes active
+            if (stepKey === 4) renderFridayRows();
+
             // Trigger entrance on next frame
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
@@ -135,19 +143,14 @@
                 .every(g => g.attending_saturday !== null);
         }
         if (stepKey === 4) {
-            const fridayGuests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-            return fridayGuests.every(g =>
-                g.attending_friday_cruise !== null && g.attending_friday_party !== null
-            );
+            return state.guestResponses
+                .filter(g => g.attending_friday_cruise !== 'not_invited')
+                .every(g => g.attending_friday_cruise !== null);
         }
         return true;
     }
 
     function nextStepFrom(stepKey) {
-        if (stepKey === 3) {
-            const anyFriday = state.guestResponses.some(g => g.attending_friday_cruise !== 'not_invited');
-            return anyFriday ? 4 : 5;
-        }
         const ordered = [1, 2, 3, 4, 5, 'confirmation'];
         const idx = ordered.indexOf(stepKey);
         return idx >= 0 ? ordered[idx + 1] : 'confirmation';
@@ -228,8 +231,8 @@
                 guest_id:                m.guest_id,
                 display_name:            m.display_name,
                 attending_saturday:      m.invited_saturday ? null : 'not_invited',
-                attending_friday_cruise: m.invited_friday   ? null : 'not_invited',
-                attending_friday_party:  m.invited_friday   ? null : 'not_invited',
+                attending_friday_cruise: null,
+                attending_friday_party:  null,
             }));
 
             renderHousehold();
@@ -306,17 +309,14 @@
         const g = state.guestResponses.find(r => r.guest_id === guestId);
         if (!g) return;
 
-        if (eventKey === 'saturday')       g.attending_saturday      = value;
-        if (eventKey === 'cruise')         g.attending_friday_cruise = value;
-        if (eventKey === 'party')          g.attending_friday_party  = value;
+        if (eventKey === 'saturday') g.attending_saturday      = value;
+        if (eventKey === 'friday')  { g.attending_friday_cruise = value; g.attending_friday_party = value; }
 
-        // Re-evaluate continue button for whichever step is active
-        if (state.currentStep === 3) {
-            document.getElementById('btn-saturday-next').disabled = !validateStep(3);
-        }
-        if (state.currentStep === 4) {
-            document.getElementById('btn-friday-next').disabled = !validateStep(4);
-        }
+        // Re-evaluate continue buttons
+        const btnSat = document.getElementById('btn-saturday-next');
+        if (btnSat) btnSat.disabled = !validateStep(3);
+        const btnFri = document.getElementById('btn-friday-next');
+        if (btnFri) btnFri.disabled = !validateStep(4);
     }
 
     function renderSaturdayRows() {
@@ -326,10 +326,12 @@
     }
 
     function renderFridayRows() {
-        const fridayGuests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-        renderToggleRows(document.getElementById('cruise-rows'), fridayGuests, 'cruise');
-        renderToggleRows(document.getElementById('party-rows'),  fridayGuests, 'party');
-        document.getElementById('btn-friday-next').disabled = !validateStep(4);
+        const container = document.getElementById('friday-rows');
+        if (!container) return;
+        const guests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
+        renderToggleRows(container, guests, 'friday');
+        const btnFri = document.getElementById('btn-friday-next');
+        if (btnFri) btnFri.disabled = !validateStep(4);
     }
 
     function renderConfirmation() {
@@ -540,7 +542,7 @@
         clearError('error-saturday');
 
         // Clear dynamically rendered rows / lists
-        ['household-members', 'saturday-rows', 'cruise-rows', 'party-rows'].forEach(function (id) {
+        ['household-members', 'saturday-rows', 'friday-rows'].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.innerHTML = '';
         });
