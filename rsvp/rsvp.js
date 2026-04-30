@@ -143,9 +143,8 @@
                 .every(g => g.attending_saturday !== null);
         }
         if (stepKey === 4) {
-            return state.guestResponses
-                .filter(g => g.attending_friday_cruise !== 'not_invited')
-                .every(g => g.attending_friday_cruise !== null);
+            const friday = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
+            return friday.every(g => g.attending_friday_cruise !== null && g.attending_friday_party !== null);
         }
         return true;
     }
@@ -309,8 +308,9 @@
         const g = state.guestResponses.find(r => r.guest_id === guestId);
         if (!g) return;
 
-        if (eventKey === 'saturday') g.attending_saturday      = value;
-        if (eventKey === 'friday')  { g.attending_friday_cruise = value; g.attending_friday_party = value; }
+        if (eventKey === 'saturday')      g.attending_saturday      = value;
+        if (eventKey === 'friday_cruise') g.attending_friday_cruise = value;
+        if (eventKey === 'friday_party')  g.attending_friday_party  = value;
 
         // Re-evaluate continue buttons
         const btnSat = document.getElementById('btn-saturday-next');
@@ -329,7 +329,27 @@
         const container = document.getElementById('friday-rows');
         if (!container) return;
         const guests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-        renderToggleRows(container, guests, 'friday');
+
+        container.innerHTML = '';
+
+        const subEvents = [
+            { label: 'Evening Canal Cruise', key: 'friday_cruise' },
+            { label: 'Welcome Party',        key: 'friday_party'  },
+        ];
+
+        subEvents.forEach(({ label, key }) => {
+            const labelEl = document.createElement('p');
+            labelEl.className = 'rsvp-subevent-label';
+            labelEl.textContent = label;
+            container.appendChild(labelEl);
+
+            const rowsEl = document.createElement('div');
+            rowsEl.className = 'rsvp-guest-rows';
+            container.appendChild(rowsEl);
+
+            renderToggleRows(rowsEl, guests, key);
+        });
+
         const btnFri = document.getElementById('btn-friday-next');
         if (btnFri) btnFri.disabled = !validateStep(4);
     }
