@@ -308,9 +308,9 @@
         const g = state.guestResponses.find(r => r.guest_id === guestId);
         if (!g) return;
 
-        if (eventKey === 'saturday')      g.attending_saturday      = value;
-        if (eventKey === 'friday_cruise') g.attending_friday_cruise = value;
-        if (eventKey === 'friday_party')  g.attending_friday_party  = value;
+        if (eventKey === 'saturday') g.attending_saturday      = value;
+        if (eventKey === 'cruise')   g.attending_friday_cruise = value;
+        if (eventKey === 'party')    g.attending_friday_party  = value;
 
         // Re-evaluate continue buttons
         const btnSat = document.getElementById('btn-saturday-next');
@@ -326,29 +326,13 @@
     }
 
     function renderFridayRows() {
-        const container = document.getElementById('friday-rows');
-        if (!container) return;
+        const cruiseEl = document.getElementById('cruise-rows');
+        const partyEl  = document.getElementById('party-rows');
+        if (!cruiseEl || !partyEl) return;
+
         const guests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-
-        container.innerHTML = '';
-
-        const subEvents = [
-            { label: 'Evening Canal Cruise', key: 'friday_cruise' },
-            { label: 'Welcome Party',        key: 'friday_party'  },
-        ];
-
-        subEvents.forEach(({ label, key }) => {
-            const labelEl = document.createElement('p');
-            labelEl.className = 'rsvp-subevent-label';
-            labelEl.textContent = label;
-            container.appendChild(labelEl);
-
-            const rowsEl = document.createElement('div');
-            rowsEl.className = 'rsvp-guest-rows';
-            container.appendChild(rowsEl);
-
-            renderToggleRows(rowsEl, guests, key);
-        });
+        renderToggleRows(cruiseEl, guests, 'cruise');
+        renderToggleRows(partyEl,  guests, 'party');
 
         const btnFri = document.getElementById('btn-friday-next');
         if (btnFri) btnFri.disabled = !validateStep(4);
@@ -562,7 +546,7 @@
         clearError('error-saturday');
 
         // Clear dynamically rendered rows / lists
-        ['household-members', 'saturday-rows', 'friday-rows'].forEach(function (id) {
+        ['household-members', 'saturday-rows', 'cruise-rows', 'party-rows'].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.innerHTML = '';
         });
