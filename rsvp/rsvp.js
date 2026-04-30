@@ -143,10 +143,6 @@
     }
 
     function nextStepFrom(stepKey) {
-        if (stepKey === 3) {
-            const anyFriday = state.guestResponses.some(g => g.attending_friday_cruise !== 'not_invited');
-            return anyFriday ? 4 : 5;
-        }
         const ordered = [1, 2, 3, 4, 5, 'confirmation'];
         const idx = ordered.indexOf(stepKey);
         return idx >= 0 ? ordered[idx + 1] : 'confirmation';
@@ -227,8 +223,8 @@
                 guest_id:                m.guest_id,
                 display_name:            m.display_name,
                 attending_saturday:      m.invited_saturday ? null : 'not_invited',
-                attending_friday_cruise: m.invited_friday   ? null : 'not_invited',
-                attending_friday_party:  m.invited_friday   ? null : 'not_invited',
+                attending_friday_cruise: null,
+                attending_friday_party:  null,
             }));
 
             renderHousehold();
