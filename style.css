@@ -1309,7 +1309,7 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
 }
 
 .rsvp-intro__label {
-    font-size: 0.65rem;
+    font-size: 0.85rem;
     letter-spacing: 0.3em;
     color: var(--color-cream-200);
     text-transform: uppercase;
@@ -1329,6 +1329,13 @@ body.menu-open .nav-rsvp { color: var(--color-cream-100); }
     margin: 0 auto;
     color: var(--color-cream-100);
     opacity: 0.65;
+}
+
+.rsvp-intro__date {
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--color-cream-100);
+    line-height: 1.1;
+    margin-top: 0.5rem;
 }
 
 /* RSVP mobile */
