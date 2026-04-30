@@ -308,13 +308,11 @@
         if (eventKey === 'saturday') g.attending_saturday      = value;
         if (eventKey === 'friday')  { g.attending_friday_cruise = value; g.attending_friday_party = value; }
 
-        // Re-evaluate continue button for whichever step is active
-        if (state.currentStep === 3) {
-            document.getElementById('btn-saturday-next').disabled = !validateStep(3);
-        }
-        if (state.currentStep === 4) {
-            document.getElementById('btn-friday-next').disabled = !validateStep(4);
-        }
+        // Re-evaluate continue buttons
+        const btnSat = document.getElementById('btn-saturday-next');
+        if (btnSat) btnSat.disabled = !validateStep(3);
+        const btnFri = document.getElementById('btn-friday-next');
+        if (btnFri) btnFri.disabled = !validateStep(4);
     }
 
     function renderSaturdayRows() {
@@ -324,9 +322,12 @@
     }
 
     function renderFridayRows() {
+        const container = document.getElementById('friday-rows');
+        if (!container) return;
         const guests = state.guestResponses.filter(g => g.attending_friday_cruise !== 'not_invited');
-        renderToggleRows(document.getElementById('friday-rows'), guests, 'friday');
-        document.getElementById('btn-friday-next').disabled = !validateStep(4);
+        renderToggleRows(container, guests, 'friday');
+        const btnFri = document.getElementById('btn-friday-next');
+        if (btnFri) btnFri.disabled = !validateStep(4);
     }
 
     function renderConfirmation() {
