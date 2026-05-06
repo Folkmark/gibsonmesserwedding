@@ -419,6 +419,24 @@ body.menu-open { overflow-y: hidden; }
     max-height: 400px;
 }
 
+.story-block__image--polaroid {
+    overflow: visible;
+    box-shadow: none;
+    background: transparent;
+}
+
+.story-block__image--polaroid img {
+    object-fit: contain;
+    max-height: none;
+    transform: none;
+    transition: none;
+    filter: none;
+}
+
+.story-block__image--polaroid.visible img {
+    transform: none;
+}
+
 /* --- Image Break ------------------------------------------- */
 .image-break {
     width: 100vw;
