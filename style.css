@@ -431,6 +431,7 @@ body.menu-open { overflow-y: hidden; }
     transform: none;
     transition: none;
     filter: none;
+    mix-blend-mode: multiply;
 }
 
 .story-block__image--polaroid.visible img {
