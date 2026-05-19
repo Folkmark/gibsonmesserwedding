@@ -423,6 +423,8 @@ body.menu-open { overflow-y: hidden; }
     overflow: visible;
     box-shadow: none;
     background: transparent;
+    max-width: 65%;
+    margin: 0 auto;
 }
 
 .story-block__image--polaroid img {
