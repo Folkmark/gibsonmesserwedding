@@ -388,6 +388,7 @@ body.menu-open { overflow-y: hidden; }
 .story-block__text p {
     margin-bottom: var(--space-block);
     color: var(--color-text-body);
+    font-size: clamp(1.25rem, 2.1vw, 1.75rem);
 }
 .story-block__text p:last-child {
     margin-bottom: 0;
