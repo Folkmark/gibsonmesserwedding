@@ -576,12 +576,12 @@
         .prop-img { width: auto; filter: drop-shadow(0 8px 16px rgba(42, 31, 20, 0.18)); }
         .prop-ashtray { height: 220px; transform: rotate(-6deg); position: relative; z-index: 1; }
         .prop-matchbook { height: 90px; margin-left: -2rem; transform: rotate(7deg) translateY(-0.5rem); position: relative; z-index: 2; }
-        .prop-bottle-left  { height: 200px; margin-left: 2.5rem; transform-origin: bottom center; transform: rotate(-22deg); position: relative; z-index: 3; }
-        .prop-bottle-right { height: 200px; margin-left: -1.5rem; transform-origin: bottom center; transform: rotate(22deg); position: relative; z-index: 4; }
-        .prop-bottle-left.clink  { animation: bottle-clink-left  0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
-        .prop-bottle-right.clink { animation: bottle-clink-right 0.9s cubic-bezier(0.16,1,0.3,1) forwards 0.06s; }
-        @keyframes bottle-clink-left  { 0%{transform:rotate(-22deg)} 68%{transform:rotate(16deg)} 82%{transform:rotate(11deg)} 100%{transform:rotate(13deg)} }
-        @keyframes bottle-clink-right { 0%{transform:rotate(22deg)}  68%{transform:rotate(-16deg)} 82%{transform:rotate(-11deg)} 100%{transform:rotate(-13deg)} }
+        .prop-bottle-left  { height: 300px; margin-left: 2.5rem; transform-origin: bottom center; transform: rotate(-35deg); position: relative; z-index: 3; }
+        .prop-bottle-right { height: 300px; margin-left: -2.5rem; transform-origin: bottom center; transform: rotate(35deg); position: relative; z-index: 4; }
+        .prop-bottle-left.clink  { animation: bottle-clink-left  2.4s ease-in-out infinite; }
+        .prop-bottle-right.clink { animation: bottle-clink-right 2.4s ease-in-out infinite; }
+        @keyframes bottle-clink-left  { 0%,100%{transform:rotate(-35deg)} 48%,58%{transform:rotate(28deg)} }
+        @keyframes bottle-clink-right { 0%,100%{transform:rotate(35deg)}  48%,58%{transform:rotate(-28deg)} }
 
         /* EVENTS - EXPANSIVE BREATHING ROOM */
         .events-container {
@@ -1292,15 +1292,15 @@
                 const bR = document.querySelector('.prop-bottle-right');
                 const section = document.querySelector('.props-break');
                 if (!bL || !bR || !section) return;
-                let clinked = false;
                 function checkClink() {
-                    if (clinked) return;
                     const rect = section.getBoundingClientRect();
-                    if (rect.top < window.innerHeight * 0.65) {
-                        clinked = true;
+                    const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
+                    if (inView) {
                         bL.classList.add('clink');
                         bR.classList.add('clink');
-                        window.removeEventListener('scroll', checkClink);
+                    } else {
+                        bL.classList.remove('clink');
+                        bR.classList.remove('clink');
                     }
                 }
                 window.addEventListener('scroll', checkClink, { passive: true });
