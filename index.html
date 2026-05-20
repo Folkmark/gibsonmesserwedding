@@ -603,6 +603,27 @@
             overflow: hidden;
         }
 
+        /* Card background image layer */
+        .card-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .card-bg {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center;
+            opacity: 0;
+            transition: opacity 1.4s var(--ease-out-expo);
+            filter: grayscale(30%) sepia(20%) brightness(0.45) contrast(1.05);
+        }
+        .card-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(160deg, rgba(30,58,74,0.38) 0%, rgba(42,31,20,0.52) 100%);
+        }
+        .card-bg.active { opacity: 1; }
+        .events-header { position: relative; z-index: 1; }
+        .card-deck { position: relative; z-index: 1; }
+        .events-header h2,
+        .events-header p { transition: color 1.2s var(--ease-out-expo); }
+        .events-sticky.has-bg .events-header h2 { color: var(--color-cream-100); }
+        .events-sticky.has-bg .events-header p  { color: rgba(242,232,213,0.65); }
+
         .events-header { text-align: left; margin-bottom: 4rem; width: 100%; max-width: 1100px; }
         .events-header h2 { font-size: clamp(4rem, 8vw, 8rem); color: var(--color-ink); }
 
@@ -950,6 +971,10 @@
 
         <section class="events-container" id="events">
             <div class="events-sticky">
+            <div class="card-bg-layer">
+                <div class="card-bg" data-card="0" style="background-image:url('assets/canal cruise.jpg')"></div>
+                <div class="card-bg" data-card="1" style="background-image:url('assets/The Welcome BCKG.jpg')"></div>
+            </div>
             <div class="events-header reveal-up">
                 <p class="subheader-font" style="font-size:0.65rem;letter-spacing:0.3em;color:#4A6B5A;text-transform:uppercase;margin-bottom:1rem;">Programme</p>
                 <h2 class="statement-font">Events</h2>
@@ -1072,7 +1097,7 @@
                 <!-- STEP 2 -->
                 <div class="rsvp-step" id="step-household">
                     <span class="rsvp-step__eyebrow subheader-font">Two</span>
-                    <h2 class="rsvp-step__heading statement-font">Your party</h2>
+                    <h2 class="rsvp-step__heading statement-font">Your Party</h2>
                     <p class="rsvp-step__body body-font">We found the following guests on your invitation. Is this correct?</p>
                     <ul class="rsvp-member-list" id="household-members" aria-label="Household members"></ul>
                     <div class="rsvp-step__actions">
@@ -1084,7 +1109,7 @@
                 <!-- STEP 3 -->
                 <div class="rsvp-step" id="step-saturday">
                     <span class="rsvp-step__eyebrow subheader-font">Three</span>
-                    <h2 class="rsvp-step__heading statement-font">The wedding</h2>
+                    <h2 class="rsvp-step__heading statement-font">The Wedding</h2>
                     <p class="rsvp-step__body body-font">Saturday, 15 August &mdash; ceremony at five, dinner at seven, reception at nine. Will you be joining us?</p>
                     <div class="rsvp-guest-rows" id="saturday-rows"></div>
                     <div class="rsvp-field__error" id="error-saturday" role="alert"></div>
@@ -1251,9 +1276,14 @@
 
                 if (!section || !eventCards.length) return;
 
+                const cardBgs      = document.querySelectorAll('.card-bg');
+                const eventsSticky = document.querySelector('.events-sticky');
+
                 function setActiveCard(index) {
                     const i = Math.max(0, Math.min(CARD_COUNT - 1, index));
                     eventCards.forEach((card, n) => card.classList.toggle('active', n === i));
+                    cardBgs.forEach(bg => bg.classList.toggle('active', bg.dataset.card == i));
+                    eventsSticky.classList.toggle('has-bg', i < cardBgs.length);
                 }
 
                 // Click handler (all screen sizes)
