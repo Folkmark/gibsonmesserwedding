@@ -982,6 +982,7 @@
             <div class="card-bg-layer">
                 <div class="card-bg" data-card="0" style="background-image:url('assets/canal%20cruise.jpg')"></div>
                 <div class="card-bg" data-card="1" style="background-image:url('assets/The%20Welcome%20BCKG.jpg')"></div>
+                <div class="card-bg" data-card="3" style="background-image:url('assets/Freddy%27s.jpg')"></div>
             </div>
             <div class="events-sticky">
             <div class="events-header reveal-up">
@@ -1292,7 +1293,7 @@
                     const i = Math.max(0, Math.min(CARD_COUNT - 1, index));
                     eventCards.forEach((card, n) => card.classList.toggle('active', n === i));
                     cardBgs.forEach(bg => bg.classList.toggle('active', bg.dataset.card == i));
-                    eventsSticky.classList.toggle('has-bg', i < cardBgs.length);
+                    eventsSticky.classList.toggle('has-bg', [...cardBgs].some(bg => bg.dataset.card == i));
                 }
 
                 // Click handler (all screen sizes)
