@@ -604,21 +604,30 @@
         }
 
         /* Card background image layer */
-        .card-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .card-bg-layer {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            margin-bottom: -100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
         .card-bg {
-            position: absolute; inset: 0;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center;
             opacity: 0;
             transition: opacity 1.4s var(--ease-out-expo);
             filter: grayscale(30%) sepia(20%) brightness(0.45) contrast(1.05);
         }
         .card-bg::after {
-            content: ''; position: absolute; inset: 0;
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(160deg, rgba(30,58,74,0.38) 0%, rgba(42,31,20,0.52) 100%);
         }
         .card-bg.active { opacity: 1; }
-        .events-header { position: relative; z-index: 1; }
-        .card-deck { position: relative; z-index: 1; }
+        .events-sticky { z-index: 1; }
         .events-header h2,
         .events-header p { transition: color 1.2s var(--ease-out-expo); }
         .events-sticky.has-bg .events-header h2 { color: var(--color-cream-100); }
@@ -970,11 +979,11 @@
         </section>
 
         <section class="events-container" id="events">
-            <div class="events-sticky">
             <div class="card-bg-layer">
-                <div class="card-bg" data-card="0" style="background-image:url('assets/canal cruise.jpg')"></div>
-                <div class="card-bg" data-card="1" style="background-image:url('assets/The Welcome BCKG.jpg')"></div>
+                <div class="card-bg" data-card="0" style="background-image:url('assets/canal%20cruise.jpg')"></div>
+                <div class="card-bg" data-card="1" style="background-image:url('assets/The%20Welcome%20BCKG.jpg')"></div>
             </div>
+            <div class="events-sticky">
             <div class="events-header reveal-up">
                 <p class="subheader-font" style="font-size:0.65rem;letter-spacing:0.3em;color:#4A6B5A;text-transform:uppercase;margin-bottom:1rem;">Programme</p>
                 <h2 class="statement-font">Events</h2>
